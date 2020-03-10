@@ -1,4 +1,4 @@
-# orne_box
+# orne-box
 Platform hardware for autonomous robot
 
 * [Purpose](https://github.com/open-rdc/orne_box/wiki/Initial-Purpose)
