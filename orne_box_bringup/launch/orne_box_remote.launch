@@ -1,0 +1,9 @@
+
+<launch>
+  <include file="$(find orne_box_bringup)/launch/includes/description.launch.xml">
+  </include>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+  </node>
+</launch>

@@ -1,0 +1,11 @@
+<launch>
+
+  <include file="$(find orne_box_bringup)/launch/orne_box_remote.launch">
+  </include>
+
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+    <param name="rate" value="50"/>
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find orne_box_description)/rviz/model.rviz"/>
+</launch>
