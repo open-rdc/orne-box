@@ -3,27 +3,20 @@
   <xacro:include filename="$(find orne_box_description)/urdf/common_properties.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
 
-  <link name="base_footprint"/>
-
-  <joint name="base_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0.0 0.0 0.152" rpy="0 0 0"/>
-  </joint>
-
   <link name="base_link">
     <visual>
-      <origin xyz="0.0 0 -0.152" rpy="0 0 0"/>
+      <origin xyz="0 0 -0.154" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://orne_box_description/meshes/bases/orne_box_base.stl" scale="1 1 1"/>
+        <box size="0.540 0.404 0.202"/>
       </geometry>
       <material name="light_black"/>
     </visual>
     
     <collision>
-      <origin xyz="0.158 0 0" rpy="0 0 0"/>
+      <origin xyz="0.160 0 0.0195" rpy="0 0 0"/>
       <geometry>
-        <box size="0.540 0.40 0.02"/>
+        <box size="0.540 0.404 0.202"/>
       </geometry>
     </collision>
 
@@ -55,7 +48,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.0225" radius="0.152"/>
+        <cylinder length="0.045" radius="0.152"/>
       </geometry>
     </collision>
 
@@ -88,7 +81,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.0225" radius="0.152"/>
+        <cylinder length="0.045" radius="0.152"/>
       </geometry>
     </collision>
 
@@ -105,14 +98,20 @@
   <joint name="caster_front_joint" type="fixed">
     <parent link="base_link"/>
     <child link="caster_front_link"/>
-    <origin xyz="0.374295 0 0.015" rpy="-3.14 0 0"/>
+    <origin xyz="0.362 0 -0.102" rpy="0 0 0"/>
   </joint>
 
   <link name="caster_front_link">
     <collision>
-      <origin xyz="0 0.0 0.0835" rpy="0 0 0"/>
+      <origin xyz="0 0.150 0" rpy="1.57 0 0"/>
       <geometry>
-        <box size="0.10 0.4 0.167"/>
+        <cylinder length="0.025" radius="0.050"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.150 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder length="0.025" radius="0.050"/>
       </geometry>
     </collision>
 
@@ -128,18 +127,18 @@
   <joint name="imu_joint" type="fixed">
     <parent link="base_link"/>
     <child link="imu_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.3 0 0.1225" rpy="0 0 -1.57"/>
   </joint>
 
   <link name="imu_link"/>
 
   <joint name="scan_joint" type="fixed">
     <parent link="base_link"/>
-    <child link="base_scan"/>
+    <child link="hokuyo_link"/>
     <origin xyz="0.374295 0 0.1225" rpy="-3.14 0 0"/>
   </joint>
 
-  <link name="base_scan">
+  <link name="hokuyo_link">
 
     <inertial>
       <mass value="0.08" />
