@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<robot name="orne_box" xmlns:xacro="http://www.ros.org/wiki/xacro"
+                       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+                       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+		       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+>
+
+  <xacro:include filename="$(find orne_description)/urdf/icart_box.xacro"/>
+  <xacro:include filename="$(find icart_mini_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+  <xacro:include filename="$(find orne_description)/urdf/sensors/TR-IMU-Platform.xacro"/>
+
+  <!-- Setting for 2D URG -->
+  <xacro:sensor_hokuyo name="hokuyo" parent="base_link">
+    <origin xyz="0.374295 0 0.238" rpy="-3.14 0 0"/>
+  </xacro:sensor_hokuyo>
+
+  <!-- Setting for IMU -->
+  <xacro:sensor_imu name="imu" parent="base_link">
+    <origin xyz="0.374295 0.12 0.270" rpy="-3.14 0 1.57"/>
+  </xacro:sensor_imu>
+
+</robot>
+
