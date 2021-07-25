@@ -5,6 +5,6 @@
         <arg name="world" value="$(find icart_mini_gazebo)/worlds/willow.world"/>
     </include>
 
-    <include file="$(find orne_bringup)/launch/includes/base.launch.xml"/>
+    <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
 </launch>
 
