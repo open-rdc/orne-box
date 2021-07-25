@@ -3,8 +3,14 @@
   <xacro:arg name="laser_visual" default="false"/>
   <xacro:arg name="imu_visual"   default="false"/>
 
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>icart_mini_gazebo/ICartMiniHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
   <gazebo reference="base_link">
-    <material>Gazebo/DarkGrey</material>
+    <material>Gazebo/Orange</material>
   </gazebo>
 
   <gazebo reference="wheel_left_link">
@@ -15,7 +21,7 @@
     <minDepth>0.001</minDepth>
     <maxVel>1.0</maxVel>
     <fdir1>1 0 0</fdir1>
-    <material>Gazebo/FlatBlack</material>
+    <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="wheel_right_link">
@@ -26,7 +32,7 @@
     <minDepth>0.001</minDepth>
     <maxVel>1.0</maxVel>
     <fdir1>1 0 0</fdir1>
-    <material>Gazebo/FlatBlack</material>
+    <material>Gazebo/White</material>
   </gazebo>
 
   <gazebo reference="caster_front_link">
@@ -36,7 +42,7 @@
     <kd>100.0</kd>
     <minDepth>0.001</minDepth>
     <maxVel>1.0</maxVel>
-    <material>Gazebo/FlatBlack</material>
+    <material>Gazebo/Red</material>
   </gazebo>
 
   <gazebo reference="imu_link">
@@ -46,7 +52,7 @@
     </sensor>
     <material>Gazebo/FlatBlack</material>
   </gazebo>
-
+<!--
   <gazebo>
     <plugin name="orne_box_controller" filename="libgazebo_ros_diff_drive.so">
       <commandTopic>cmd_vel</commandTopic>
@@ -69,7 +75,7 @@
       <rosDebugLevel>na</rosDebugLevel>
     </plugin>
   </gazebo>
-
+-->
   <gazebo>
     <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
       <alwaysOn>true</alwaysOn>
@@ -134,3 +140,4 @@
   </gazebo>
 
 </robot>
+
