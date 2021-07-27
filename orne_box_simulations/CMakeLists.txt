@@ -29,9 +29,6 @@ find_package(gazebo REQUIRED)
 # Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
-  INCLUDE_DIRS include
-  CATKIN_DEPENDS gazebo_ros
-  LIBRARIES gazebo
 )
 
 ################################################################################
@@ -40,9 +37,7 @@ catkin_package(
 link_directories(${GAZEBO_LIBRARY_DIRS})
 
 include_directories(
-  include
   ${catkin_INCLUDE_DIRS}
-  ${GAZEBO_INCLUDE_DIRS}
 )
 
 ################################################################################
