@@ -1,0 +1,19 @@
+<launch>
+  <arg name="waypoints_file" default="$(find orne_box_waypoint_nav)/config/sample.yaml"/>
+  <arg name="cmd_vel_topic" default="icart_mini/cmd_vel"/>
+  <arg name="dist_err" default="0.8"/>
+  <arg name="loop_flg" default="false"/>
+
+  <node name="waypoint_navigator" pkg="orne_box_waypoint_nav" type="waypoint_navigator" output="screen" >
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
+
+    <param name="robot_frame" value="base_link"/>
+    <param name="world_frame" value="map"/>
+    <param name="max_update_rate" value="1.0"/>
+    <param name="filename" value="$(arg waypoints_file)"/>
+    <param name="dist_err" value="$(arg dist_err)"/>
+    <param name="loop_flg" value="$(arg loop_flg)"/>
+    <param name="wait_time" value="10.0"/>
+    <param name="resend_thresh" value="3"/>
+  </node>
+</launch>

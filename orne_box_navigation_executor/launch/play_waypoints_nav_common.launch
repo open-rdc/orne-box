@@ -7,17 +7,31 @@
   <arg name="waypoints_file" default="$(find orne_box_navigation_executor)/waypoints_cfg/waypoints_$(arg robot_name).yaml"/>
   <arg name="dist_err"       default="0.8"/>
   <arg name="suspend_file"       default="$(find orne_box_strategy)/suspend_cfg/suspend.yaml"/>
+  <arg name="loop_flg"       default="false"/>
+  <arg name="cmd_vel_topic"  default="icart_mini/cmd_vel"/>
+  <arg name="new_waypoint_nav" default="false"/>
 
   <include file="$(find orne_box_navigation_executor)/launch/nav_static_map.launch">
     <arg name="robot_name"    value="$(arg robot_name)"/>
     <arg name="map_file"      value="$(arg map_file)"/>
     <arg name="init_pos_file" value="$(arg init_pos_file)"/>
   </include>
+  
+  <group unless="$(arg new_waypoint_nav)">
+    <node name="waypoints_nav" pkg="fulanghua_waypoints_nav" type="waypoints_nav" output="screen">
+      <param name="filename" value="$(arg waypoints_file)"/>
+      <param name="dist_err" value="$(arg dist_err)"/>
+    </node>    
+  </group>
 
-  <node name="waypoints_nav" pkg="fulanghua_waypoints_nav" type="waypoints_nav" output="screen">
-    <param name="filename" value="$(arg waypoints_file)"/>
-    <param name="dist_err" value="$(arg dist_err)"/>
-  </node>
+  <group if="$(arg new_waypoint_nav)">
+  <include file="$(find orne_box_waypoint_nav)/launch/run.launch">
+    <arg name="waypoints_file" value="$(find orne_box_waypoint_nav)/config/sample.yaml"/>
+    <arg name="cmd_vel_topic" value="$(arg cmd_vel_topic)"/>
+    <arg name="dist_err" value="$(arg dist_err)"/>
+    <arg name="loop_flg" value="$(arg loop_flg)"/>
+  </include>
+  </group>
 
   <node name="tsukuba_challenge_strategy" pkg="orne_box_strategy" type="tsukuba_challenge.py" output="screen">
     <param name="filename"      value="$(arg suspend_file)"/>

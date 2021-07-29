@@ -1,0 +1,16 @@
+<library path="lib/liborne_box_waypoint_nav">
+    <class name="orne_box_waypoint_nav/SaveTriggerPanel"
+        type="orne_box_waypoint_nav::SaveTriggerPanel"
+        base_class_type="rviz::Panel">
+        <description>
+            TODO
+        </description>
+    </class>
+    <class name="orne_box_waypoint_nav/StateTriggerPanel"
+        type="orne_box_waypoint_nav::StateTriggerPanel"
+        base_class_type="rviz::Panel">
+        <description>
+            TODO
+        </description>
+    </class>
+</library>

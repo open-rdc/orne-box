@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="map_file" default="$(find orne_box_navigation_executor)/maps/mymap"/>
+    <arg name="filename" default="$(find orne_box_waypoint_nav)/config/sample.yaml"/>
+
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file).yaml" />
+
+    <node pkg="orne_box_waypoint_nav" type="waypoint_editor" name="waypoint_editor" output="screen">
+        <param name="filename" value="$(arg filename)"/>
+        <param name="map_frame" value="map"/>
+        <rosparam file="$(find orne_box_waypoint_nav)/config/function_list.yaml" command="load"/>
+    </node>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find orne_box_waypoint_nav)/rviz/editor.rviz" />
+</launch>
