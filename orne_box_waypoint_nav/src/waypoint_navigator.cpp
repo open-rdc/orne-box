@@ -41,6 +41,7 @@ public:
   void cmdVelCallback(const geometry_msgs::Twist::ConstPtr& cmd_vel_msg);
   bool startNavigationCallback(std_srvs::Trigger::Request &request, std_srvs::Trigger::Response &response);
   bool suspendNavigationCallback(std_srvs::Trigger::Request &request, std_srvs::Trigger::Response &response);
+  void timerCallback(const ros::TimerEvent& e);
 
 // declear functions which is called by depending on "function" in yaml
   void run();
@@ -63,6 +64,7 @@ private:
   ros::ServiceServer start_server_, suspend_server_; 
   ros::Subscriber cmd_vel_sub_;
   ros::Publisher visualization_wp_pub_;
+  ros::Timer timer_;
   ros::ServiceClient clear_costmaps_srv_;
   tf2_ros::Buffer tfBuffer_;
   tf2_ros::TransformListener tfListener_;
@@ -101,6 +103,7 @@ WaypointNav::WaypointNav() :
   start_server_ = nh_.advertiseService("start_wp_nav", &WaypointNav::startNavigationCallback, this);
   suspend_server_ = nh_.advertiseService("suspend_wp_nav", &WaypointNav::suspendNavigationCallback, this);
   clear_costmaps_srv_ = nh_.serviceClient<std_srvs::Empty>("/move_base/clear_costmaps");
+  timer_ = nh_.createTimer(ros::Duration(0.1),&WaypointNav::timerCallback,this);
 }
 
 bool WaypointNav::read_yaml(){
@@ -196,7 +199,6 @@ void WaypointNav::visualize_wp(){
     marker_wp.markers[cnt].color.b = 1.0f;
     marker_wp.markers[cnt].color.a = 1.0f;
   }
-  ROS_INFO("Published waypoint marker");
   visualization_wp_pub_.publish(marker_wp);
 }
 
@@ -366,6 +368,10 @@ void WaypointNav::suspend(){
     ROS_INFO("Your robot will get suspend mode after moving");
     suspend_flg_ = true;
   }
+}
+
+void WaypointNav::timerCallback(const ros::TimerEvent& e){
+  visualize_wp();
 }
 
 int main(int argc, char** argv){
