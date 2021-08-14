@@ -1,0 +1,15 @@
+<launch>
+    <include file="$(find icart_mini_gazebo)/launch/icart_mini.launch">
+	<arg name="gui" value="true"/>
+        <arg name="model" value="$(find xacro)/xacro.py '$(find orne_box_description)/urdf/orne_box_tilted_lidar.urdf.xacro'"/>
+        <arg name="world" value="$(find icart_mini_gazebo)/worlds/Tsudanuma_2-3.world"/>
+    </include>
+
+    <node type="convert_pointcloud_node" pkg="orne_box_tilted_lidar" name="convert_pointcloud">
+        <remap from="scan" to="tilted_scan"/>
+        <param name="fixed_frame" type="string" value="base_link" />
+    </node>
+
+    <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
+</launch>
+
