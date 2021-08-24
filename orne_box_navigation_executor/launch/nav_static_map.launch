@@ -6,7 +6,7 @@
   <arg name="init_pos_file" default="$(find orne_box_navigation_executor)/initial_pose_cfg/initial_pose.yaml"/>
   <arg name="odom_topic" default="combined_odom"/>
   <arg name="scan_topic"    default="scan"/>
-  <arg name="emcl"          default="true"/>
+  <arg name="emcl"          default="false"/>
 
   <include file="$(find orne_box_navigation_executor)/launch/move_base.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
