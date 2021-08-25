@@ -29,5 +29,5 @@
 - git:
     uri: https://github.com/open-rdc/emcl.git
     local-name: emcl
-    version: invert_lidar
+    version: sensor_upside_down
 

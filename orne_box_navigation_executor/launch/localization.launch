@@ -24,7 +24,6 @@
     <node pkg="emcl" type="emcl_node" name="emcl_node" output="screen">
       <remap from="scan" to="$(arg scan_topic)"/>
       <rosparam file="$(find orne_box_navigation_executor)/param/emcl_params.yaml" command="load"/>
-      <rosparam file="$(find orne_box_navigation_executor)/param/emcl_params_$(arg robot_name).yaml" command="load"/>
       <rosparam file="$(arg init_pos_file)" command="load"/>
     </node>
   </group>
