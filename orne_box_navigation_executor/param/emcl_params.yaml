@@ -4,7 +4,6 @@ num_particles:                500
 odom_frame_id:                odom
 footprint_frame_id:           base_link
 base_frame_id:                base_link
-scan_frame_id:                hokuyo_link
 
 initial_pose_x:               0.0
 initial_pose_y:               0.0
