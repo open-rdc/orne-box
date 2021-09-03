@@ -32,4 +32,5 @@
   <build_depend>xacro</build_depend>
   <exec_depend>icart_mini_description</exec_depend>
   <exec_depend>xacro</exec_depend>
+  <exec_depend>velodyne_simulator</exec_depend>
 </package>
