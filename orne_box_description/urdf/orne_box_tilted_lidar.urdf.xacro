@@ -204,9 +204,25 @@
     <origin xyz="0.374295 0 0.2185" rpy="${-PI} 0 0"/>
   </xacro:sensor_hokuyo>
 
+  <xacro:property name="pitch" value="${PI/9}" />
+  <xacro:property name="roll" value="${PI*3/8}" />
+  <xacro:property name="len" value="0.1" />
+  <xacro:property name="front" value="1.00" />
+  <xacro:property name="height" value="0.30" />
+
   <xacro:include filename="$(find icart_mini_description)/urdf/sensors/hokuyo.urdf.xacro"/>
   <xacro:sensor_hokuyo name="hokuyo_tilted" parent="base_link">
-    <origin xyz="0.47 0 0.30" rpy="0 ${PI/9} 0"/>
+    <origin xyz="${front} 0 ${height}" rpy="0 ${pitch} 0"/>
+  </xacro:sensor_hokuyo>
+
+  <xacro:include filename="$(find icart_mini_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+  <xacro:sensor_hokuyo name="hokuyo_tilted_left" parent="base_link">
+    <origin xyz="${front+len*sin(roll)*sin(pitch)} ${len*(-cos(roll)+1)} ${height+len*sin(roll)*cos(pitch)}" rpy="${-roll} ${pitch} 0"/>
+  </xacro:sensor_hokuyo>
+
+  <xacro:include filename="$(find icart_mini_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+  <xacro:sensor_hokuyo name="hokuyo_tilted_right" parent="base_link">
+    <origin xyz="${front+len*sin(roll)*sin(pitch)} ${len*(cos(roll)-1)} ${height+len*sin(roll)*cos(pitch)}" rpy="${roll} ${pitch} 0"/>
   </xacro:sensor_hokuyo>
 
   <transmission name="tran1">
