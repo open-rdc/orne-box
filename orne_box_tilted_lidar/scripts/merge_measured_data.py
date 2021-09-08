@@ -5,17 +5,18 @@ roslib.load_manifest('orne_box_tilted_lidar')
 import rospy
 from sensor_msgs.msg import LaserScan
 import copy
+import time
 
 class merge_measured_data_node:
     def __init__(self):
         rospy.init_node('merge_measured_data_node', anonymous=True)
-        self.tilted_lidar_center_sub = rospy.Subscriber("/tilted_scan_center", LaserScan, self.callback_tilted_lidar_center)
-        self.tilted_lidar_left_sub = rospy.Subscriber("/tilted_scan_left", LaserScan, self.callback_tilted_lidar_left)
-        self.tilted_lidar_right_sub = rospy.Subscriber("/tilted_scan_right", LaserScan, self.callback_tilted_lidar_right)
-        self.merged_lidar_pub = rospy.Publisher("/tilted_scan", LaserScan, queue_size=1)
         self.lidar_center = None
         self.lidar_left = None
         self.lidar_right = None
+        self.merged_lidar_pub = rospy.Publisher("/tilted_scan", LaserScan, queue_size=1)
+        self.tilted_lidar_center_sub = rospy.Subscriber("/tilted_scan_center", LaserScan, self.callback_tilted_lidar_center)
+        self.tilted_lidar_left_sub = rospy.Subscriber("/tilted_scan_left", LaserScan, self.callback_tilted_lidar_left)
+        self.tilted_lidar_right_sub = rospy.Subscriber("/tilted_scan_right", LaserScan, self.callback_tilted_lidar_right)
 
     def callback_tilted_lidar_center(self, data):
         self.lidar_center = copy.deepcopy(data)
