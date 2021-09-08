@@ -85,8 +85,8 @@
     </sensor>
   </gazebo>
 
-  <gazebo reference="hokuyo_tilted_link">
-    <sensor type="ray" name="hokuyo_tilted_sensor">
+  <gazebo reference="hokuyo_tilted_center_link">
+    <sensor type="ray" name="hokuyo_tilted_center_sensor">
       <pose>0 0 0 0 0 0</pose>
       <visualize>$(arg laser_visual)</visualize>
       <update_rate>10</update_rate>
@@ -115,8 +115,8 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/tilted_scan</topicName>
-        <frameName>hokuyo_tilted_link</frameName>
+        <topicName>/tilted_scan_center</topicName>
+        <frameName>hokuyo_tilted_center_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
@@ -129,7 +129,7 @@
       <ray>
         <scan>
           <horizontal>
-            <samples>682</samples>
+            <samples>341</samples>
             <resolution>1</resolution>
             <min_angle>${PI/180*60}</min_angle>
             <max_angle>${PI/180*120}</max_angle>
@@ -165,7 +165,7 @@
       <ray>
         <scan>
           <horizontal>
-            <samples>682</samples>
+            <samples>341</samples>
             <resolution>1</resolution>
             <min_angle>${-PI/180*120}</min_angle>
             <max_angle>${-PI/180*60}</max_angle>
