@@ -1,0 +1,20 @@
+tilted_lidar_pitch_controller:
+    type  : position_controllers/JointPositionController
+    joint : hokuyo_tilted_pitch_joint
+
+tilted_lidar_roll_controller:
+    type  : position_controllers/JointPositionController
+    joint : hokuyo_tilted_roll_joint
+
+tilted_lidar_mirror1_controller:
+    type  : position_controllers/JointPositionController
+    joint : hokuyo_mirror_roll1_joint
+
+tilted_lidar_mirror2_controller:
+    type  : position_controllers/JointPositionController
+    joint : hokuyo_mirror_roll2_joint
+
+tilted_lidar_prismatic_controller:
+    type  : position_controllers/JointPositionController
+    joint : hokuyo_tilted_prismatic_joint
+
