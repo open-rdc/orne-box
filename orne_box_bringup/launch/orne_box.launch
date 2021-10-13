@@ -11,5 +11,7 @@
 
     <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
 
+  <include file="$(find orne_box_bringup)/launch/includes/rfans16.launch"/>
+
 </launch>
 
