@@ -67,7 +67,7 @@ mcl_3dl:
   resample_var_z: 0.005
   robot_frame: base_link
   skip_measure: 1
-  tf_tolerance: 0.025
+  tf_tolerance: 0.5
   unmatch_output_dist: 0.5
   update_downsample_x: 0.2
   update_downsample_y: 0.2
