@@ -36,5 +36,9 @@
       <remap from="rfans_points" to="surestar_points"/>
       <remap from="/rfans_driver/rfans_points" to="rfans_driver/surestar_points"/>
     </node>
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+       <remap from="cloud_in" to="surestar_points"/>
+       <remap from="scan" to="surestar_scan"/>
+    </node>
   </group>
 </launch>
