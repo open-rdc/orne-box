@@ -2,7 +2,6 @@
 
 <launch>
   <arg name="robot_name"    default="box"/>
-  <remap from="scan" to="hokuyo_scan"/>
   <arg name="map_file"      default="$(find orne_box_navigation_executor)/maps/mymap"/>
   <arg name="init_pos_file" default="$(find orne_box_navigation_executor)/config/initial_pose_cfg/initial_pose.yaml"/>
 
@@ -11,5 +10,6 @@
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <rosparam file="$(find orne_box_navigation_executor)/config/amcl.yaml" command="load"/>
     <rosparam file="$(arg init_pos_file)" command="load"/>
+  <remap from="scan" to="hokuyo_scan"/>
   </node>
 </launch>
