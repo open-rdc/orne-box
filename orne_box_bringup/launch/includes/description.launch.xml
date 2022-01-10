@@ -1,6 +1,15 @@
 <launch>
   <arg name="output"    default="screen"/>
-  <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find orne_box_description)/urdf/orne_box.urdf.xacro'" />
-  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <arg name="model" default="$(find orne_box_description)/urdf/orne_box.urdf.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+  
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <rosparam param="source_list">["joint_states"]</rosparam>
+  </node>
+
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="$(arg output)"/>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find orne_box_simulations)/rviz/sim.rviz"/>
 </launch>
