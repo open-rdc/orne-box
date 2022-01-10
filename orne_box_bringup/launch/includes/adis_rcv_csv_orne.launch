@@ -8,11 +8,11 @@
   <arg name="with_filter" default="true"/>
   <arg name="device"      default="/dev/sensors/imu"/>
 
-  <arg name="parent_id"   default="odom"/>
+  <arg name="parent_id"   default="base_link"/>
   <arg name="frame_id"    default="imu_link"/>
   <arg name="rate"        default="100"/>
 
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find adi_imu_tr_driver_ros1)/urdf/adis16470_breakout.urdf'" />
+  <!--param name="robot_description" command="$(find xacro)/xacro '$(find adi_imu_tr_driver_ros1)/urdf/adis16470_breakout.urdf'" /-->
 
   <node name="imu" pkg="adi_imu_tr_driver_ros1" type="adis_rcv_csv_node" output="screen">
     <param name="device"    value="$(arg device)"/>
