@@ -12,7 +12,7 @@
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/urg.launch"/>
   <!--include file="$(find orne_box_bringup)/launch/includes/lidar_with_mirror.launch"/-->
-  <include file="$(find orne_box_bringup)/launch/includes/wit.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/adis_rcv_csv_orne.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/ublox_device.launch"/>
   <!--include file="$(find orne_box_bringup)/launch/includes/adis16465.launch"/-->
   <node pkg="orne_box_bringup" type="projected_transform_publisher_node" name="projected_transform_publisher" output="$(arg output)"/>
