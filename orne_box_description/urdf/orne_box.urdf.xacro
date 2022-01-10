@@ -103,7 +103,7 @@
 
 
   <xacro:sensor_hokuyo name="lidar_with_mirror_center" parent="lidar_with_mirror_roll_link" size="0.05 0.05 0.05">
-    <origin xyz="${front} 0 ${height}" rpy="0 0 0"/>
+    <origin xyz="${front} 0 ${height}" rpy="${PI} 0 0"/>
   </xacro:sensor_hokuyo>
 
   <joint name="lidar_with_mirror_mirror1_roll_joint" type="fixed">

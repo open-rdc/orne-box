@@ -4,7 +4,7 @@
   <arg name="ypspur_serial_port" default="/dev/sensors/icart-mini"/>
   <node pkg="ypspur_ros" type="ypspur_ros" name="ypspur_ros" output="$(arg output)" respawn="true">
     <rosparam command="load" file="$(find orne_box_bringup)/config/ypspur_ros.yaml" subst_value="true"/>
-    <param name="param_file" value="$(find orne_box_bringup)/config/ypspur/box_v1.param"/>
+    <param name="param_file" value="$(find orne_box_bringup)/config/ypspur/box_v2.param"/>
     <param name="port" value="$(arg ypspur_serial_port)"/>
   </node>
   <include file="$(find orne_box_bringup)/launch/includes/description.launch.xml"/>
@@ -13,6 +13,6 @@
   <include file="$(find orne_box_bringup)/launch/includes/urg.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/mirror_lidar.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/adis16465.launch"/>
-  <node pkg="orne_box_bringup" type="projected_transform_publisher_node" name="projected_transform_publisher" output="$(arg output)">
-  </node>
+  <!--node pkg="orne_box_bringup" type="projected_transform_publisher_node" name="projected_transform_publisher" output="$(arg output)">
+  </node-->
 </launch>

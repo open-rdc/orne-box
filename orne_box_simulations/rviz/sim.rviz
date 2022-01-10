@@ -8,9 +8,8 @@ Panels:
         - /Status1
         - /RobotModel1/Links1
         - /TF1/Frames1
-        - /Marker1
-        - /Marker2
-        - /LaserScan4
+        - /LaserScan3
+        - /LaserScan3/Status1
       Splitter Ratio: 0.5023112297058105
     Tree Height: 407
   - Class: rviz/Selection
@@ -186,6 +185,8 @@ Visualization Manager:
           Value: false
         lidar_with_mirror_roll_link:
           Value: false
+        map:
+          Value: true
         odom:
           Value: false
         right_caster_swivel_link:
@@ -203,34 +204,35 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_link:
-            hokuyo_link:
-              {}
-            imu_link:
-              {}
-            left_caster_swivel_link:
-              left_caster_wheel_link:
+        map:
+          odom:
+            base_link:
+              hokuyo_link:
                 {}
-            lidar_with_mirror_prismatic_link:
-              lidar_with_mirror_estimated_link:
+              imu_link:
                 {}
-              lidar_with_mirror_pitch_link:
-                lidar_with_mirror_roll_link:
-                  lidar_with_mirror_center_link:
-                    lidar_with_mirror_mirror1_roll_link:
-                      lidar_with_mirror_left_link:
-                        {}
-                    lidar_with_mirror_mirror2_roll_link:
-                      lidar_with_mirror_right_link:
-                        {}
-            right_caster_swivel_link:
-              right_caster_wheel_link:
+              left_caster_swivel_link:
+                left_caster_wheel_link:
+                  {}
+              lidar_with_mirror_prismatic_link:
+                lidar_with_mirror_estimated_link:
+                  {}
+                lidar_with_mirror_pitch_link:
+                  lidar_with_mirror_roll_link:
+                    lidar_with_mirror_center_link:
+                      lidar_with_mirror_mirror1_roll_link:
+                        lidar_with_mirror_left_link:
+                          {}
+                      lidar_with_mirror_mirror2_roll_link:
+                        lidar_with_mirror_right_link:
+                          {}
+              right_caster_swivel_link:
+                right_caster_wheel_link:
+                  {}
+              wheel_left_link:
                 {}
-            wheel_left_link:
-              {}
-            wheel_right_link:
-              {}
+              wheel_right_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -245,7 +247,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: FlatColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -260,7 +262,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -289,7 +291,7 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: false
-    - Alpha: 1
+    - Alpha: 0.30000001192092896
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
         Max Value: 10
@@ -317,22 +319,6 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: false
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /fit_line_R
-      Name: Marker
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /fit_line_L
-      Name: Marker
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -356,7 +342,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /scan_left
+      Topic: /scan_front
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -373,7 +359,7 @@ Visualization Manager:
       Color: 52; 101; 164
       Color Transformer: FlatColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -388,7 +374,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -398,10 +384,10 @@ Visualization Manager:
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
+      Color: 239; 41; 41
+      Color Transformer: FlatColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -415,8 +401,8 @@ Visualization Manager:
       Topic: /transformed_point_cloud_front
       Unreliable: false
       Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
+      Use rainbow: false
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -429,7 +415,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -444,7 +430,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -457,7 +443,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -472,7 +458,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -501,7 +487,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 12.84701156616211
+      Distance: 3.1290788650512695
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -509,17 +495,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.334856778383255
-        Y: -0.2201799750328064
-        Z: 0.04682360589504242
+        X: 1.6383510828018188
+        Y: -0.32049816846847534
+        Z: -0.09028174728155136
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.47979292273521423
+      Pitch: 0.13000011444091797
       Target Frame: <Fixed Frame>
-      Yaw: 1.3410123586654663
+      Yaw: 0.010005244985222816
     Saved: ~
 Window Geometry:
   Displays:
@@ -527,7 +513,7 @@ Window Geometry:
   Height: 704
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001fb00000222fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000222000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000222fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d00000222000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005080000003efc0100000002fb0000000800540069006d0065010000000000000508000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000001f20000022200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000222fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000222000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000222fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d00000222000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005080000003efc0100000002fb0000000800540069006d0065010000000000000508000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000002970000022200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

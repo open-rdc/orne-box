@@ -12,10 +12,9 @@ DWAPlannerROS:
   forward_point_distance: 0.825
   goal_distance_bias: 0.35
   max_scaling_factor: 1.0
-  max_vel_theta: 6.5
+  max_vel_theta: 3.5
   max_vel_trans: 3.55
-  max_vel_x: 0.9
-  max_vel_x: 1.05
+  max_vel_x: 0.2
   max_vel_y: 0.0
   min_vel_theta: 0.025
   min_vel_trans: 0.05
