@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="robot_name"     default="box"/>
+  <arg name="robot_name"     default="box2"/>
   <arg name="map_pcd"/>
   <arg name="costmap_file"   default="$(find orne_box_navigation_executor)/maps/mymap"/>
   <arg name="cmd_vel" default="cmd_vel"/>
