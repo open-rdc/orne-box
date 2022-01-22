@@ -1,6 +1,7 @@
 mcl_3dl:
+  fake_imu: false
   acc_lpf_step: 128.0
-  acc_var: 0.785398
+  acc_var: 9.82
   accum_cloud: 2
   bias_var_ang: 1.57
   bias_var_dist: 100.0
@@ -35,9 +36,10 @@ mcl_3dl:
   jump_dist: 1.5
   likelihood:
     clip_far: 100.0
-    clip_near: 1.5
+    clip_near: 1.0
     match_dist_flat: 0.125
     match_dist_min: 0.85
+    match_dist_min: 0.65
     num_points: 128
     num_points_global: 30
   lpf_step: 0.9
@@ -48,10 +50,10 @@ mcl_3dl:
   map_frame: map
   match_output_dist: 0.9
   match_output_interval_interval: 0.1
-  match_ratio_thresh: 0.78
+  match_ratio_thresh: 0.01
   num_particles: 192
   odom_err_ang_ang: 0.35
-  odom_err_ang_lin: 0.05
+  odom_err_ang_lin: 0.15
   odom_err_integ_ang_tc: 10.0
   odom_err_integ_lin_sigma: 100.0
   odom_err_integ_lin_tc: 10.0
@@ -72,11 +74,3 @@ mcl_3dl:
   update_downsample_x: 0.2
   update_downsample_y: 0.2
   update_downsample_z: 0.05
-
-obj_to_pointcloud:
-  frame_id: "map"
-  points_per_meter_sq: 1200.0
-  downsample_grid: 0.1
-pcd_to_pointcloud:
-  frame_id: "map"
-  latch: true
