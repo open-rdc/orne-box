@@ -10,7 +10,7 @@
   <include file="$(find orne_box_navigation_executor)/launch/move_base.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
     <arg name="map_file"   value="$(arg costmap_file)"/>
-    <arg name="odom_topic" value="combined_odom"/>
+    <arg name="odom_topic" value="odometry/filtered"/>
     <arg name="cmd_vel"    value="icart_mini/cmd_vel"/>
   </include>
 
