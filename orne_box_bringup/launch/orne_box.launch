@@ -9,7 +9,7 @@
     <arg name="urg_ip"          value="192.168.0.10" />
   </include>
 
-    <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
+    <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
 
   <include file="$(find orne_box_bringup)/launch/includes/rfans16.launch"/>
 
