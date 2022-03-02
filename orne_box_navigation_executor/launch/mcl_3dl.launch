@@ -41,7 +41,7 @@
 
   <node pkg="mcl_3dl" type="mcl_3dl" name="mcl_3dl" output="screen" unless="$(arg generate_test_bag)">
 	  <param name="compatible" value="1" />
-	  <remap from="odom" to="icart_mini/odom"/>
+	  <remap from="odom" to="odometry/filtered"/>
 	  <remap from="cloud" to="rfans/surestar_points"/>
 	  <remap from="imu/data" to="imu_data"/>
   </node>
