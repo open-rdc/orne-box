@@ -1,0 +1,45 @@
+# move_base common parameters
+# + 2021 Tsudanuma Challenge
+# + 2021 Tsukuba Challenge
+# Configuration by NaokiTakahashi12
+DWAPlannerROS:
+  holonomic_robot: false
+  acc_lim_theta: 7.2
+  acc_lim_trans: 1.9
+  acc_lim_x: 2.8
+  acc_lim_y: 0.8
+  angular_sim_granularity: 0.5
+  forward_point_distance: 0.825
+  goal_distance_bias: 0.35
+  max_scaling_factor: 1.0
+  max_vel_theta: 6.5
+  max_vel_trans: 3.55
+  max_vel_x: 0.9
+  max_vel_x: 1.05
+  max_vel_y: 0.0
+  min_vel_theta: 0.025
+  min_vel_trans: 0.05
+  min_vel_x: -0.0
+  min_vel_y: 0.0
+  occdist_scale: 0.35
+  oscillation_reset_angle: 0.015
+  oscillation_reset_dist: 0.05
+  path_distance_bias: 0.1
+  prune_plan: true
+  scaling_speed: 1.0
+  sim_granularity: 0.025
+  sim_time: 1.5
+  stop_time_buffer: 0.2
+  theta_stopped_vel: 0.01
+  trans_stopped_vel: 0.01
+  twirling_scale: 0.2
+  use_dwa: true
+  vth_samples: 20
+  vx_samples: 10
+  vy_samples: 10
+  xy_goal_tolerance: 0.5
+  yaw_goal_tolerance: 0.4
+  latch_xy_goal_tolerance: true
+  publish_cost_grid_pc: false
+  publish_traj_pc: false
+  restore_defaults: false
