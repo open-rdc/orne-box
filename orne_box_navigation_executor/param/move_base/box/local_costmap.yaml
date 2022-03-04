@@ -1,13 +1,24 @@
+# move_base common parameters
+# + 2021 Tsudanuma Challenge
+# + 2021 Tsukuba Challenge
+# Configuration by NaokiTakahashi12
 local_costmap:
-  global_frame: odom
+  global_frame: map
   robot_base_frame: base_link
-  update_frequency: 5.0
-  publish_frequency: 2.0
-  static_map: false
+  update_frequency: 4.0505
+  publish_frequency: 4.0
+  transform_tolerance: 0.20111
+  track_unknown_space: false
   rolling_window: true
-  resolution: 0.05
-  width: 8.0
-  height: 8.0
-  transform_tolerance: 0.5
-  inflation_radius: 0.20
-
+  width: 10.5
+  height: 10.5
+  resolution: 0.15
+  resolution: 0.1
+  always_send_full_costmap: true
+  plugins:
+    - name: local_obstacles_layer
+      type: costmap_2d::ObstacleLayer
+    - name: local_cost_cloud_layer
+      type: costmap_2d::ObstacleLayer
+    - name: inflation_layer
+      type: costmap_2d::InflationLayer
