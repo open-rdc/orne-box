@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <robot name="sensor_imu" xmlns:xacro="http://ros.org/wiki/xacro"
-                        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-                        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+                         xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+                         xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
 
   <xacro:macro name="sensor_imu" params="name parent *origin size">
       
@@ -19,7 +19,7 @@
         <geometry>
           <box size="${size}"/>
         </geometry>
-				<material name="green"/>
+        <material name="green"/>
       </visual>
     </link>
 
