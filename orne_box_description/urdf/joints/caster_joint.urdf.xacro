@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="caster_joint" params="parent *origin">
+
+    <joint name="caster_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="caster_front_link"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

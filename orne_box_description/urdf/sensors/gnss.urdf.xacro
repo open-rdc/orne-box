@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<robot name="sensor_gnss" xmlns:xacro="http://ros.org/wiki/xacro"
+                          xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+                          xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+
+  <xacro:macro name="sensor_gnss" params="name parent *origin">
+      
+    <joint name="${name}_joint" type="fixed">
+      <axis xyz="1 0 0"/>
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+
+    <link name="${name}_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder  length="0.025" radius="0.05"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+    </link>
+
+  </xacro:macro>
+
+</robot>
