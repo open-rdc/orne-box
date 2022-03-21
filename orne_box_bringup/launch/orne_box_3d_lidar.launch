@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="enable_zed" default="true"/>
-  <include file="$(find icart_mini_driver)/launch/icart_mini_drive.launch">
-    <arg name="model" value="$(find xacro)/xacro.py '$(find orne_box_description)/urdf/orne_box_3d_lidar.urdf.xacro'"/>
-    <arg name="ypspur_params" value="$(find orne_box_setup)/config/orne_box.param"/>
-    <arg name="use_eth_urg" value="true"/>
-    <arg name="urg_ip" value="192.168.0.10"/>
-  </include>
+  <arg name="ypspur_serial_port" default="/dev/sensors/icart-mini"/>
+  <node pkg="ypspur_ros" type="ypspur_ros" name="ypspur_ros" output="screen" respawn="true">
+    <rosparam command="load" file="$(find orne_box_bringup)/config/ypspur_ros.yaml" subst_value="true"/>
+    <param name="param_file" value="$(find orne_box_bringup)/param/orne_box_v1.txt"/>
+    <param name="port" value="/dev/sensors/icart-mini"/>
+  </node>
   <include file="$(find orne_box_bringup)/launch/includes/3d_base.launch.xml"/>
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/rfans16.launch"/>
