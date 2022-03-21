@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="output" default="screen"/>
   <arg name="enable_zed" default="true"/>
   <arg name="ypspur_serial_port" default="/dev/sensors/icart-mini"/>
-  <node pkg="ypspur_ros" type="ypspur_ros" name="ypspur_ros" output="screen" respawn="true">
+  <node pkg="ypspur_ros" type="ypspur_ros" name="ypspur_ros" output="$(arg output)" respawn="true">
     <rosparam command="load" file="$(find orne_box_bringup)/config/ypspur_ros.yaml" subst_value="true"/>
     <param name="param_file" value="$(find orne_box_bringup)/param/orne_box_v1.txt"/>
-    <param name="port" value="/dev/sensors/icart-mini"/>
+    <param name="port" value="$(arg ypspur_serial_port)"/>
   </node>
   <include file="$(find orne_box_bringup)/launch/includes/3d_base.launch.xml"/>
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
