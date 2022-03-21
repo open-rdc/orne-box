@@ -1,4 +1,7 @@
 <launch>
+    <arg name="output" default="screen"/>
+    <arg name="robot_description_file" default="$(find orne_box_description)/urdf/orne_box_3d_lidar.urdf.xacro"/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="$(arg output)"/>
     <node name="combine_dr_measurements" pkg="robot_pose_ekf" type="robot_pose_ekf">
         <remap from="odom"                 to="/icart_mini/odom"/>
         <param name="freq"                 value="30.0"/>
