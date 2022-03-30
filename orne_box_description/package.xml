@@ -3,18 +3,8 @@
   <name>orne_box_description</name>
   <version>0.1.0</version>
   <description>3D models of the orne-box for simulation and visualization</description>
-
   <maintainer email="xxx@todo.todo">xxx</maintainer>
-
-
   <license>BSD</license>
-
-
-  <url type="repository">https://github.com/open-rdc/orne-box</url>
-
-
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
-
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>xacro</build_depend>
   <exec_depend>xacro</exec_depend>

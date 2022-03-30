@@ -5,7 +5,7 @@
   <description>
     Gazebo simulation package for the orne_box
   </description>
-  <license>TODO</license>
+  <license>BSD</license>
   <maintainer email="a@a.com">TODO</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
