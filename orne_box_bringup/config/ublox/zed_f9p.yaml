@@ -1,0 +1,6 @@
+device: /dev/sensors/gnss/zed-f9p
+frame_id: gnss_link
+rate: 10
+uart1:
+  baudrate: 38400
+config_on_startup: false
