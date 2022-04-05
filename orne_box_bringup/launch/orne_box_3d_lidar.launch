@@ -8,9 +8,11 @@
     <param name="param_file" value="$(find orne_box_bringup)/param/orne_box_v1.txt"/>
     <param name="port" value="$(arg ypspur_serial_port)"/>
   </node>
+  <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/3d_base.launch.xml"/>
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/rfans16.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/ublox_device.launch"/>
   <include file="$(find zed_wrapper)/launch/zed_no_tf.launch" if="$(arg enable_zed)">
     <arg name="camera_name" value="zed"/>
     <arg name="camera_model" value="zed"/>
