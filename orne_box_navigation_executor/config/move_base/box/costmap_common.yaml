@@ -26,7 +26,7 @@ laser_scan_layer:
     inf_is_valid: true
     min_obstacle_height: 0.1
     max_obstacle_height: 30.0
-    topic: velodyne_driver/scan
+    topic: /rfans/surestar_scan
 local_cost_cloud_layer:
   enabled: true
   obstacle_range: 10.5
