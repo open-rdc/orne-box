@@ -26,6 +26,7 @@
   <include file="$(find orne_box_bringup)/launch/includes/cost_cloud_postprocessor.launch">
     <arg name="cloud_source" default="/rfans/surestar_points"/>
   </include>
+  <include file="$(find orne_box_bringup)/launch/includes/rosserial_stm32.launch"/>
   <node pkg="orne_box_bringup" type="projected_transform_publisher_node" name="projected_transform_publisher" output="$(arg output)">
   </node>
 </launch>
