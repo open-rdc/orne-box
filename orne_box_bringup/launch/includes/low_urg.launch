@@ -4,7 +4,7 @@
   <arg name="scan_topic"          default="low_scan"/>
   <arg name="scan_frame"          default="low_hokuyo_link"/>
   <arg name="use_eth_urg"         default="true"/>
-  <arg name="urg_ip"              default="192.168.1.10" if="$(arg use_eth_urg)"/>
+  <arg name="urg_ip"              default="192.168.0.10" if="$(arg use_eth_urg)"/>
   <arg name="scan_dev"            default="/dev/sensors/hokuyo_urg" unless="$(arg use_eth_urg)"/>
 
   <node pkg="urg_node" type="urg_node" name="low_urg_node">
