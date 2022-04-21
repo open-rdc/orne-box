@@ -3,4 +3,4 @@
 # + 2021 Tsukuba Challenge
 # Configuration by NaokiTakahashi12
 # robot_radius: 0.65
-footprint: [[-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775]]
+footprint: [[-0.2, -0.2775], [-0.2, 0.2775], [0.6, 0.2775], [0.6, -0.2775]]

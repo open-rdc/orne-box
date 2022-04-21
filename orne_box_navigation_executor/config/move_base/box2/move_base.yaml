@@ -3,12 +3,12 @@
 # + 2021 Tsukuba Challenge
 # Configuration by NaokiTakahashi12
 shutdown_costmaps: true
-base_global_planner: carrot_planner/CarrotPlanner
-base_global_planner: navfn/NavfnROS
+#base_global_planner: carrot_planner/CarrotPlanner
+#base_global_planner: navfn/NavfnROS
 base_global_planner: global_planner/GlobalPlanner
-planner_frequency: 0.088888
+#planner_frequency: 0.088888
 planner_frequency: 0.0
-planner_frequency: 1.0
+#planner_frequency: 1.0
 oscillation_distance: 0.1
 oscillation_timeout: 10.0
 base_local_planner: base_local_planner/TrajectoryPlannerROS
