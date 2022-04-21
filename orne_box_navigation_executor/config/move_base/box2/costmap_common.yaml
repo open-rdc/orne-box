@@ -16,27 +16,27 @@ local_obstacles_layer:
 #    min_obstacle_height: &local_min_obstacle_height -0.1
 #    max_obstacle_height: &local_max_obstacle_height 20.0
 #    topic: hokuyo_scan
-  observation_sources: 2d_lidar_laser_scan 3d_lidar_laser_scan
+  observation_sources: 2d_lidar_laser_scan #3d_lidar_laser_scan
   2d_lidar_laser_scan:
     data_type: LaserScan
-    sensor_frame: base_link
+    sensor_frame: low_hokuyo_link #base_link
     marking: true
     clearing: true
     inf_is_valid: true
     min_obstacle_height: 0.1
     max_obstacle_height: 30.0
     topic: low_scan
-  3d_lidar_laser_scan:
-    data_type: LaserScan
-    sensor_frame: base_link
-    marking: true
-    clearing: true
-    inf_is_valid: true
-    min_obstacle_height: 0.1
-    max_obstacle_height: 30.0
-    topic: velodyne_driver/scan
+#  3d_lidar_laser_scan:
+#    data_type: LaserScan
+#    sensor_frame: base_link
+#    marking: true
+#    clearing: true
+#    inf_is_valid: true
+#    min_obstacle_height: 0.1
+#    max_obstacle_height: 30.0
+#    topic: scan
 local_cost_cloud_layer:
-  enabled: true
+  enabled: false  #true
   obstacle_range: 5
   raytrace_range: 6
   inflation_radius: 1.0
@@ -60,13 +60,13 @@ global_obstacles_layer:
   observation_sources: hokuyo_laser_scan
   hokuyo_laser_scan:
     data_type: LaserScan
-    sensor_frame: hokuyo_link
+    sensor_frame: low_hokuyo_link
     marking: false
     clearing: false
     inf_is_valid: true
     min_obstacle_height: &global_min_obstacle_height 0.1
     max_obstacle_height: &global_max_obstacle_height 30.0
-    topic: hokuyo_scan
+    topic: low_scan
 planner_map_layer:
   enabled: true
   use_maximum: true

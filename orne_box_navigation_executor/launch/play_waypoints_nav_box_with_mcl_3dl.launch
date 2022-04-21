@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="robot_name"     default="box2"/>
+  <arg name="robot_name"     default="box"/>
   <arg name="map_pcd"/>
   <arg name="costmap_file"   default="$(find orne_box_navigation_executor)/maps/mymap"/>
   <arg name="cmd_vel" default="cmd_vel"/>
@@ -26,6 +26,9 @@
 
   <include file="$(find orne_box_navigation_executor)/launch/waypoint_server.launch">
     <arg name="config_file" value="$(arg waypoint_config)"/>
+  </include>
+
+  <include file="/home/orne-box/orne_ws/src/conv_for_piechart/launch/alpha_conv.launch">
   </include>
 
 </launch>

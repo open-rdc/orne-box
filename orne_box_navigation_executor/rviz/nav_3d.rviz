@@ -4,7 +4,6 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
         - /Odometries1/Filtered1/Shape1
         - /Odometries1/Filtered1/Covariance1
         - /Odometries1/Filtered1/Covariance1/Position1
@@ -12,9 +11,10 @@ Panels:
         - /Odometries1/Wheeled1/Shape1
         - /Odometries1/Wheeled1/Covariance1
         - /Odometries1/GPS1/Shape1
-        - /mcl_3dl1
+        - /mcl_3dl1/MapCloud1
+        - /mcl_3dl1/MapCloud1/Autocompute Value Bounds1
       Splitter Ratio: 0.5
-    Tree Height: 475
+    Tree Height: 277
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Views
@@ -23,10 +23,9 @@ Panels:
     Name: Views
     Splitter Ratio: 0.5
   - Class: rviz/Time
-    Experimental: true
     Name: Time
     SyncMode: 2
-    SyncSource: Mached Cloud
+    SyncSource: MapCloud
   - Class: waypoint_visualization/WaypointOperatorPanel
     Name: WaypointOperatorPanel
 Preferences:
@@ -72,6 +71,8 @@ Visualization Manager:
       Visual Enabled: true
     - Class: rviz/TF
       Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
       Frame Timeout: 15
       Frames:
         All Enabled: false
@@ -89,9 +90,9 @@ Visualization Manager:
           Value: true
         left_caster_wheel_link:
           Value: true
-        map:
+        low_hokuyo_link:
           Value: true
-        mirror_lidar_link:
+        map:
           Value: true
         odom:
           Value: true
@@ -132,7 +133,7 @@ Visualization Manager:
               left_caster_swivel_link:
                 left_caster_wheel_link:
                   {}
-              mirror_lidar_link:
+              low_hokuyo_link:
                 {}
               right_caster_swivel_link:
                 right_caster_wheel_link:
@@ -179,7 +180,7 @@ Visualization Manager:
         - Alpha: 0.699999988079071
           Class: rviz/Map
           Color Scheme: costmap
-          Draw Behind: false
+          Draw Behind: true
           Enabled: true
           Name: GlobalCostmap
           Topic: /move_base/global_costmap/costmap
@@ -189,7 +190,7 @@ Visualization Manager:
         - Alpha: 0.699999988079071
           Class: rviz/Map
           Color Scheme: costmap
-          Draw Behind: true
+          Draw Behind: false
           Enabled: true
           Name: LocalCostmap
           Topic: /move_base/local_costmap/costmap
@@ -470,7 +471,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -485,7 +486,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: false
-          Value: true
+          Value: false
         - Alpha: 0.75
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -605,14 +606,14 @@ Visualization Manager:
         - Alpha: 0.5
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
+            Max Value: 42.370018005371094
+            Min Value: -10.020323753356934
             Value: true
           Axis: Z
           Channel Name: intensity
           Class: rviz/PointCloud2
           Color: 255; 255; 255
-          Color Transformer: Intensity
+          Color Transformer: AxisColor
           Decay Time: 0
           Enabled: true
           Invert Rainbow: false
@@ -659,7 +660,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -674,7 +675,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Class: jsk_rviz_plugin/Diagnostics
           Enabled: true
           Name: Diagnostics
@@ -1053,10 +1054,10 @@ Visualization Manager:
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
-      Size (Pixels): 20
+      Size (Pixels): 10
       Size (m): 0.20000000298023224
       Style: Points
-      Topic: /velodyne_driver/scan
+      Topic: /scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -1117,8 +1118,8 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/ThirdPersonFollower
-      Distance: 16.095172882080078
+      Class: rviz/Orbit
+      Distance: 10
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -1134,19 +1135,19 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.3103985786437988
+      Pitch: 0.9903981685638428
       Target Frame: base_link
-      Yaw: 2.1086130142211914
+      Yaw: 3.97540020942688
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1016
+  Height: 736
   Hide Left Dock: false
-  Hide Right Dock: true
+  Hide Right Dock: false
   Left Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001b70000035ffc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000025e000000c900fffffffb0000002a0057006100790070006f0069006e0074004f00700065007200610074006f007200500061006e0065006c01000002a1000000fb0000004100fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fc0000030e0000008e0000000000fffffffa000000000100000001fb0000002200530074006100740065005400720069006700670065007200500061006e0065006c0100000000000001b70000000000000000fc000002b7000000e50000000000fffffffaffffffff0100000004fb000000160052006900670068007400200049006d0061006700650000000000ffffffff0000008600fffffffb00000014004c00650066007400200049006d0061006700650000000000ffffffff0000007e00fffffffb0000001800530074006500720065006f00200049006d0061006700650000000000ffffffff0000008f00fffffffb0000001200520047004200200049006d0061006700650000000000000001b70000007f00ffffff000000010000012600000368fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d00000368000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073800000039fc0100000002fb0000000800540069006d00650100000000000007380000031b00fffffffb0000000800540069006d006501000000000000045000000000000000000000057b0000035f00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001b700000247fc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000198000000c900fffffffb0000002a0057006100790070006f0069006e0074004f00700065007200610074006f007200500061006e0065006c01000001db000000a90000006000fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fc0000030e0000008e0000000000fffffffa000000000100000001fb0000002200530074006100740065005400720069006700670065007200500061006e0065006c0100000000000001b70000000000000000fc000002b7000000e50000000000fffffffaffffffff0100000004fb000000160052006900670068007400200049006d0061006700650000000000ffffffff0000008600fffffffb00000014004c00650066007400200049006d0061006700650000000000ffffffff0000007e00fffffffb0000001800530074006500720065006f00200049006d0061006700650000000000ffffffff0000008f00fffffffb0000001200520047004200200049006d0061006700650000000000000001b70000007f00ffffff000000010000012600000247fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d00000247000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004b800000039fc0100000002fb0000000800540069006d00650100000000000004b80000041800fffffffb0000000800540069006d00650100000000000004500000000000000000000001cf0000024700000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RGB Image:
     collapsed: false
   Right Image:
@@ -1158,9 +1159,9 @@ Window Geometry:
   Time:
     collapsed: false
   Views:
-    collapsed: true
+    collapsed: false
   WaypointOperatorPanel:
     collapsed: false
-  Width: 1848
+  Width: 1208
   X: 72
   Y: 27

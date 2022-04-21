@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="serial_node"        pkg="rosserial_python"      type="serial_node.py">
+    <param name="port"              type="string"               value="/dev/stm32f042"/>
+    <param name="baud"              type="int"                  value="57600"/>
+    </node>
+</launch>

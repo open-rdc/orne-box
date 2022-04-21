@@ -69,6 +69,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        gnss_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         hokuyo_link:
           Alpha: 1
           Show Axes: false
@@ -104,12 +109,27 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        surestar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        surestar_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         wheel_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         wheel_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        zed_camera_center:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -141,7 +161,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.20000000298023224
+      Size (m): 0.10000000149011612
       Style: Flat Squares
       Topic: /scan
       Unreliable: false
@@ -335,6 +355,41 @@ Visualization Manager:
       Topic: /move_base/global_costmap/footprint
       Unreliable: false
       Value: true
+    - Circles color: 170; 0; 0
+      Class: Obstacles
+      Enabled: true
+      Margin color: 0; 170; 0
+      Name: Obstacles
+      Opacity: 0.75
+      Queue Size: 10
+      Segments color: 170; 170; 0
+      Segments thickness: 0.029999999329447746
+      Topic: /obstacles
+      Unreliable: false
+      Value: true
+    - Class: jsk_rviz_plugin/PieChart
+      Enabled: true
+      Name: PieChart
+      Topic: /alpha
+      Value: true
+      auto color change: false
+      background color: 0; 0; 0
+      backround alpha: 0
+      clockwise rotate direction: false
+      foreground alpha: 0.699999988079071
+      foreground alpha 2: 0.4000000059604645
+      foreground color: 25; 255; 240
+      left: 2
+      max color: 255; 0; 0
+      max color change threthold: 0
+      max value: 1
+      med color: 255; 0; 0
+      med color change threthold: 0
+      min value: 0
+      show caption: true
+      size: 128
+      text size: 14
+      top: 3
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -362,18 +417,6 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
-    - Circles color: 170; 0; 0
-      Class: Obstacles
-      Enabled: true
-      Margin color: 0; 170; 0
-      Name: Obstacles
-      Opacity: 0.75
-      Queue Size: 10
-      Segments color: 170; 170; 0
-      Segments thickness: 0.029999999329447746
-      Topic: /obstacles
-      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
@@ -403,7 +446,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 20.829364776611328
+      Distance: 10
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -411,17 +454,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -3.4805142879486084
-        Y: 0.639691174030304
-        Z: -3.6609097151085734e-05
+        X: 0
+        Y: 0
+        Z: 0
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8497971296310425
+      Pitch: 0.530398428440094
       Target Frame: base_link
-      Yaw: 3.4934983253479004
+      Yaw: 3.2203993797302246
     Saved: ~
 Window Geometry:
   Displays:
