@@ -26,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -72,6 +72,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        gnss_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         hokuyo_link:
           Alpha: 1
           Show Axes: false
@@ -82,12 +87,27 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        surestar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        surestar_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         wheel_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         wheel_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        zed_camera_center:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -107,13 +127,21 @@ Visualization Manager:
           Value: true
         caster_front_link:
           Value: true
+        gnss_link:
+          Value: true
         hokuyo_link:
           Value: true
         imu_link:
           Value: true
+        surestar:
+          Value: true
+        surestar_base_link:
+          Value: true
         wheel_left_link:
           Value: true
         wheel_right_link:
+          Value: true
+        zed_camera_center:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -125,15 +153,78 @@ Visualization Manager:
         base_link:
           caster_front_link:
             {}
+          gnss_link:
+            {}
           hokuyo_link:
             {}
           imu_link:
             {}
+          surestar_base_link:
+            surestar:
+              {}
           wheel_left_link:
             {}
           wheel_right_link:
             {}
+          zed_camera_center:
+            {}
       Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 1
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.10000000149011612
+      Style: Boxes
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 2.878359079360962
+        Min Value: -0.010643422603607178
+        Value: true
+      Axis: Z
+      Channel Name: ring
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 1
+      Selectable: true
+      Size (Pixels): 2
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic: /rfans_points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
@@ -163,7 +254,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.742143392562866
+      Distance: 14.46380615234375
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -171,17 +262,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.12021833658218384
+        Y: -1.6280403137207031
+        Z: -0.6089884042739868
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5803982019424438
+      Pitch: 0.7497972249984741
       Target Frame: <Fixed Frame>
-      Yaw: 0.35539841651916504
+      Yaw: 0.5510060787200928
     Saved: ~
 Window Geometry:
   Displays:
@@ -199,5 +290,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1267
-  X: 260
-  Y: 165
+  X: 474
+  Y: 129

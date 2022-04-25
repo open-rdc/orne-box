@@ -6,7 +6,7 @@
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/orne-box</robotNamespace>
+      <robotNamespace>orne_box</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
@@ -15,7 +15,7 @@
     <material>Gazebo/Orange</material>
   </gazebo>
 
-  <gazebo reference="wheel_left_link">
+  <gazebo reference="left_wheel">
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
     <kp>1000000.0</kp>
@@ -25,7 +25,7 @@
     <material>Gazebo/White</material>
   </gazebo>
 
-  <gazebo reference="wheel_right_link">
+  <gazebo reference="right_wheel">
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
     <kp>1000000.0</kp>
