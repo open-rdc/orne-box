@@ -3,88 +3,92 @@
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:arg name="laser_visual" default="true"/>
   <xacro:arg name="imu_visual"   default="false"/>
+  <xacro:arg name="ignition_gazebo" default="false"/>
 
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>orne_box</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-  </gazebo>
-
-  <gazebo reference="base_link">
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <gazebo reference="left_wheel">
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <minDepth>0.001</minDepth>
-    <maxVel>1.0</maxVel>
-    <material>Gazebo/White</material>
-  </gazebo>
-
-  <gazebo reference="right_wheel">
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <minDepth>0.001</minDepth>
-    <maxVel>1.0</maxVel>
-    <material>Gazebo/White</material>
-  </gazebo>
-
-  <gazebo reference="caster_front_link">
-    <mu1>0.0</mu1>
-    <mu2>0.0</mu2>
-    <material>Gazebo/Red</material>
-  </gazebo>
-
-  <gazebo reference="imu_link">
-    <sensor type="imu" name="imu">
-      <always_on>true</always_on>
-      <visualize>$(arg imu_visual)</visualize>
-    </sensor>
-    <material>Gazebo/Green</material>
-  </gazebo>
-
-  <!-- hokuyo -->
-  <gazebo reference="hokuyo_link">
-    <sensor type="ray" name="head_hokuyo_sensor">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>$(arg laser_visual)</visualize>
-      <update_rate>40</update_rate>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>880</samples>
-            <resolution>0.25</resolution>
-            <min_angle>${-PI/180*110}</min_angle>
-            <max_angle>${ PI/180*110}</max_angle>
-          </horizontal>
-        </scan>
-        <range>
-          <min>0.10</min>
-          <max>30.0</max>
-          <resolution>0.01</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <!-- Noise parameters based on published spec for Hokuyo laser
-               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
-               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
-               reading. -->
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-      </ray>
-      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/scan</topicName>
-        <frameName>hokuyo_link</frameName>
+  <!-- @TODO More clear boolean operation -->
+  <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>orne_box</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       </plugin>
-    </sensor>
-    <material>Gazebo/Black</material>
-  </gazebo>
+    </gazebo>
+
+    <gazebo reference="base_link">
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <minDepth>0.001</minDepth>
+      <maxVel>1.0</maxVel>
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <minDepth>0.001</minDepth>
+      <maxVel>1.0</maxVel>
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="caster_front_link">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+      <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo reference="imu_link">
+      <sensor type="imu" name="imu">
+        <always_on>true</always_on>
+        <visualize>$(arg imu_visual)</visualize>
+      </sensor>
+      <material>Gazebo/Green</material>
+    </gazebo>
+
+    <!-- hokuyo -->
+    <gazebo reference="hokuyo_link">
+      <sensor type="ray" name="head_hokuyo_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>$(arg laser_visual)</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>880</samples>
+              <resolution>0.25</resolution>
+              <min_angle>${-PI/180*110}</min_angle>
+              <max_angle>${ PI/180*110}</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise parameters based on published spec for Hokuyo laser
+                 achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                 stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                 reading. -->
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <topicName>/scan</topicName>
+          <frameName>hokuyo_link</frameName>
+        </plugin>
+      </sensor>
+      <material>Gazebo/Black</material>
+    </gazebo>
+  </xacro:if>
 </robot>
 

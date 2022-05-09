@@ -3,6 +3,7 @@
 <robot name="sensor_imu" xmlns:xacro="http://ros.org/wiki/xacro"
                          xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
                          xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+  <xacro:arg name="ignition_gazebo" default="false"/>
 
   <xacro:macro name="sensor_imu" params="name parent *origin size">
       
@@ -23,15 +24,18 @@
       </visual>
     </link>
 
-    <gazebo>
-      <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
-        <bodyName>imu_link</bodyName> <!-- bodyName always set base_link by URDF parser -->
-        <topicName>imu_data</topicName>
-        <serviceName>imu_service</serviceName>
-        <gaussianNoise>0.005</gaussianNoise>
-        <updateRate>100.0</updateRate>
-      </plugin>
-    </gazebo>
+    <!-- @TODO More clear boolean operation -->
+    <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
+      <gazebo>
+        <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
+          <bodyName>imu_link</bodyName> <!-- bodyName always set base_link by URDF parser -->
+          <topicName>imu_data</topicName>
+          <serviceName>imu_service</serviceName>
+          <gaussianNoise>0.005</gaussianNoise>
+          <updateRate>100.0</updateRate>
+        </plugin>
+      </gazebo>
+    </xacro:if>
 
   </xacro:macro>
 
