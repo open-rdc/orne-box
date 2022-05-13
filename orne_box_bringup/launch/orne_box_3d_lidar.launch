@@ -5,7 +5,7 @@
   <arg name="ypspur_serial_port" default="/dev/sensors/icart-mini"/>
   <node pkg="ypspur_ros" type="ypspur_ros" name="ypspur_ros" output="$(arg output)" respawn="true">
     <rosparam command="load" file="$(find orne_box_bringup)/config/ypspur_ros.yaml" subst_value="true"/>
-    <param name="param_file" value="$(find orne_box_bringup)/param/orne_box_v1.txt"/>
+    <param name="param_file" value="$(find orne_box_bringup)/config/ypspur/box_v1.param"/>
     <param name="port" value="$(arg ypspur_serial_port)"/>
   </node>
   <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch"/>
