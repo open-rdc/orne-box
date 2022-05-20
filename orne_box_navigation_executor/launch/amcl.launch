@@ -9,7 +9,6 @@
 
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <rosparam file="$(find orne_box_navigation_executor)/param/amcl.yaml" command="load"/>
-    <rosparam file="$(find orne_box_navigation_executor)/param/amcl_$(arg robot_name).yaml" command="load"/>
     <rosparam file="$(arg init_pos_file)" command="load"/>
   </node>
 </launch>

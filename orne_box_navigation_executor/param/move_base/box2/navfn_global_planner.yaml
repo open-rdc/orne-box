@@ -1,0 +1,16 @@
+# move_base common parameters
+# + 2021 Tsudanuma Challenge
+# + 2021 Tsukuba Challenge
+# Configuration by NaokiTakahashi12
+NavfnROS:
+  allow_unknown: false
+  default_tolerance: 5
+  planner_window_x: 0
+  planner_window_y: 0
+  use_dijkstra: true
+  use_quadratic: false
+  use_grid_path: false
+  cost_factor: 3.0
+  neutral_cost: 77.0
+  visualize_potential: false
+  publish_potential: false
