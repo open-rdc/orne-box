@@ -5,8 +5,12 @@
   <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/base_link.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/caster_link.urdf.xacro"/>
+  <xacro:include filename="$(find orne_box_description)/urdf/links/caster_wheel_link.urdf.xacro"/>
+  <xacro:include filename="$(find orne_box_description)/urdf/links/caster_swivel_link.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/wheel_link.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/joints/caster_joint.urdf.xacro"/>
+  <xacro:include filename="$(find orne_box_description)/urdf/joints/caster_wheel_joint.urdf.xacro"/>
+  <xacro:include filename="$(find orne_box_description)/urdf/joints/caster_swivel_joint.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/joints/wheel_joint.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/imu.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/hokuyo.urdf.xacro"/>
@@ -17,11 +21,25 @@
 
 
   <!-- Setting for caster -->
+  <!--
   <xacro:caster_joint parent="base_link">
     <origin xyz="0.362 0.0 0.050" rpy="0 0 0"/>
   </xacro:caster_joint>
 
   <xacro:caster_link/>
+  -->
+  <xacro:caster_wheel_link prefix="left"/>
+  <xacro:caster_swivel_link prefix="left"/>
+  <xacro:caster_wheel_joint prefix="left"/>
+  <xacro:caster_swivel_joint prefix="left" parent="base_link">
+    <origin xyz="0.362 0.150 0.12" rpy="0 0 0"/>
+  </xacro:caster_swivel_joint>
+  <xacro:caster_wheel_link prefix="right"/>
+  <xacro:caster_swivel_link prefix="right"/>
+  <xacro:caster_wheel_joint prefix="right"/>
+  <xacro:caster_swivel_joint prefix="right" parent="base_link">
+    <origin xyz="0.362 -0.150 0.12" rpy="0 0 0"/>
+  </xacro:caster_swivel_joint>
 
 
   <!-- Setting for left wheel -->
