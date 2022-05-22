@@ -4,6 +4,9 @@
   <arg name="robot_name"     default="box"/>
   <arg name="map_pcd"/>
   <arg name="costmap_file"   default="$(find orne_navigation_executor)/maps/mymap"/>
+  <arg name="odom_topic" default="odometry/filtered"/>
+  <arg name="cmd_vel" default="cmd_vel"/>
+  <arg name="waypoint_config" default="$(find orne_box_navigation_executor)/config/waypoint_server/waypoint_server.yaml"/>
 
   <include file="$(find orne_box_navigation_executor)/launch/move_base.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
@@ -14,6 +17,10 @@
 
   <include file="$(find orne_box_navigation_executor)/launch/mcl_3dl.launch">
     <arg name="map_pcd"    value="$(arg map_pcd)"/>
+  </include>
+
+  <include file="$(find orne_box_navigation_executor)/launch/waypoint_server.launch">
+    <arg name="config_file" value="$(arg waypoint_config)"/>
   </include>
 
 </launch>
