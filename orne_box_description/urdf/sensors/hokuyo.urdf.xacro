@@ -1,18 +1,12 @@
 <?xml version="1.0"?>
-
-<robot name="sensor_hokuyo" xmlns:xacro="http://ros.org/wiki/xacro"
-                            xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-                            xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
-
+<robot xmlns:xacro="http://ros.org/wiki/xacro" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" name="sensor_hokuyo">
   <xacro:macro name="sensor_hokuyo" params="name parent *origin size">
-      
     <joint name="${name}_joint" type="fixed">
       <axis xyz="1 0 0"/>
       <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
       <child link="${name}_link"/>
     </joint>
-
     <link name="${name}_link">
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
@@ -27,7 +21,5 @@
         <material name="black"/>
       </visual>
     </link>
-
   </xacro:macro>
-
 </robot>

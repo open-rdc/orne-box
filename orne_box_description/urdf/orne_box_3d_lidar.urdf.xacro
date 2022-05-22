@@ -1,15 +1,13 @@
-<?xml version="1.0" ?>
-<robot name="orne_box" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="orne_box">
   <xacro:arg name="ignition_gazebo" default="false"/>
-
   <xacro:include filename="$(find orne_box_description)/urdf/orne_box.urdf.xacro"/>
-
   <!-- @TODO More clear boolean operation -->
   <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
     <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
     <!-- Setting for 3D-LiDAR -->
     <xacro:VLP-16 parent="base_link" name="surestar" topic="/rfans_points" organize_cloud="false" hz="10" samples="440" gpu="false">
-      <origin xyz="0.23 0 0.40" rpy="0 0 0" />
+      <origin xyz="0.23 0 0.40" rpy="0 0 0"/>
     </xacro:VLP-16>
   </xacro:if>
   <xacro:if value="$(arg ignition_gazebo)">
@@ -73,21 +71,14 @@
       </sensor>
     </gazebo>
   </xacro:if>
-
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/gnss.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/camera.urdf.xacro"/>
-  
-
   <!-- Setting for GNSS -->
   <xacro:sensor_gnss name="gnss" parent="base_link">
     <origin xyz="-0.12 0.12 0.9" rpy="0 0 0"/>
   </xacro:sensor_gnss>
-
-
   <!-- Setting for Camera -->
   <xacro:sensor_camera name="camera" parent="base_link">
     <origin xyz="-0.08 0.0 0.8" rpy="0 0.38 0"/>
   </xacro:sensor_camera>
-
-
 </robot>

@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
-<robot name="orne_box" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="orne_box">
   <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:include filename="$(find orne_box_description)/urdf/material_colors.xacro" />
+  <xacro:include filename="$(find orne_box_description)/urdf/material_colors.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/base_link.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/caster_wheel_link.urdf.xacro"/>
@@ -12,58 +12,43 @@
   <xacro:include filename="$(find orne_box_description)/urdf/joints/wheel_joint.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/imu.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/hokuyo.urdf.xacro"/>
-
-
   <!-- Setting for base -->
   <xacro:base_link/>
-
-
   <!-- Setting for caster -->
   <xacro:caster_wheel_link prefix="left"/>
   <xacro:caster_swivel_link prefix="left"/>
   <xacro:caster_wheel_joint prefix="left"/>
   <xacro:caster_swivel_joint prefix="left" parent="base_link">
-    <origin xyz="0.362 0.150 0.12" rpy="0 0 0"/>
+    <origin xyz="0.362 0.150 0.115" rpy="0 0 0"/>
   </xacro:caster_swivel_joint>
   <xacro:caster_wheel_link prefix="right"/>
   <xacro:caster_swivel_link prefix="right"/>
   <xacro:caster_wheel_joint prefix="right"/>
   <xacro:caster_swivel_joint prefix="right" parent="base_link">
-    <origin xyz="0.362 -0.150 0.12" rpy="0 0 0"/>
+    <origin xyz="0.362 -0.150 0.115" rpy="0 0 0"/>
   </xacro:caster_swivel_joint>
-
-
   <!-- Setting for left wheel -->
   <xacro:wheel_joint prefix="left" parent="base_link">
     <origin xyz="0.0 0.23075 0.152" rpy="${-PI/2} 0 0"/>
     <axis xyz="0 0 1"/>
   </xacro:wheel_joint>
-
   <xacro:wheel_link prefix="left" width="0.045" radius="0.152">
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
   </xacro:wheel_link>
-
-
   <!-- Setting for right wheel -->
   <xacro:wheel_joint prefix="right" parent="base_link">
     <origin xyz="0.0 -0.23075 0.152" rpy="${-PI/2} 0 0"/>
     <axis xyz="0 0 1"/>
   </xacro:wheel_joint>
-
   <xacro:wheel_link prefix="right" width="0.045" radius="0.152">
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
   </xacro:wheel_link>
-
-
   <!-- Setting for IMU -->
   <xacro:sensor_imu name="imu" parent="base_link" size="0.05 0.05 0.05">
     <origin xyz="0.23 0.0 0.270" rpy="${-PI} 0 ${PI/2}"/>
   </xacro:sensor_imu>
-
-
   <!-- Setting for 2D-LiDAR -->
   <xacro:sensor_hokuyo name="hokuyo" parent="base_link" size="0.05 0.05 0.05">
     <origin xyz="0.374295 0 0.2185" rpy="${-PI} 0 0"/>
   </xacro:sensor_hokuyo>
-
 </robot>

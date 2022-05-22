@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<robot name="orne_box" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="orne_box">
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:arg name="laser_visual" default="true"/>
-  <xacro:arg name="imu_visual"   default="false"/>
+  <xacro:arg name="imu_visual" default="false"/>
   <xacro:arg name="ignition_gazebo" default="false"/>
   <xacro:arg name="enable_camera" default="false"/>
-
   <gazebo reference="left_caster_wheel_link">
     <mu1>0.75</mu1>
     <mu2>0.75</mu2>
@@ -14,7 +13,6 @@
     <minDepth>0.001</minDepth>
     <maxVel>1.0</maxVel>
   </gazebo>
-
   <gazebo reference="right_caster_wheel_link">
     <mu1>0.75</mu1>
     <mu2>0.75</mu2>
@@ -23,7 +21,6 @@
     <minDepth>0.001</minDepth>
     <maxVel>1.0</maxVel>
   </gazebo>
-
   <gazebo reference="left_wheel">
     <mu1>0.85</mu1>
     <mu2>0.85</mu2>
@@ -33,7 +30,6 @@
     <maxVel>1.0</maxVel>
     <material>Gazebo/White</material>
   </gazebo>
-
   <gazebo reference="right_wheel">
     <mu1>0.85</mu1>
     <mu2>0.85</mu2>
@@ -43,7 +39,6 @@
     <maxVel>1.0</maxVel>
     <material>Gazebo/White</material>
   </gazebo>
-
   <!-- @TODO More clear boolean operation -->
   <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
     <gazebo>
@@ -52,11 +47,9 @@
         <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       </plugin>
     </gazebo>
-
     <gazebo reference="base_link">
       <material>Gazebo/Orange</material>
     </gazebo>
-
     <gazebo reference="imu_link">
       <sensor type="imu" name="imu">
         <always_on>true</always_on>
@@ -64,7 +57,6 @@
       </sensor>
       <material>Gazebo/Green</material>
     </gazebo>
-
     <!-- hokuyo -->
     <gazebo reference="hokuyo_link">
       <sensor type="ray" name="head_hokuyo_sensor">
@@ -103,7 +95,6 @@
       <material>Gazebo/Black</material>
     </gazebo>
   </xacro:if>
-
   <xacro:if value="$(arg ignition_gazebo)">
     <gazebo>
       <static>false</static>
@@ -282,4 +273,3 @@
     </xacro:if>
   </xacro:if>
 </robot>
-
