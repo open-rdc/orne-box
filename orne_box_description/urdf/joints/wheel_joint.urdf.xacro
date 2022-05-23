@@ -6,7 +6,7 @@
       <child link="wheel_${prefix}_link"/>
       <xacro:insert_block name="origin"/>
       <xacro:insert_block name="axis"/>
-      <limit effort="100.5" velocity="10.0" lower="-1e15" upper="1e15"/>
+      <limit effort="10.5" velocity="10.0" lower="-1e15" upper="1e15"/>
       <dynamics damping="0.05"/>
     </joint>
     <transmission name="transmission_${prefix}">
