@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <node pkg="rosbag" type="record" name="rosbag_record" output="screen"
-    args="record -b 512 -o /home/orne-box/rosbags/rosbag.bag
+    args="record -b 512 -o /home/orne-box/rosbags/rosbag
          /tf
          /odom
          /imu/data_raw
