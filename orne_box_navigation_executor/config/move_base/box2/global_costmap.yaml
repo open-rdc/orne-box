@@ -1,0 +1,22 @@
+# move_base common parameters
+# + 2021 Tsudanuma Challenge
+# + 2021 Tsukuba Challenge
+# Configuration by NaokiTakahashi12
+global_costmap:
+  update_frequency: 2.55055
+  publish_frequency: 2.0
+  transform_tolerance: 0.2033
+  track_unknown_space: true
+  rolling_window: false
+  always_send_full_costmap: false
+  trinary_costmap: true
+  resolution: 0.04
+  plugins:
+    - name: planner_map_layer
+      type: costmap_2d::StaticLayer
+    - name: global_obstacles_layer
+      type: costmap_2d::ObstacleLayer
+    - name: global_cost_cloud_layer
+      type: costmap_2d::ObstacleLayer
+    - name: inflation_layer
+      type: costmap_2d::InflationLayer
