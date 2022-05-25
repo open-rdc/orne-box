@@ -14,8 +14,8 @@ orne_box:
     pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
     twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
 
-    wheel_separation : 0.34
-    wheel_radius : 0.1 
+    wheel_separation : 0.46
+    wheel_radius : 0.152
    
     # Wheel separation and radius multipliers
     wheel_separation_multiplier: 1.0 # default: 1.0
