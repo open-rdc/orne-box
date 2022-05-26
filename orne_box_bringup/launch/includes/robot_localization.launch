@@ -32,12 +32,6 @@
                        true , true, true,
                        true, true, true,
                        false, false, false]
-        odom1: /orne_box/diff_drive_controller/odom
-        odom1_config: [false, false, false,
-                       false, false, false,
-                       true , true, true,
-                       true, true, true,
-                       false, false, false]
       </rosparam>
   </node>
 </launch>
