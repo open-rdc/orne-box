@@ -271,5 +271,12 @@
         </sensor>
       </gazebo>
     </xacro:if>
+    <gazebo reference="gnss_link">
+      <sensor name="gnss_link" type="navsat">
+        <always_on>1</always_on>
+        <update_rate>1</update_rate>
+        <topic>model/orne_box/navsat</topic>
+      </sensor>
+    </gazebo>
   </xacro:if>
 </robot>
