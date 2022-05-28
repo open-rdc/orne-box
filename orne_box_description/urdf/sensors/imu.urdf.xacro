@@ -25,11 +25,12 @@
 
     <gazebo>
       <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
-        <bodyName>imu_link</bodyName> <!-- bodyName always set base_link by URDF parser -->
+        <bodyName>${parent}</bodyName> <!-- bodyName always set base_link by URDF parser -->
         <topicName>imu_data</topicName>
         <serviceName>imu_service</serviceName>
         <gaussianNoise>0.005</gaussianNoise>
         <updateRate>100.0</updateRate>
+        <frameName>${parent}</frameName>
       </plugin>
     </gazebo>
 

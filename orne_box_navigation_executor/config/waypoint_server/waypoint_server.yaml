@@ -8,7 +8,7 @@ global_frame: map
 goal_publish_frequency: 0.5
 goal_check_frequency: 1.0
 default_goal_radius: 1.0
-waypoints_file: $(find orne_box_navigation_executor)/param/waypoint_server/waypoints/test.yaml
-route_file: $(find orne_box_navigation_executor)/param/waypoint_server/routes/test.yaml
+waypoints_file: $(find orne_box_navigation_executor)/config/waypoint_server/waypoints/test.yaml
+route_file: $(find orne_box_navigation_executor)/config/waypoint_server/routes/test.yaml
 enable_loop: true
 debug: false
