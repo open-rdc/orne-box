@@ -62,7 +62,8 @@
             <max>100.0</max>
             <resolution>0.001</resolution>
           </range>
-          <noise type="gaussian">
+          <noise>
+            <noise>gaussian</noise>
             <mean>0.0</mean>
             <stddev>0.02</stddev>
           </noise>

@@ -71,6 +71,10 @@
               <min_angle>${-PI/180*110}</min_angle>
               <max_angle>${ PI/180*110}</max_angle>
             </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>0.01</resolution>
+            </vertical>
           </scan>
           <range>
             <min>0.10</min>
@@ -156,10 +160,14 @@
           <scan>
             <horizontal>
               <samples>361</samples>
-              <resolution>0.25</resolution>
+              <resolution>1</resolution>
               <min_angle>${-PI/180*110}</min_angle>
               <max_angle>${ PI/180*110}</max_angle>
             </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+            </vertical>
           </scan>
           <range>
             <min>0.10</min>
@@ -241,7 +249,8 @@
               <near>0.01</near>
               <far>50</far>
             </clip>
-            <noise type="gaussian">
+            <noise>
+              <type>gaussian</type>
               <mean>0.0</mean>
               <stddev>0.025</stddev>
             </noise>
@@ -263,7 +272,8 @@
               <near>0.4</near>
               <far>6</far>
             </clip>
-            <noise type="gaussian">
+            <noise>
+              <type>gaussian</type>
               <mean>0.0</mean>
               <stddev>0.1</stddev>
             </noise>
