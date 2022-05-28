@@ -6,7 +6,7 @@
   <arg name="with_rviz"   default="false"/>
   <arg name="with_plot"   default="false"/>
   <arg name="with_filter" default="true"/>
-  <arg name="device"      default="/dev/ttyACM1"/>
+  <arg name="device"      default="/dev/sensors/imu"/>
 
   <arg name="parent_id"   default="odom"/>
   <arg name="frame_id"    default="imu_link"/>

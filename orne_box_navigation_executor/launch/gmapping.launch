@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="scan_topic" default="/scan"/>
-  <arg name="bag_file"	 default="/home/orne-box/soiya/tsudanuma_rosbag/box_0709_cit3F.bag"/>
+  <arg name="scan_topic" default="scan"/>
+  <arg name="bag_play"   default="false"/>
+  <arg name="bag_file"	 default=""/>
 
-  <rosparam param="/use_sim_time">true</rosparam>
+  <group if="$(arg bag_play)">
+    <rosparam param="/use_sim_time">true</rosparam>
+    <node pkg="rosbag" type="play" name="rosbag_play" args="$(arg bag_file) -r 1.0 -l" />
+  </group>
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
 
@@ -37,8 +41,6 @@
     
   </node>
 
-  <node pkg="rosbag" type="play" name="rosbag_play" args="$(arg bag_file) -r 1.0 -l" />
-
-  <node pkg="rviz" type="rviz" name="rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find orne_box_navigation_executor)/rviz/nav.rviz" required="true"/>
 
 </launch>

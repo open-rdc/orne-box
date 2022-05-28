@@ -8,6 +8,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>orne_box_description</exec_depend>
   <exec_depend>orne_box_bringup</exec_depend>
+  <exec_depend>orne_box_navigation_executor</exec_depend>
   <exec_depend>orne_box_simulations</exec_depend>
   <export><metapackage/></export>
 </package>

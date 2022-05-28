@@ -6,4 +6,8 @@
   <maintainer email="taishi@todo.todo">taishi</maintainer>
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>teleop_twist_joy</exec_depend>
+  <exec_depend>robot_pose_ekf</exec_depend>
+  <exec_depend>urg_node</exec_depend>
 </package>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="rosbag" type="record" name="rosbag_record" output="screen"
+    args="record -b 512 -o /home/orne-box/rosbags/rosbag
+         /tf
+         /odom
+         /imu/data_raw
+         /rfans/surestar_points
+         /zed_node/left/image_rect_color/compressed
+         /zed_node/right/image_rect_color/compressed
+         "/>
+</launch>

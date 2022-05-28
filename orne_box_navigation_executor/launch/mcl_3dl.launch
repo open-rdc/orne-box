@@ -22,7 +22,7 @@
     <remap from="imu/data" to="imu/data_unused" if="$(arg without_imu)" />
   </node>
 
-  <arg name="config_file" default="$(find orne_box_navigation_executor)/param/mcl_3dl.yaml"
+  <arg name="config_file" default="$(find orne_box_navigation_executor)/config/mcl_3dl.yaml"
       unless="$(eval arg('without_odom') or arg('without_imu'))" />
   <arg name="config_file" default="$(find mcl_3dl)/config/test_localization_noodom.yaml"
       if="$(arg without_odom)" />
@@ -37,7 +37,7 @@
     /odom     (Wheel odometry)
   -->
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find orne_box_navigation_executor)/rviz_cfg/nav_3d.rviz" />
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find orne_box_navigation_executor)/rviz/nav_3d.rviz" />
 
   <node pkg="mcl_3dl" type="mcl_3dl" name="mcl_3dl" output="screen" unless="$(arg generate_test_bag)">
 	  <param name="compatible" value="1" />

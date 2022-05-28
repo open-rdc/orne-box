@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <arg name="param_file_name"     defalut="zed_f9p" />
+  <arg name="param_file_name"     default="zed_f9p" />
   <arg name="param_file_dir"      default="$(find orne_box_bringup)/config/ublox" />
 
   <arg name="node_name"           default="ublox" />
