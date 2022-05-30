@@ -73,7 +73,7 @@
             </horizontal>
             <vertical>
               <samples>1</samples>
-              <resolution>0.01</resolution>
+              <resolution>1</resolution>
             </vertical>
           </scan>
           <range>
