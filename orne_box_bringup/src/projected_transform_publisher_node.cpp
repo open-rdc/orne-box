@@ -24,10 +24,14 @@
 #include <stdexcept>
 #include <string>
 
+#include <Eigen/Dense>
+#include <Eigen/Geometry>
+
 #include <ros/ros.h>
 
 #include <geometry_msgs/TransformStamped.h>
 
+#include <tf2_eigen/tf2_eigen.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/transform_broadcaster.h>
 
@@ -118,11 +122,11 @@ void Node::spin()
 
 void Node::publishTransform(const ros::TimerEvent &)
 {
-    geometry_msgs::TransformStamped target_transform,
+    geometry_msgs::TransformStamped current_transform,
                                     project_transform;
     try
     {
-        target_transform = tf_buffer.lookupTransform(
+        current_transform = tf_buffer.lookupTransform(
             project_base_frame_id,
             project_frame_id,
             ros::Time(tf_lookup_time)
@@ -133,11 +137,33 @@ void Node::publishTransform(const ros::TimerEvent &)
         ROS_WARN_STREAM(e.what());
         return;
     }
+    
+    Eigen::Quaternion<double> current_quaternion{0, 0, 0, 1},
+                              project_quaternion{0, 0, 0, 1};
+    Eigen::Matrix<double, 1, 3> current_euler_angles;
+
+    tf2::fromMsg(
+        current_transform.transform.rotation,
+        current_quaternion
+    );
+
+    current_euler_angles = current_quaternion.toRotationMatrix().eulerAngles(0, 1, 2);
+
+    project_quaternion =
+        project_quaternion * Eigen::AngleAxis<double>(
+            current_euler_angles.z(), Eigen::Vector3d::UnitZ()
+        );
+
     project_transform.header.stamp = ros::Time::now();
-    project_transform.header.frame_id = target_transform.header.frame_id;
+    project_transform.header.frame_id = current_transform.header.frame_id;
     project_transform.child_frame_id = projected_frame_id;
-    project_transform.transform = target_transform.transform;
+
+    project_transform.transform = current_transform.transform;
     project_transform.transform.translation.z = 0;
+
+    project_transform.transform.rotation = tf2::toMsg(
+        project_quaternion
+    );
 
     tf_broadcaster.sendTransform(project_transform);
 }
