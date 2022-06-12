@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(orne_box_bringup VERSION 0.1.0)
 
+find_package(Eigen3 REQUIRED)
+
 find_package(catkin REQUIRED
   roscpp
+  tf2_eigen
   tf2_ros
   param_io
   geometry_msgs
@@ -21,6 +24,7 @@ target_compile_features(projected_transform_publisher_node
 
 target_include_directories(projected_transform_publisher_node
   PRIVATE
+    ${EIGEN3_INCLUDE_DIR}
     ${catkin_INCLUDE_DIRS}
 )
 
