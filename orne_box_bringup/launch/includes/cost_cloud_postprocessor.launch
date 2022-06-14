@@ -8,7 +8,8 @@
   <arg name="field_name" default="z"/>
   <arg name="limit_min" default="-0.15"/>
   <arg name="limit_max" default="0.8"/>
-  <arg name="output_frame_id" default=""/>
+  <arg name="output_frame_id" default="base_link"/>
+  <arg name="output_topic" default="cost_cloud"/>
   <group ns="$(arg namespace)" clear_params="true">
     <node pkg="nodelet" type="nodelet" name="$(arg manager)" args="manager" respawn="$(arg respawn)">
     </node>
@@ -18,6 +19,7 @@
       <param name="filter_limit_max" value="$(arg limit_max)"/>
       <param name="leaf_size" value="0.1"/>
       <param name="min_points_per_voxel" value="0.05"/>
+      <param name="output_frame" value="$(arg output_frame_id)"/>
       <remap from="~input" to="$(arg cloud_source)"/>
       <remap from="~output" to="$(arg cloud_source)/voxel_grid"/>
     </node>
@@ -26,6 +28,7 @@
       <param name="filter_limit_min" value="$(arg limit_min)"/>
       <param name="filter_limit_max" value="$(arg limit_max)"/>
       <param name="filter_limit_negative" value="false"/>
+      <param name="output_frame" value="$(arg output_frame_id)"/>
       <remap from="~input" to="$(arg cloud_source)/voxel_grid"/>
       <remap from="~output" to="$(arg cloud_source)/pass_through"/>
     </node>
@@ -35,9 +38,10 @@
       <param name="filter_limit_max" value="$(arg limit_max)"/>
       <param name="negative" value="true"/>
       <param name="min_x" value="-0.75"/>
-      <param name="max_x" value="0.0"/>
+      <param name="max_x" value="0.3"/>
       <param name="min_y" value="-0.5"/>
       <param name="max_y" value="0.5"/>
+      <param name="output_frame" value="$(arg output_frame_id)"/>
       <remap from="~input" to="$(arg cloud_source)/pass_through"/>
       <remap from="~output" to="$(arg cloud_source)/crop_box"/>
     </node>
@@ -50,7 +54,7 @@
       <param name="min_neighbors" value="2"/>
       <param name="output_frame" value="$(arg output_frame_id)"/>
       <remap from="~input" to="$(arg cloud_source)/crop_box"/>
-      <remap from="~output" to="$(arg cloud_source)/radius_outlier_removed"/>
+      <remap from="~output" to="$(arg output_topic)"/>
     </node>
-   </group>
+  </group>
 </launch>
