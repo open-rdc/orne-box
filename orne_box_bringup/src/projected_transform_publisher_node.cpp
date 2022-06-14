@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <cmath>
 #include <stdexcept>
 #include <string>
 
@@ -138,20 +139,26 @@ void Node::publishTransform(const ros::TimerEvent &)
         return;
     }
     
-    Eigen::Quaternion<double> current_quaternion{0, 0, 0, 1},
-                              project_quaternion{0, 0, 0, 1};
-    Eigen::Matrix<double, 1, 3> current_euler_angles;
+    Eigen::Quaternion<double> current_quaternion,
+                              project_quaternion;
 
     tf2::fromMsg(
         current_transform.transform.rotation,
         current_quaternion
     );
 
-    current_euler_angles = current_quaternion.toRotationMatrix().eulerAngles(0, 1, 2);
+    const auto q_wz = current_quaternion.w() * current_quaternion.z();
+    const auto q_xy = current_quaternion.x() * current_quaternion.y();
+    const auto q_yy = std::pow(current_quaternion.y(), 2);
+    const auto q_zz = std::pow(current_quaternion.z(), 2);
 
-    project_quaternion =
-        project_quaternion * Eigen::AngleAxis<double>(
-            current_euler_angles.z(), Eigen::Vector3d::UnitZ()
+    const auto current_z_euler_angle = std::atan2(
+        2 * (q_wz + q_xy),
+        1 - 2 * (q_yy + q_zz)
+    );
+
+    project_quaternion = Eigen::AngleAxis<double>(
+            current_z_euler_angle, Eigen::Vector3d::UnitZ()
         );
 
     project_transform.header.stamp = ros::Time::now();
