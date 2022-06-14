@@ -2,97 +2,54 @@
 # + 2021 Tsudanuma Challenge
 # + 2021 Tsukuba Challenge
 # Configuration by NaokiTakahashi12
-local_obstacles_layer:
+laser_scan_layer:
   enabled: true
-  obstacle_range: 2.5
-  raytrace_range: 2.5
+  obstacle_range: 3.5
+  raytrace_range: 1.5
   inflation_radius: 1.2
-  combination_method: 0
-  observation_sources: cost_cloud rfans_laser_scan rfans_point_cloud
-  hokuyo_laser_scan:
-    data_type: LaserScan
-    sensor_frame: hokuyo_link
-    marking: true
-    clearing: true
-    inf_is_valid: true
-    min_obstacle_height: &local_min_obstacle_height -0.1
-    max_obstacle_height: &local_max_obstacle_height 20.0
-    topic: scan
-  rfans_laser_scan:
-    data_type: LaserScan
-    sensor_frame: surestar
-    marking: true
-    clearing: true
-    inf_is_valid: true
-    min_obstacle_height: *local_min_obstacle_height
-    max_obstacle_height: *local_max_obstacle_height
-    topic: rfans/surestar_scan
-  rfans_point_cloud:
-    data_type: PointCloud2
-    sensor_frame: surestar
-    marking: true
-    clearing: true
-    inf_is_valid: true
-    min_obstacle_height: 1.5
-    max_obstacle_height: *local_max_obstacle_height
-    topic: rfans/surestar_points
-global_obstacles_layer:
-  enabled: true
-  obstacle_range: 2.5
-  raytrace_range: 2.5
-  inflation_radius: 0.4
   combination_method: 1
-  observation_sources: cost_cloud rfans_laser_scan rfans_point_cloud
-  hokuyo_laser_scan:
+  observation_sources: laser_scan
+  laser_scan:
     data_type: LaserScan
-    sensor_frame: hokuyo_link
-    marking: false
-    clearing: false
+    sensor_frame: base_link
+    marking: true
+    clearing: true
     inf_is_valid: true
-    min_obstacle_height: &global_min_obstacle_height 0.1
-    max_obstacle_height: &global_max_obstacle_height 30.0
-    topic: scan
-  rfans_laser_scan:
-    data_type: LaserScan
-    sensor_frame: surestar
-    marking: false
-    clearing: false
-    inf_is_valid: false
-    min_obstacle_height: *global_min_obstacle_height
-    max_obstacle_height: *global_max_obstacle_height
-    topic: rfans/surestar_scan
+    min_obstacle_height: 0.1
+    max_obstacle_height: 30.0
+    topic: /hokuyo_scan
 local_cost_cloud_layer:
   enabled: true
-  obstacle_range: 10.5
-  raytrace_range: 10.5
-  inflation_radius: 1.2
-  combination_method: 0
-  observation_sources: cost_cloud
-  cost_cloud:
-    data_type: PointCloud2
-    sensor_frame: base_projected_link
-    marking: true
-    clearing: true
-    inf_is_valid: true
-    min_obstacle_height: -.inf
-    max_obstacle_height: .inf
-    topic: rfans/surestar_points/radius_outlier_removed
-global_cost_cloud_layer:
-  enabled: true
-  obstacle_range: 5.5
+  obstacle_range: 7.5
   raytrace_range: 3.5
-  inflation_radius: 0.4
+  inflation_radius: 1.7
   combination_method: 1
   observation_sources: cost_cloud
   cost_cloud:
     data_type: PointCloud2
-    sensor_frame: base_projected_link
-    marking: false
-    clearing: false
-    inf_is_valid: true
+    sensor_frame: base_link
+    marking: true
+    clearing: true
+    inf_is_valid: false
     min_obstacle_height: -.inf
     max_obstacle_height: .inf
-    topic: rfans/surestar_points/radius_outlier_removed
+    topic: /cost_cloud_process/cost_cloud
+global_cost_cloud_layer:
+  enabled: true
+  obstacle_range: 3.5
+  raytrace_range: 3.5
+  inflation_radius: 0.4
+  combination_method: 0
+  observation_sources: cost_cloud
+  cost_cloud:
+    data_type: PointCloud2
+    sensor_frame: base_link
+    marking: true
+    clearing: true
+    inf_is_valid: false
+    min_obstacle_height: -.inf
+    max_obstacle_height: .inf
+    topic: /cost_cloud_process/cost_cloud
 planner_map_layer:
   enabled: true
   use_maximum: true
