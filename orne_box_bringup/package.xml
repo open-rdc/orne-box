@@ -7,6 +7,7 @@
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>geometry_msgs</depend>
+  <depend>move_base_msgs</depend>
   <build_depend>eigen3</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>tf2_eigen</build_depend>
@@ -16,4 +17,9 @@
   <exec_depend>teleop_twist_joy</exec_depend>
   <exec_depend>robot_pose_ekf</exec_depend>
   <exec_depend>urg_node</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
 </package>
