@@ -17,4 +17,8 @@
     <arg name="camera_name" value="zed"/>
     <arg name="camera_model" value="zed"/>
   </include>
+  <include file="$(find orne_box_bringup)/launch/includes/cost_cloud_postprocessor.launch">
+  </include>
+  <node pkg="orne_box_bringup" type="projected_transform_publisher_node" name="projected_transform_publisher" output="$(arg output)">
+  </node>
 </launch>
