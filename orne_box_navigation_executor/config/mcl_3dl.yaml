@@ -74,3 +74,11 @@ mcl_3dl:
   update_downsample_x: 0.2
   update_downsample_y: 0.2
   update_downsample_z: 0.05
+
+obj_to_pointcloud:
+  frame_id: "map"
+  points_per_meter_sq: 1200.0
+  downsample_grid: 0.1
+pcd_to_pointcloud:
+  frame_id: "map"
+  latch: true
