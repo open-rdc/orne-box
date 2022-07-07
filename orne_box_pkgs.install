@@ -42,4 +42,11 @@
     uri: https://github.com/KumarRobotics/ublox
     local-name: ublox
     version: master
-
+- git:
+    uri: https://github.com/ANYbotics/any_node.git
+    local-name: any_node
+    version: master
+- git:
+    uri: https://github.com/ANYbotics/message_logger.git
+    local-name: message_logger
+    version: master

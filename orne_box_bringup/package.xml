@@ -8,7 +8,6 @@
   <buildtool_depend>catkin</buildtool_depend>
   <depend>geometry_msgs</depend>
   <depend>move_base_msgs</depend>
-  <build_depend>eigen3</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>tf2_eigen</build_depend>
   <build_depend>tf2_ros</build_depend>
