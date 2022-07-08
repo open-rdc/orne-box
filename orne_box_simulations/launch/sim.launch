@@ -12,6 +12,8 @@
   <arg name="debug" default="false"/>
   <arg name="extra_gazebo_args" default="orne_box/diff_drive_controller/odom:=odom orne_box/diff_drive_controller/cmd_vel:=cmd_vel"/>
   <arg name="joy_dev" default="/dev/input/js0"/>
+  <arg name="cloud_source" default="/rfans_points"/>
+  <arg name="output" default="screen"/>
 
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg model)'"/>
   
@@ -40,6 +42,13 @@
   <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch">
     <arg name="joy_dev" value="$(arg joy_dev)"/>
   </include>
+
+  <include file="$(find orne_box_bringup)/launch/includes/cost_cloud_postprocessor.launch">
+    <arg name="cloud_source" value="$(arg cloud_source)"/>
+  </include>
+
+  <node pkg="orne_box_bringup" type="projected_transform_publisher_node" name="projected_transform_publisher" output="$(arg output)">
+  </node>
 
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find orne_box_simulations)/rviz/sim.rviz"/>
 
