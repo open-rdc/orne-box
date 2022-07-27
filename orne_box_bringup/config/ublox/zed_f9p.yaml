@@ -5,7 +5,7 @@ nav_rate: 8
 
 dynamic_model: stationary 
 
-fix_mode: both
+fix_mode: auto
 
 uart1:
   baudrate: 38400
