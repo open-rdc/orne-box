@@ -8,7 +8,9 @@
     <param name="param_file" value="$(find orne_box_bringup)/config/ypspur/box_v1.param"/>
     <param name="port" value="$(arg ypspur_serial_port)"/>
   </node>
-  <include file="$(find orne_box_bringup)/launch/includes/description.launch.xml"/>
+  <include file="$(find orne_box_bringup)/launch/includes/description.launch.xml">
+    <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find orne_box_description)/urdf/orne_box_3d_lidar.urdf.xacro'" />
+  </include>
   <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/urg.launch"/>
