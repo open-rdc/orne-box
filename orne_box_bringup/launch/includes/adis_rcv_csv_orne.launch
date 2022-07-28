@@ -1,0 +1,40 @@
+<!--<?xml version="1.0"?>-->
+
+<launch>
+  <!--Choice mode "Attitude" or "Register"-->
+  <arg name="mode"        default="Register"/>
+  <arg name="with_rviz"   default="false"/>
+  <arg name="with_plot"   default="false"/>
+  <arg name="with_filter" default="true"/>
+  <arg name="device"      default="/dev/sensors/imu"/>
+
+  <arg name="parent_id"   default="odom"/>
+  <arg name="frame_id"    default="imu_link"/>
+  <arg name="rate"        default="100"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find adi_imu_tr_driver_ros1)/urdf/adis16470_breakout.urdf'" />
+
+  <node name="imu" pkg="adi_imu_tr_driver_ros1" type="adis_rcv_csv_node" output="screen">
+    <param name="device"    value="$(arg device)"/>
+    <param name="parent_id" value="$(arg parent_id)"/>
+    <param name="frame_id"  value="$(arg frame_id)"/>
+    <param name="rate"      value="$(arg rate)"/>
+    <param name="mode"      value="$(arg mode)"/>
+    <!--<remap from="/imu" to="/imu_data"/>-->
+  </node>
+
+  <node if="$(eval with_filter == true)" name="imu_filter" pkg="imu_filter_madgwick" type="imu_filter_node">
+    <param name="use_mag"     value="false"/>
+    <param name="publish_tf"  value="false"/>
+    <param name="fixed_frame" value="$(arg parent_id)"/>
+    <remap from="/imu/data" to="/imu_data"/>
+  </node>
+  
+  <node if="$(eval with_rviz == true)" name="rviz" pkg="rviz" type="rviz" args="-d $(find adi_imu_tr_driver_ros1)/launch/imu.rviz"/>
+
+  <group ns="plot" if="$(eval with_plot == true and mode == 'Register')">
+    <node name="gyro" pkg="rqt_plot" type="rqt_plot" args="/imu/data_raw/angular_velocity/x:y:z"/>
+    <node name="accl" pkg="rqt_plot" type="rqt_plot" args="/imu/data_raw/linear_acceleration/x:y:z"/>
+  </group>
+
+</launch>

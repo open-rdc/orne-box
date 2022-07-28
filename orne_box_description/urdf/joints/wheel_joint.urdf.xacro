@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="wheel_joint" params="prefix parent *origin *axis">
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <parent link="${parent}"/>
+      <child link="wheel_${prefix}_link"/>
+      <xacro:insert_block name="origin"/>
+      <xacro:insert_block name="axis"/>
+      <limit effort="10.5" velocity="10.0" lower="-1e15" upper="1e15"/>
+      <dynamics damping="0.05"/>
+    </joint>
+    <transmission name="transmission_${prefix}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}_motor">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+</robot>

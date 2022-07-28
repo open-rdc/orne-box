@@ -1,0 +1,12 @@
+device: /dev/sensors/gnss/zed-f9p
+frame_id: gnss_link
+rate: 8
+nav_rate: 8
+
+dynamic_model: stationary 
+
+fix_mode: auto
+
+uart1:
+  baudrate: 38400
+config_on_startup: false
