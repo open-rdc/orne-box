@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="base_link">
+    <link name="base_link">
+      <visual>
+        <origin xyz="0.090 0 0.1715" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.400 0.404 0.202"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+      <visual>
+        <origin xyz="0.36125 0 0.2625" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1425 0.404 0.020"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+      <visual>
+        <origin xyz="0.35625 0 0.156" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1325 0.404 0.020"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+      <visual>
+        <origin xyz="-0.120 0 0.4815" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.020 0.404 0.822"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+      <collision>
+        <origin xyz="0.090 0 0.1715" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.400 0.404 0.202"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.36125 0 0.2625" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1425 0.404 0.020"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0.35625 0 0.156" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1325 0.404 0.020"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-0.120 0 0.4815" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.020 0.404 0.822"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.090 0 0.1715" rpy="0 0 0"/>
+        <mass value="25.0"/>
+        <inertia ixx="1.12" ixy="0.0" ixz="0.0" iyy="3.46" iyz="0.0" izz="3.9"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+</robot>

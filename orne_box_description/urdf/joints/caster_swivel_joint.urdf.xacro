@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="caster_swivel_joint" params="prefix parent *origin">
+    <joint name="${prefix}_caster_swivel_joint" type="continuous">
+      <parent link="${parent}"/>
+      <child link="${prefix}_caster_swivel_link"/>
+      <xacro:insert_block name="origin"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="0.0" velocity="0.0" lower="-1e15" upper="1e15"/>
+      <dynamics damping="0.01"/>
+    </joint>
+  </xacro:macro>
+</robot>
