@@ -29,7 +29,7 @@ TrajecotryPlannerROS:
   heading_lookahead: 0.325
   heading_scoring: false
   heading_scoring_timestep: 0.8
-  dwa: false
+  dwa: true
   publish_cost_grid_pc: false
   global_frame_id: odom
   oscillation_reset_dist: 0.05

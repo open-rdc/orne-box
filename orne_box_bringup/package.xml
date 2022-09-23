@@ -14,7 +14,7 @@
   <build_depend>param_io</build_depend>
   <exec_depend>joy</exec_depend>
   <exec_depend>teleop_twist_joy</exec_depend>
-  <exec_depend>robot_pose_ekf</exec_depend>
+  <exec_depend>joy_teleop</exec_depend>
   <exec_depend>urg_node</exec_depend>
   <exec_depend>pcl_ros</exec_depend>
   <exec_depend>move_base</exec_depend>

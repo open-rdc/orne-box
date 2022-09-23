@@ -12,19 +12,19 @@ recovery_behaviors:
   - name: both_costmap_clear
     type: clear_costmap_recovery/ClearCostmapRecovery
 local_costmap_clear:
-  reset_distance: 1.0
+  reset_distance: 4.0
   force_updating: true
   affected_maps: local
   layer_names: 
     - local_obstacles_layer
 global_costmap_clear:
-  reset_distance: 0.0
+  reset_distance: 1.0
   force_updating: true
   affected_maps: global
   layer_names: 
     - global_obstacles_layer
 both_costmap_clear:
-  reset_distance: 0.0
+  reset_distance: 2.0
   force_updating: true
   affected_maps: both
   layer_names: 

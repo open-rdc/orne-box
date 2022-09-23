@@ -4,12 +4,12 @@
 # Configuration by NaokiTakahashi12
 laser_scan_layer:
   enabled: true
-  obstacle_range: 3.5
-  raytrace_range: 1.5
+  obstacle_range: 10.5
+  raytrace_range: 10.5
   inflation_radius: 1.2
   combination_method: 1
-  observation_sources: laser_scan
-  laser_scan:
+  observation_sources: 2d_lidar_laser_scan 3d_lidar_laser_scan
+  2d_lidar_laser_scan:
     data_type: LaserScan
     sensor_frame: base_link
     marking: true
@@ -17,12 +17,21 @@ laser_scan_layer:
     inf_is_valid: true
     min_obstacle_height: 0.1
     max_obstacle_height: 30.0
-    topic: /hokuyo_scan
+    topic: hokuyo_scan
+  3d_lidar_laser_scan:
+    data_type: LaserScan
+    sensor_frame: base_link
+    marking: true
+    clearing: true
+    inf_is_valid: true
+    min_obstacle_height: 0.1
+    max_obstacle_height: 30.0
+    topic: velodyne_driver/scan
 local_cost_cloud_layer:
   enabled: true
-  obstacle_range: 7.5
-  raytrace_range: 3.5
-  inflation_radius: 1.7
+  obstacle_range: 10.5
+  raytrace_range: 10.5
+  inflation_radius: 1.2
   combination_method: 1
   observation_sources: cost_cloud
   cost_cloud:
@@ -35,7 +44,7 @@ local_cost_cloud_layer:
     max_obstacle_height: .inf
     topic: /cost_cloud_process/cost_cloud
 global_cost_cloud_layer:
-  enabled: true
+  enabled: false
   obstacle_range: 3.5
   raytrace_range: 3.5
   inflation_radius: 0.4

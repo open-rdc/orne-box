@@ -18,7 +18,7 @@ global_costmap:
       type: costmap_2d::StaticLayer
     - name: global_cost_cloud_layer
       type: costmap_2d::ObstacleLayer
-    - name: laser_scan_layer
-      type: costmap_2d::ObstacleLayer
+      #- name: laser_scan_layer
+      #type: costmap_2d::ObstacleLayer
     - name: inflation_layer
       type: costmap_2d::InflationLayer
