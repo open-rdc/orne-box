@@ -52,10 +52,10 @@
     <origin xyz="0.374295 0 0.2185" rpy="${-PI} 0 0"/>
   </xacro:sensor_hokuyo>
 
-  <joint name="lidar_with_mirror_prismatic_joint" type="prismatic">
+  <joint name="lidar_with_mirror_prismatic_joint" type="fixed">
     <parent link="base_link"/>
     <child link="lidar_with_mirror_prismatic_link"/>
-    <origin xyz="1.0 0 0.3" rpy="0 0 0"/>
+    <origin xyz="-0.15 0 0.56" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100.0" lower="-0.3" upper="1" />
   </joint>
@@ -67,7 +67,7 @@
     </inertial>
   </link>
 
-  <joint name="lidar_with_mirror_pitch_joint" type="revolute">
+  <joint name="lidar_with_mirror_pitch_joint" type="fixed">
     <parent link="lidar_with_mirror_prismatic_link"/>
     <child link="lidar_with_mirror_pitch_link"/>
     <origin xyz="0 0 0" rpy="0 ${PI/9} 0"/>
@@ -82,7 +82,7 @@
     </inertial>
   </link>
 
-  <joint name="lidar_with_mirror_roll_joint" type="revolute">
+  <joint name="lidar_with_mirror_roll_joint" type="fixed">
     <parent link="lidar_with_mirror_pitch_link"/>
     <child link="lidar_with_mirror_roll_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -106,7 +106,7 @@
     <origin xyz="${front} 0 ${height}" rpy="0 0 0"/>
   </xacro:sensor_hokuyo>
 
-  <joint name="lidar_with_mirror_mirror1_roll_joint" type="revolute">
+  <joint name="lidar_with_mirror_mirror1_roll_joint" type="fixed">
     <parent link="lidar_with_mirror_center_link"/>
     <child link="lidar_with_mirror_mirror1_roll_link"/>
     <origin xyz="0 ${len} 0" rpy="${-PI/4} 0 0"/>
@@ -126,7 +126,7 @@
     <origin xyz="0 ${-len} 0" rpy="0 0 0"/>
   </xacro:sensor_hokuyo>
 
-  <joint name="lidar_with_mirror_mirror2_roll_joint" type="revolute">
+  <joint name="lidar_with_mirror_mirror2_roll_joint" type="fixed">
     <parent link="lidar_with_mirror_center_link"/>
     <child link="lidar_with_mirror_mirror2_roll_link"/>
     <origin xyz="0 ${-len} 0" rpy="${PI/4} 0 0"/>
