@@ -15,7 +15,14 @@
   <arg name="cloud_source" default="/rfans_points"/>
   <arg name="output" default="screen"/>
 
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg model)'"/>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <rosparam param="source_list">["joint_states"]</rosparam>
+  </node>
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
   
   <rosparam file="$(find orne_box_simulations)/config/controller_box.yaml" command="load"/>
 

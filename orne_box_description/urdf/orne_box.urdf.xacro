@@ -52,7 +52,7 @@
     <origin xyz="0.374295 0 0.2185" rpy="${-PI} 0 0"/>
   </xacro:sensor_hokuyo>
 
-    <joint name="lidar_with_mirror_prismatic_joint" type="prismatic">
+  <joint name="lidar_with_mirror_prismatic_joint" type="prismatic">
     <parent link="base_link"/>
     <child link="lidar_with_mirror_prismatic_link"/>
     <origin xyz="1.0 0 0.3" rpy="0 0 0"/>

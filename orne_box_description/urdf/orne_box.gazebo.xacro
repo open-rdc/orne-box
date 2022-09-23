@@ -98,7 +98,7 @@
       </sensor>
       <material>Gazebo/Black</material>
     </gazebo>
-<gazebo reference="lidar_with_mirror_center_link">
+  <gazebo reference="lidar_with_mirror_center_link">
     <sensor type="ray" name="lidar_with_mirror_center_sensor">
       <pose>0 0 0 0 0 0</pose>
       <visualize>$(arg laser_visual)</visualize>
@@ -115,7 +115,7 @@
         <range>
           <min>0.10</min>
           <max>5.60</max>
-          <resolution>0.001</resolution>
+          <resolution>0.01</resolution>
         </range>
         <noise>
           <type>gaussian</type>
@@ -133,7 +133,6 @@
       </plugin>
     </sensor>
   </gazebo>
-
   <gazebo reference="lidar_with_mirror_left_link">
     <sensor type="ray" name="lidar_with_mirror_left_sensor">
       <pose>0 0 0 0 0 0</pose>
@@ -169,7 +168,6 @@
       </plugin>
     </sensor>
   </gazebo>
-
   <gazebo reference="lidar_with_mirror_right_link">
     <sensor type="ray" name="lidar_with_mirror_right_sensor">
       <pose>0 0 0 0 0 0</pose>
@@ -206,6 +204,8 @@
     </sensor>
   </gazebo> 
   </xacro:if>
+
+  
   <xacro:if value="$(arg ignition_gazebo)">
     <gazebo>
       <static>false</static>
