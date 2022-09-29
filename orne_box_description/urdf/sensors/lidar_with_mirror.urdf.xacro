@@ -1,0 +1,260 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" name="lidar_with_mirror">
+  <xacro:include filename="$(find orne_box_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:macro name="lidar_with_mirror" params="name parent *origin left_roll_rad left_pitch_rad left_distance_m right_roll_rad right_pitch_rad right_distance_m">
+    <joint name="${name}_joint" type="fixed">
+      <axis xyz="0 0 1"/>
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+    <link name="${name}_link">
+      <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="0.01"/>
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+      </inertial>
+    </link>
+    <xacro:sensor_hokuyo name="${name}_center" parent="${name}_link" size="0.05 0.05 0.05">
+      <origin xyz="0 0 0" rpy="${PI} 0 0"/>
+    </xacro:sensor_hokuyo>
+    <joint name="${name}_mirror1_prismatic_joint" type="prismatic">
+      <parent link="${name}_center_link"/>
+      <child link="${name}_mirror1_prismatic_link"/>
+      <origin xyz="0 ${right_distance_m} 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100" velocity="100.0" lower="-1" upper="1" />
+    </joint>
+
+    <link name="${name}_mirror1_prismatic_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_mirror1_pitch_joint" type="revolute">
+      <parent link="${name}_mirror1_prismatic_link"/>
+      <child link="${name}_mirror1_yaw_link"/>
+      <origin xyz="0 0 0" rpy="0 ${right_pitch_rad} 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100" velocity="100.0" lower="${-PI}" upper="${PI}" />
+    </joint>
+    <link name="${name}_mirror1_yaw_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_mirror1_roll_joint" type="revolute">
+      <parent link="${name}_mirror1_yaw_link"/>
+      <child link="${name}_mirror1_roll_link"/>
+      <origin xyz="0 0 0" rpy="${right_roll_rad} 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="100" velocity="100.0" lower="${-PI}" upper="${PI}" />
+    </joint>
+    <link name="${name}_mirror1_roll_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_mirror1_prismatic2_joint" type="prismatic">
+      <parent link="${name}_mirror1_roll_link"/>
+      <child link="${name}_mirror1_prismatic2_link"/>
+      <origin xyz="0 -${right_distance_m} 0" rpy="0 0 0"/>
+      <axis xyz="0 -1 0"/>
+      <limit effort="100" velocity="100.0" lower="-1" upper="1" />
+    </joint>
+    <link name="${name}_mirror1_prismatic2_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <xacro:sensor_hokuyo name="${name}_right" parent="${name}_mirror1_prismatic2_link" size="0.05 0.05 0.05">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:sensor_hokuyo>
+
+    <joint name="${name}_mirror2_prismatic_joint" type="prismatic">
+      <parent link="${name}_center_link"/>
+      <child link="${name}_mirror2_prismatic_link"/>
+      <origin xyz="0 ${-left_distance_m} 0" rpy="0 0 0"/>
+      <axis xyz="0 -1 0"/>
+      <limit effort="100" velocity="100.0" lower="-1" upper="1" />
+    </joint>
+    <link name="${name}_mirror2_prismatic_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_mirror2_pitch_joint" type="revolute">
+      <parent link="${name}_mirror2_prismatic_link"/>
+      <child link="${name}_mirror2_yaw_link"/>
+      <origin xyz="0 0 0" rpy="0 ${left_pitch_rad} 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100" velocity="100.0" lower="${-PI}" upper="${PI}" />
+    </joint>
+    <link name="${name}_mirror2_yaw_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_mirror2_roll_joint" type="revolute">
+      <parent link="${name}_mirror2_yaw_link"/>
+      <child link="${name}_mirror2_roll_link"/>
+      <origin xyz="0 0 0" rpy="-${left_roll_rad} 0 0"/>
+      <axis xyz="-1 0 0"/>
+      <limit effort="100" velocity="100.0" lower="${-PI}" upper="${PI}" />
+    </joint>
+    <link name="lidar_with_mirror_mirror2_roll_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <joint name="${name}_mirror2_prismatic2_joint" type="prismatic">
+      <parent link="${name}_mirror2_roll_link"/>
+      <child link="${name}_mirror2_prismatic2_link"/>
+      <origin xyz="0 ${left_distance_m} 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100" velocity="100.0" lower="-1" upper="1" />
+    </joint>
+    <link name="${name}_mirror2_prismatic2_link">
+      <inertial>
+        <origin xyz="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+      </inertial>
+    </link>
+
+    <xacro:sensor_hokuyo name="${name}_left" parent="${name}_mirror2_prismatic2_link" size="0.05 0.05 0.05">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:sensor_hokuyo>
+
+    <transmission name="tran6">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror2_roll_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror2_roll_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran7">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_prismatic_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_prismatic_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran8">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="caster_front_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="caster_front_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran9">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="wheel_hinge">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="wheel_hinge_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran10">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror1_prismatic_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror1_prismatic_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran11">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror2_prismatic_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror2_prismatic_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran12">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror1_prismatic2_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror1_prismatic2_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran13">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror2_prismatic2_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror2_prismatic2_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran14">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror1_pitch_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror1_pitch_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran15">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lidar_with_mirror_mirror2_pitch_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lidar_with_mirror_mirror2_pitch_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+</robot>

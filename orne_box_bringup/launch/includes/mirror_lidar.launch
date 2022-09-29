@@ -11,7 +11,7 @@
     <remap from="scan" to="$(arg scan_topic)"/>
     <param name="frame_id" value="$(arg scan_frame)"/>
     <param name="ip_address"  value="$(arg urg_ip)" if="$(arg use_eth_urg)"/>
-    <param name="serial_port" value="/dev/ttyACM1"/>
+    <param name="serial_port" value="/dev/ttyACM2"/>
     <param name="publish_multiecho" value="false"/>
     <param name="angle_min" value="-1.57"/>
     <param name="angle_max" value="1.57"/>
