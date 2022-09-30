@@ -56,7 +56,7 @@
   </xacro:sensor_hokuyo>
   <!-- Setting for mirror_lidar -->
   <xacro:lidar_with_mirror name="lidar_with_mirror" parent="base_link" left_roll_rad="0.769999299112962" left_pitch_rad="-0.05" left_distance_m="0.073124500184212" right_roll_rad="0.787426157712581" right_pitch_rad="-0.05" right_distance_m="0.072588298861567">
-    <origin xyz="-0.15 0 0.56" rpy="0 0 0"/>
+    <origin xyz="-0.15 0 0.56" rpy="0 ${PI/12} 0"/>
   </xacro:lidar_with_mirror>
 
 </robot>

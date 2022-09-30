@@ -14,14 +14,14 @@ local_obstacles_layer:
     inf_is_valid: true
     min_obstacle_height: &local_min_obstacle_height -0.1
     max_obstacle_height: &local_max_obstacle_height 20.0
-    topic: scan
+    topic: hokuyo_sca
   mirror_lidar_scan:
     data_type: LaserScan
-    #sensor_frame: lidar_with_mirror_estimated_link
-    sensor_frame: lidar_with_mirror_center_link
+    sensor_frame: lidar_with_mirror_estimated_center_link
+    #sensor_frame: lidar_with_mirror_center_link
     Marking: true
     clearing: false
-    min_obstacle_height: 0.07
+    min_obstacle_height: 0.05
     max_obstacle_height: 20.0
     #topic: transformed_point_cloud_front
     topic: scan_front
@@ -40,7 +40,7 @@ global_obstacles_layer:
     inf_is_valid: true
     min_obstacle_height: &global_min_obstacle_height 0.1
     max_obstacle_height: &global_max_obstacle_height 30.0
-    topic: scan
+    topic: hokuyo_scan
 planner_map_layer:
   enabled: true
   use_maximum: true
