@@ -16,6 +16,7 @@
 
   <!-- Setting for base -->
   <xacro:base_link/>
+
   <!-- Setting for caster -->
   <xacro:caster_wheel_link prefix="left"/>
   <xacro:caster_swivel_link prefix="left"/>
