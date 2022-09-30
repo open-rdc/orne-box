@@ -6,6 +6,7 @@
     <joint name="${name}_joint" type="fixed">
       <axis xyz="0 0 1"/>
       <parent link="${parent}"/>
+      <xacro:insert_block name="origin"/>
       <child link="${name}_link"/>
     </joint>
     <link name="${name}_link">
