@@ -84,5 +84,19 @@
       </plugin>
     </sensor>
   </gazebo>
+  <link name="gps_link" />
+  <joint name="gps_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="gps_link" />
+  </joint>
+  <gazebo>  
+    <plugin name="gps" filename="libhector_gazebo_ros_gps.so">  
+      <updateRate>10.0</updateRate>  
+      <topicName>gps/fix</topicName>  
+      <gaussianNoise>0.0 0.0 0.0</gaussianNoise>  
+      <offset>0 0 0</offset>  
+      <velocityGaussianNoise>0 0 0</velocityGaussianNoise>  
+      <frameId>gps_link</frameId>  
+    </plugin>  
+  </gazebo>
 </robot>
-

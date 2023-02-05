@@ -4,7 +4,12 @@
         <arg name="model" value="$(find xacro)/xacro.py '$(find orne_box_description)/urdf/orne_box.urdf.xacro'"/>
         <arg name="world" value="$(find icart_mini_gazebo)/worlds/Tsudanuma_2-3.world"/>
     </include>
-
-    <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node">
+        <rosparam file="$(find orne_box_navigation_executor)/param/navsat_transform_template.yaml" command="load"/>
+    </node>
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_node">
+        <rosparam file="$(find orne_box_navigation_executor)/param/ekf_template.yaml" command="load"/>
+        <remap from="/cmd_vel" to="/icart_mini/cmd_vel" />
+    </node>
 </launch>
 
