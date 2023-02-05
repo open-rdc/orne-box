@@ -65,7 +65,7 @@
         </scan>
         <range>
           <min>0.10</min>
-          <max>30.0</max>
+          <max>1.0</max>
           <resolution>0.01</resolution>
         </range>
         <noise>
@@ -84,6 +84,7 @@
       </plugin>
     </sensor>
   </gazebo>
+
   <link name="gps_link" />
   <joint name="gps_joint" type="fixed">
     <parent link="base_link" />
