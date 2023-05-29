@@ -72,13 +72,14 @@
       </sensor>
     </gazebo>
   </xacro:if>
-  <xacro:include filename="$(find orne_box_description)/urdf/sensors/gnss.urdf.xacro"/>
+  
+  <xacro:include filename="$(find orne_box_description)/urdf/sensors/gnss.urdf.xacro"/> -->
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/camera.urdf.xacro"/>
-  <!-- Setting for GNSS -->
+ 
   <xacro:sensor_gnss name="gnss" parent="base_link">
     <origin xyz="-0.12 0.12 0.9" rpy="0 0 0"/>
   </xacro:sensor_gnss>
-  <!-- Setting for Camera -->
+
   <xacro:sensor_camera name="camera" parent="base_link">
     <origin xyz="-0.08 0.0 0.8" rpy="0 0.38 0"/>
   </xacro:sensor_camera>
