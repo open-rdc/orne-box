@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# Author : Daiki Maekawa
+# Author: Daiki Maekawa
 
 echo ""
-echo "Bring up the usb modules connection"
+echo "Bring up the USB modules connection"
 echo ""
 
-sudo cp `rospack find orne_box_setup`/config/70-sensors.rules /etc/udev/rules.d
+sudo cp "$(ros2 pkg prefix orne_box_setup)"/config/70-sensors.rules /etc/udev/rules.d
 
 echo ""
 echo "Restarting udev"
@@ -14,3 +14,5 @@ echo ""
 
 sudo service udev reload
 sudo service udev restart
+
+
