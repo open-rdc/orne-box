@@ -3,7 +3,7 @@
 # Author : open-rdc
 
 echo ""
-echo "Bring up the usb modules connection"
+echo "Bring up the USB modules connection"
 echo ""
 
 sudo cp "$(ros2 pkg prefix orne_box_setup)"/share/orne_box_setup/config/70-sensors.rules /etc/udev/rules.d
