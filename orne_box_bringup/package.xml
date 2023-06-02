@@ -1,24 +1,28 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>orne_box_bringup</name>
   <version>0.1.0</version>
-  <description>The orne_box_bringup package</description>
-  <maintainer email="taishi@todo.todo">taishi</maintainer>
+  <description>ROS 2 wrapper for ypspur </description>
+  <maintainer email="HOGEHOGE@gmail.com">opne-rdc</maintainer>
   <license>BSD</license>
-  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- <buildtool_depend>ament_cmake</buildtool_depend> -->
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <depend>ros2launch</depend>
+  <depend>rclcpp</depend>
   <depend>geometry_msgs</depend>
-  <depend>move_base_msgs</depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>tf2_eigen</build_depend>
-  <build_depend>tf2_ros</build_depend>
-  <build_depend>param_io</build_depend>
-  <exec_depend>joy</exec_depend>
-  <exec_depend>teleop_twist_joy</exec_depend>
-  <exec_depend>joy_teleop</exec_depend>
-  <exec_depend>urg_node</exec_depend>
-  <exec_depend>pcl_ros</exec_depend>
-  <exec_depend>move_base</exec_depend>
-  <exec_depend>nodelet</exec_depend>
-  <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>robot_localization</exec_depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend version_gte="1.20.0">ypspur</depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

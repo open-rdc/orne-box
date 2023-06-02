@@ -1,0 +1,7 @@
+/**:
+  ros__parameters:
+    device: "/dev/ttyACM0"
+    frame_id: "imu"
+    burst_mode: true
+    publish_temperature: true
+    rate: 100.0

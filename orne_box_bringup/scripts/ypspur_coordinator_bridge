@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Author : Haruyama kenta
+
+# Please selsect device 
+
+#device is ttyACM0
+#sudo chmod 777 /dev/ttyACM0
+#ypspur-coordinator -p $1 -d /dev/ttyACM0
+
+#devide is icart
+ypspur-coordinator -p $1 -d /dev/sensors/icart-mini --reconnect --high-resolution
+echo "robot parameters [$1] loaded"
