@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>orne_box</name>
   <version>0.1.0</version>
-  <description>The orne-box package(meta package)</description>
-  <maintainer email="taishi@todo.todo">taishi</maintainer>
+  <description>The orne-box package (meta package)</description>
+  <maintainer email="hoge@todo.todo">open-rdc</maintainer>
   <license>BSD</license>
-  <buildtool_depend>catkin</buildtool_depend>
-  <exec_depend>orne_box_description</exec_depend>
-  <exec_depend>orne_box_bringup</exec_depend>
-  <exec_depend>orne_box_navigation_executor</exec_depend>
-  <exec_depend>orne_box_simulations</exec_depend>
-  <export><metapackage/></export>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>orne_box_description</depend>
+  <depend>orne_box_bringup</depend>
+  <depend>orne_box_setup</depend>
+  <!-- <depend>orne_box_navigation_executor</depend> -->
+  <depend>orne_box_simulation</depend>
+  <export></export>
 </package>
