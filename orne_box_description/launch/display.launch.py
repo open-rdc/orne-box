@@ -9,7 +9,7 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
 
     packages_name = "orne_box_description"
-    xacro_file_name = "orne_box.urdf.xacro"
+    xacro_file_name = "orne_box_3d_lidar.urdf.xacro"
     rviz_file_name = "urdf.rviz"
 
     # Get URDF via xacro
