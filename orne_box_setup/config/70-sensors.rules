@@ -1,4 +1,4 @@
-SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]", ACTION=="add", ATTRS{idVendor}=="15d1", ATTRS{idProduct}=="0000", PROGRAM="/opt/ros/noetic/env.sh rosrun urg_node getID %N q", MODE="666", SYMLINK+="sensors/hokuyo_$result", GROUP="dialout"
+SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]", ACTION=="add", ATTRS{idVendor}=="15d1", ATTRS{idProduct}=="0000", PROGRAM="ros2 run urg_node getID %N q", MODE="666", SYMLINK+="sensors/hokuyo_$result", GROUP="dialout"
 SUBSYSTEMS=="usb", KERNEL=="ttyACM*", ACTION=="add", ATTRS{product}=="T-frog Driver", MODE="666", SYMLINK+="sensors/icart-mini", GROUP="dialout"
 SUBSYSTEMS=="usb", KERNEL=="ttyACM*", ACTION=="add", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="666", SYMLINK+="sensors/imu", GROUP="dialout"
 SUBSYSTEMS=="usb", KERNEL=="ttyACM*", ACTION=="add", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="ffee", MODE="666", SYMLINK+="sensors/imu16465", GROUP="dialout"
