@@ -1,28 +1,18 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(orne_box_navigation_executor)
 
-find_package(catkin REQUIRED COMPONENTS
-  move_base_msgs
-  geometry_msgs
-  move_base
-  roscpp
-  actionlib_msgs
-  actionlib
-  tf
-  std_msgs
-)
+# find dependencies
+find_package(ament_cmake_auto REQUIRED)
 
-find_package(PkgConfig)
-pkg_search_module(yaml-cpp REQUIRED yaml-cpp)
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+ 
+  ament_lint_auto_find_test_dependencies()
+endif()
 
-catkin_package(
-  #INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-)
+ament_package()
 
-include_directories(
-  #include 
-  ${catkin_INCLUDE_DIRS}
-  ${yaml-cpp_INCLUDE_DIRS}
-)
-
+install(DIRECTORY
+  launch
+  config
+  DESTINATION share/${PROJECT_NAME})
