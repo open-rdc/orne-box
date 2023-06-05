@@ -1,6 +1,6 @@
 /**:
   ros__parameters:
-    device: "/dev/ttyACM0"
+    device: "/dev/sensors/adis16465"
     frame_id: "imu"
     burst_mode: true
     publish_temperature: true

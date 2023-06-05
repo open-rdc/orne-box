@@ -211,7 +211,7 @@ class Icart_mini_driver : public rclcpp::Node
       }
       else
       {
-          RCLCPP_WARN(this->get_logger(),"Disconnected ypspur");
+          RCLCPP_WARN(this->get_logger(),"Disconnected ypspur reconnect ypspur");
           bringup_ypspur();
           return false;
       }
