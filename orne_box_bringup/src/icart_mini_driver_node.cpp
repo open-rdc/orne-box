@@ -208,7 +208,6 @@ class Icart_mini_driver : public rclcpp::Node
     //main loop function
     bool Icart_mini_driver::loop()    
     {
-      RCLCPP_WARN(this->get_logger(),"loop now");
       if (!YP_get_error_state())
       {
           odometry();
