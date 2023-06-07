@@ -2,13 +2,13 @@
 #include "geometry_msgs/msg/twist.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
-
+// #include <memory>
 #include <tf2/utils.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/transform_listener.h>
-
+#include <chrono>
 
 #include <ypspur.h>
 
@@ -22,6 +22,8 @@ class Icart_mini_driver : public rclcpp::Node
             tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
             cmd_vel_sub_ = this->create_subscription<geometry_msgs::msg::Twist>(
                 "cmd_vel", 10, std::bind(&Icart_mini_driver::cmd_vel_cb, this, std::placeholders::_1));
+            loop_timer_ = this->create_wall_timer(std::chrono::milliseconds(10), std::bind(&Icart_mini_driver::loop, this));
+           
         }
         void read_param();
         void reset_param();
@@ -36,17 +38,20 @@ class Icart_mini_driver : public rclcpp::Node
         int loop_hz;
         double liner_vel_lim,liner_accel_lim,angular_vel_lim,angular_accel_lim;
         bool odom_from_ypspur, debug_mode=false;
+        // loop_ms_ = std::chrono::milliseconds{loop_hz};
+        
     private:
         geometry_msgs::msg::Twist::SharedPtr cmd_vel_ = std::make_shared<geometry_msgs::msg::Twist>();
         rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
         rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
         rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr js_pub_;
+        rclcpp::TimerBase::SharedPtr loop_timer;
         sensor_msgs::msg::JointState js;
         nav_msgs::msg::Odometry odom;
         float dt = 1.0 / loop_hz;
         double tf_time_offset_ = 0.0; 
+        rclcpp::TimerBase::SharedPtr loop_timer_;
         tf2::Vector3 z_axis_;
-        
         std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
         geometry_msgs::msg::TransformStamped odom_trans;
 
@@ -201,41 +206,40 @@ class Icart_mini_driver : public rclcpp::Node
     }
    
     //main loop function
-    bool Icart_mini_driver::loop()
+    bool Icart_mini_driver::loop()    
     {
+      RCLCPP_WARN(this->get_logger(),"loop now");
       if (!YP_get_error_state())
       {
           odometry();
           joint_states();
      
       }
+      
       else
       {
           RCLCPP_WARN(this->get_logger(),"Disconnected ypspur reconnect ypspur");
           bringup_ypspur();
           return false;
       }
-
      return true;
     }
+    
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 //   Icart_mini_driver icart;
   auto icart = std::make_shared<Icart_mini_driver>();
-
-  rclcpp::WallRate looprate(icart->loop_hz);
   icart->read_param();
   icart->reset_param();
   icart->bringup_ypspur();
     
-  while (rclcpp::ok())
-  {
-    icart->loop();
-    rclcpp::spin_some(icart);
-    looprate.sleep();
-  }
-  
+  // while (rclcpp::ok())
+  // {
+  //   icart->loop();
+  //   rclcpp::spin_some(icart);
+  // }
+  rclcpp::spin(icart);
   return 0;
 }
