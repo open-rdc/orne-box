@@ -11,7 +11,7 @@ def generate_launch_description():
 
     #for ypspur param file ex.RADIUS,TREAD
     # ypspur_param = os.path.join(icart_mini_driver_dir,'config/ypspur','icart_mini.param')
-    ypspur_param = os.path.join(icart_mini_driver_dir,'config/ypspur','box_v3.param')
+    ypspur_param = os.path.join(icart_mini_driver_dir,'config/ypspur','box_v2.param')
     
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_bringup'), 'launch') 
     launch_include_file_dir = os.path.join(get_package_share_directory('orne_box_bringup'), 'launch/include') 
@@ -52,28 +52,35 @@ def generate_launch_description():
         launch.actions.LogInfo(
             msg="Launch robot_description  node."
         ),
+          IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [launch_include_file_dir, '/teleop.launch.py'])
+        ),
+        launch.actions.LogInfo(
+            msg="Launch joy node."
+        ),
         #mixed wheel_odom and other (IMU etc..)
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/robot_localization_ekf.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch robot_localization_ekf node."
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/robot_localization_ekf.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch robot_localization_ekf node."
+        # ),
 
-        # sensors
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/urg_node2.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch URG  node."
-        ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/adis16465.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch IMU node."
-        )
+        # # sensors
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/urg_node2.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch URG  node."
+        # ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/adis16465.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch IMU node."
+        # )
     ])

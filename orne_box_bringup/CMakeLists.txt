@@ -37,6 +37,5 @@ endif()
   config
   launch
   scripts
-  src
 
 )
