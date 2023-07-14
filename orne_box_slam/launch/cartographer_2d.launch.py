@@ -13,7 +13,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     cartographer_prefix = get_package_share_directory('orne_box_slam')
     cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
-                                                  cartographer_prefix, 'config'))
+                                                  cartographer_prefix, 'config','cartographer'))
     configuration_basename = LaunchConfiguration('configuration_basename',
                                                  default='box_lds_2d.lua')
 
@@ -21,7 +21,7 @@ def generate_launch_description():
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
 
     rviz_config_dir = os.path.join(get_package_share_directory('orne_box_slam'),
-                                   'config', 'cartographer.rviz')
+                                   'config', 'rviz','cartographer.rviz')
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -44,8 +44,9 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-configuration_directory', cartographer_config_dir,
-                       '-configuration_basename', configuration_basename]),
-
+                       '-configuration_basename', configuration_basename],
+            remappings=[('/scan','/rfans_scan')]
+            ),
         DeclareLaunchArgument(
             'resolution',
             default_value=resolution,
