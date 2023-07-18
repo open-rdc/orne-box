@@ -1,16 +1,3 @@
-# Copyright 2023 RT Corporation
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 import os
 
@@ -22,7 +9,8 @@ from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from nav2_common.launch import RewrittenYaml
-
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
     namespace = LaunchConfiguration('namespace')
@@ -32,7 +20,7 @@ def generate_launch_description():
     slam_toolbox_params_file = LaunchConfiguration('slam_toolbox_params_file')
     use_respawn = LaunchConfiguration('use_respawn')
     log_level = LaunchConfiguration('log_level')
-
+    launch_include_file_dir = os.path.join(get_package_share_directory('orne_box_bringup'), 'launch/include') 
     declare_namespace = DeclareLaunchArgument(
         'namespace',
         default_value='',
@@ -108,7 +96,11 @@ def generate_launch_description():
         output='log',
         arguments=['-d', rviz_config_file],
         condition=IfCondition(use_rviz))
-
+    
+    description_launch = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [launch_include_file_dir, '/description.launch.py'])
+        )
     ld = LaunchDescription()
 
     ld.add_action(declare_namespace)
@@ -123,6 +115,7 @@ def generate_launch_description():
     ld.add_action(lifecycle_manager)
 
     ld.add_action(slam_toolbox)
+    ld.add_action(description_launch)
     ld.add_action(rviz2)
 
     return ld

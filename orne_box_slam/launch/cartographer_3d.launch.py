@@ -15,7 +15,7 @@ def generate_launch_description():
     cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
                                                   cartographer_prefix, 'config','cartographer'))
     configuration_basename = LaunchConfiguration('configuration_basename',
-                                                 default='box_lds_2d.lua')
+                                                 default='box_lds_3d.lua')
 
     resolution = LaunchConfiguration('resolution', default='0.05')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
@@ -37,15 +37,26 @@ def generate_launch_description():
             default_value='false',
             description='Use simulation (Gazebo) clock if true'),
 
+        # Node(
+        #     package='cartographer_ros',
+        #     executable='cartographer_node',
+        #     name='cartographer_node',
+        #     output='screen',
+        #     parameters=[{'use_sim_time': use_sim_time}],
+        #     arguments=['-configuration_directory', cartographer_config_dir,
+        #                '-configuration_basename', configuration_basename],
+        #     remappings=[('/scan','/rfans_scan')]
+        #     ),
         Node(
-            package='cartographer_ros',
-            executable='cartographer_node',
-            name='cartographer_node',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time}],
+            package = 'cartographer_ros',
+            executable = 'cartographer_node',
+            parameters = [{'use_sim_time': LaunchConfiguration('use_sim_time')}],
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename],
-            remappings=[('/scan','/rfans_scan')]
+            remappings = [
+                ('points2', 'rfans/surestar_points'),
+                ('imu','imu/data_raw')],
+            output = 'screen'
             ),
         DeclareLaunchArgument(
             'resolution',

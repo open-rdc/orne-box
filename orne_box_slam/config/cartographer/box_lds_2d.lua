@@ -45,9 +45,10 @@ options = {
 }
 
 MAP_BUILDER.use_trajectory_builder_2d = true
+MAP_BUILDER.num_background_threads = 8
 
 TRAJECTORY_BUILDER_2D.min_range = 0.12
-TRAJECTORY_BUILDER_2D.max_range = 60
+TRAJECTORY_BUILDER_2D.max_range = 100
 TRAJECTORY_BUILDER_2D.missing_data_ray_length = 3.
 TRAJECTORY_BUILDER_2D.use_imu_data = false
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true 
@@ -57,9 +58,31 @@ TRAJECTORY_BUILDER_2D.ceres_scan_matcher.translation_weight = 12
 TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight  = 15
 TRAJECTORY_BUILDER_2D.ceres_scan_matcher.ceres_solver_options.use_nonmonotonic_steps =true
 
-POSE_GRAPH.optimize_every_n_nodes = 90
-POSE_GRAPH.constraint_builder.min_score = 0.65
-POSE_GRAPH.constraint_builder.global_localization_min_score = 0.7
+-- POSE_GRAPH --
+POSE_GRAPH.optimize_every_n_nodes = 200--90
+POSE_GRAPH.constraint_builder.sampling_ratio = 0.3
+POSE_GRAPH.constraint_builder.max_constraint_distance=15.
+POSE_GRAPH.constraint_builder.min_score = 0.55
+POSE_GRAPH.constraint_builder.global_localization_min_score = 0.3--0.6
+POSE_GRAPH.constraint_builder.loop_closure_translation_weight = 1.1e4
+POSE_GRAPH.constraint_builder.loop_closure_rotation_weight = 1e5
+POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.linear_search_window = 20--7 
+POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.angular_search_window = math.rad(30.)
+POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.branch_and_bound_depth = 7
+POSE_GRAPH.constraint_builder.ceres_scan_matcher.occupied_space_weight = 20.
+POSE_GRAPH.constraint_builder.ceres_scan_matcher.translation_weight  = 10.
+POSE_GRAPH.constraint_builder.ceres_scan_matcher.rotation_weight = 1.
+POSE_GRAPH.matcher_translation_weight = 5e2
+POSE_GRAPH.matcher_rotation_weight = 1.6e3
+POSE_GRAPH.optimization_problem.huber_scale = 1e1
+POSE_GRAPH.optimization_problem.acceleration_weight = 1.1e2
+POSE_GRAPH.optimization_problem.rotation_weight = 1.6e4
+POSE_GRAPH.optimization_problem.local_slam_pose_translation_weight = 1e7 --1e5
+POSE_GRAPH.optimization_problem.local_slam_pose_rotation_weight = 1e7 --1e5
+POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e3 --1e5
+POSE_GRAPH.optimization_problem.odometry_rotation_weight = 1e2 --1e5
+
+
 
 -- POSE_GRAPH.optimize_every_n_nodes = 0
 
