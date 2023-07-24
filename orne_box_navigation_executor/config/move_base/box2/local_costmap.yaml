@@ -15,6 +15,7 @@ local_costmap:
   resolution: 0.15
   resolution: 0.05
   always_send_full_costmap: true
+  inflation_radius: 0.3
   plugins:
     - name: local_obstacles_layer
       type: costmap_2d::ObstacleLayer
