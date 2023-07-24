@@ -12,6 +12,7 @@
     <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find orne_box_description)/urdf/orne_box_3d_lidar.urdf.xacro'" />
   </include>
   <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch"/>
+<<<<<<< Updated upstream
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>  
   <include file="$(find orne_box_bringup)/launch/includes/VLP16_points.launch"/>  
   <include file="$(find orne_box_bringup)/launch/includes/urg.launch"/>  
@@ -20,9 +21,17 @@
   <!--include file="$(find orne_box_bringup)/launch/includes/rfans16.launch"/-->
   <!--include file="$(find orne_box_bringup)/launch/includes/ublox_device.launch"/-->
   <include file="$(find zed_wrapper)/launch/zed_no_tf.launch" if="$(arg enable_zed)">
+=======
+  <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/urg.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/adis16465.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/rfans16.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/ublox_device.launch"/>
+  <!--include file="$(find zed_wrapper)/launch/zed_no_tf.launch" if="$(arg enable_zed)">
+>>>>>>> Stashed changes
     <arg name="camera_name" value="zed"/>
     <arg name="camera_model" value="zed"/>
-  </include>
+  </include-->
   <include file="$(find orne_box_bringup)/launch/includes/cost_cloud_postprocessor.launch">
     <arg name="cloud_source" default="/velodyne_driver/velodyne_points"/>
   </include>
