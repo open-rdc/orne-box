@@ -2,7 +2,7 @@
   <arg name="with_filter" default="true"/>
   <arg name="with_rviz" default="false"/>
   <arg name="with_plot" default="false"/>
-  <arg name="device" default="/dev/sensors/imu16465"/>
+  <arg name="device" default="/dev/sensors/imu"/>
   <arg name="frame_id" default="imu_link"/>
   <arg name="burst_read" default="false"/>
   <arg name="publish_temperature" default="false"/>
