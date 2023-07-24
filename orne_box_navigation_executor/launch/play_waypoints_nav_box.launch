@@ -6,8 +6,8 @@
   <arg name="init_pos_file" default="$(find orne_box_navigation_executor)/config/initial_pose_cfg/initial_pose.yaml"/>
   <arg name="odom_topic" default="odometry/filtered"/>
   <arg name="cmd_vel" default="cmd_vel"/>
-  <arg name="waypoint_config" default="$(find orne_box_navigation_executor)/config/waypoint_server/waypoint_server.yaml"/>
-
+  <arg name="waypoint_config" default="$(find orne_box_navigation_executor)/config/waypoint_server/waypoint_server.yaml"/> 
+  
   <include file="$(find orne_box_navigation_executor)/launch/move_base.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
     <arg name="map_file" value="$(arg map_file)"/>
@@ -15,12 +15,21 @@
     <arg name="cmd_vel" value="$(arg cmd_vel)"/>
   </include>
 
-  <include file="$(find orne_box_navigation_executor)/launch/amcl.launch">
+  <!--include file="$(find orne_box_navigation_executor)/launch/amcl.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
     <arg name="map_file" value="$(arg map_file)"/>
     <arg name="init_pos_file" value="$(arg init_pos_file)"/>
-  </include>
+  </include-->
 
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file).yaml"/>
+  
+  <include file="$(find emcl2)/launch/emcl2.launch">
+     <arg name="scan_topic" default="scan"/>	 
+     <arg name="initial_pose_x" default="-2.0"/>
+     <arg name="initial_pose_y" default="-0.5"/>
+     <arg name="initial_pose_a" default="0.0"/>
+  </include>
+	 
   <include file="$(find orne_box_navigation_executor)/launch/waypoint_server.launch">
     <arg name="config_file" value="$(arg waypoint_config)"/>
   </include>
