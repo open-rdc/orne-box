@@ -68,7 +68,7 @@ class Icart_mini_driver : public rclcpp::Node
     { 
       declare_parameter("odom_frame_id","odom");
       declare_parameter("base_frame_id","base_footprint");
-      declare_parameter("Hz",10);
+      declare_parameter("Hz",40);
       declare_parameter("left_wheel_joint","left_wheel_joint");
       declare_parameter("right_wheel_joint","right_wheel_joint");
       declare_parameter("liner_vel_lim",1.5);
@@ -230,15 +230,21 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
 //   Icart_mini_driver icart;
   auto icart = std::make_shared<Icart_mini_driver>();
+
   icart->read_param();
   icart->reset_param();
   icart->bringup_ypspur();
-    
-  // while (rclcpp::ok())
-  // {
-  //   icart->loop();
-  //   rclcpp::spin_some(icart);
-  // }
-  rclcpp::spin(icart);
+  rclcpp::Rate loop_rate(node->loop_hz());
+  //
+  while (rclcpp::ok())
+  {
+    icart->loop();
+    rclcpp::spin_some(icart);
+    loop_rate.sleep();
+
+  }
+  //
+  // rclcpp::spin(icart);
+  rclcpp::shutdown();
   return 0;
 }
