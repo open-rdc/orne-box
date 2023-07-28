@@ -136,8 +136,10 @@ class Icart_mini_driver : public rclcpp::Node
     //this function is set and pub joint_states
     void Icart_mini_driver::joint_states()
     {
-        rclcpp::Time js_t = this->now();
-        const rclcpp::Time current_stamp_js(js_t);
+        // rclcpp::Time js_t = this->now();
+        // const rclcpp::Time current_stamp_js(js_t);
+        rclcpp::Clock ros_clock(rcl_clock_type_t RCL_ROS_TIME);
+        rclcpp::Time current_stamp_js = ros_clock.now();
         double l_ang_pos{},r_ang_pos{},l_wheel_vel{},r_wheel_vel{};
         YP_get_wheel_ang(&l_ang_pos, &r_ang_pos);
         YP_get_wheel_vel(&l_wheel_vel, &r_wheel_vel);
@@ -157,8 +159,10 @@ class Icart_mini_driver : public rclcpp::Node
         z_axis_.setX(0);
         z_axis_.setY(0);
         z_axis_.setZ(1);
-        rclcpp::Time t = this->now();
-        const rclcpp::Time current_stamp(t);
+        // rclcpp::Time t = this->now();
+        // const rclcpp::Time current_stamp(t);
+        rclcpp::Clock ros_clock(rcl_clock_type_t RCL_ROS_TIME);
+        rclcpp::Time current_stamp = ros_clock.now();
         
         //compute odom from ypspur's function
         if (odom_from_ypspur)
