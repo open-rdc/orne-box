@@ -12,11 +12,8 @@
   <arg name="frame_id"    default="imu_link"/>
   <arg name="rate"        default="100"/>
 
-<<<<<<< Updated upstream
   <!--param name="robot_description" command="$(find xacro)/xacro '$(find adi_imu_tr_driver_ros1)/urdf/adis16470_breakout.urdf'" /-->
-=======
   <!--param name="robot_description" command="$(find xacro)/xacro inorder '$(find adi_imu_tr_driver_ros1)/urdf/adis16470_breakout.urdf'" /-->
->>>>>>> Stashed changes
 
   <node name="imu" pkg="adi_imu_tr_driver_ros1" type="adis_rcv_csv_node" output="screen">
     <param name="device"    value="$(arg device)"/>
