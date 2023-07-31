@@ -2,4 +2,5 @@
 # + 2021 Tsudanuma Challenge
 # + 2021 Tsukuba Challenge
 # Configuration by NaokiTakahashi12
-footprint: [[-0.6, -0.2775], [-0.6, 0.2775], [0.6, 0.2775], [0.6, -0.2775]]
+#footprint: [[-0.6, -0.2775], [-0.6, 0.2775], [0.6, 0.2775], [0.6, -0.2775]]
+footprint: [[-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775]]
