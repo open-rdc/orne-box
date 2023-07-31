@@ -11,6 +11,7 @@
   <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/urg.launch"/>
+  <include file="$(find orne_box_bringup)/launch/includes/low_urg.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/adis_rcv_csv_orne.launch"/>
   <!--include file="$(find orne_box_bringup)/launch/includes/ublox_device.launch"/-->
   <!--include file="$(find orne_box_bringup)/launch/includes/adis16465.launch"/-->
