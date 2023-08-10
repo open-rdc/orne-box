@@ -7,12 +7,13 @@ amcl:
     # alpha3: 0.2
     # alpha4: 0.2
     # alpha5: 0.2
-    #real
-    alpha1: 1.0
-    alpha2: 0.2
+    
+    alpha1: 0.6
+    alpha2: 0.1
     alpha3: 0.2
-    alpha4: 0.2
+    alpha4: 0.3
     alpha5: 0.2
+
     base_frame_id: "base_footprint"
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
@@ -44,7 +45,8 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
-    scan_topic: scan
+    # scan_topic: scan
+    scan_topic: surestar_scan
     set_initial_pose: true
     # always_reset_initial_pose: true
     initial_pose:
@@ -191,7 +193,8 @@ local_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /scan
+          # topic: /scan
+          topic: /surestar_scan
           max_obstacle_height: 2.0
           clearing: True
           marking: True
@@ -207,7 +210,8 @@ local_costmap:
         mark_threshold: 0
         observation_sources: scan
         scan:
-          topic: /scan
+          # topic: /scan
+          topic: /surestar_scan
           max_obstacle_height: 2.0
           clearing: True
           marking: True
@@ -246,7 +250,8 @@ global_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /scan
+          # topic: /scan
+          topic: /surestar_scan
           max_obstacle_height: 2.0
           clearing: True
           marking: True

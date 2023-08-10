@@ -11,7 +11,7 @@ def generate_launch_description():
 
     #for ypspur param file ex.RADIUS,TREAD
     # ypspur_param = os.path.join(icart_mini_driver_dir,'config/ypspur','icart_mini.param')
-    ypspur_param = os.path.join(icart_mini_driver_dir,'config/ypspur','box_v2.param')
+    ypspur_param = os.path.join(icart_mini_driver_dir,'config/ypspur','box_v3.param')
     
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_bringup'), 'launch') 
     launch_include_file_dir = os.path.join(get_package_share_directory('orne_box_bringup'), 'launch/include') 

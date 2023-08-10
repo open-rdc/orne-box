@@ -45,7 +45,7 @@ def generate_launch_description():
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename],
-            remappings=[('/scan','/rfans_scan')]
+            remappings=[('/scan','/surestar_scan')]
             ),
         DeclareLaunchArgument(
             'resolution',
