@@ -7,13 +7,12 @@ amcl:
     # alpha3: 0.2
     # alpha4: 0.2
     # alpha5: 0.2
-    
+    #real
     alpha1: 0.6
     alpha2: 0.1
     alpha3: 0.2
     alpha4: 0.3
     alpha5: 0.2
-
     base_frame_id: "base_footprint"
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
@@ -22,10 +21,10 @@ amcl:
     global_frame_id: "map"
     lambda_short: 0.1
     laser_likelihood_max_dist: 2.0
-    laser_max_range: 30.0
+    laser_max_range: 50.0
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
-    max_beams: 60
+    max_beams: 120
     max_particles: 2000
     min_particles: 500
     odom_frame_id: "odom"
@@ -40,18 +39,18 @@ amcl:
     tf_broadcast: true
     transform_tolerance: 1.0
     update_min_a: 0.2
-    update_min_d: 0.5
+    update_min_d: 0.2
     z_hit: 0.5
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
-    # scan_topic: scan
-    scan_topic: surestar_scan
-    set_initial_pose: true
+    #scan_topic: scan
+    scan_topic: /surestar_scan
+    set_initial_pose: false
     # always_reset_initial_pose: true
     initial_pose:
-      x: -5.4
-      y: 7.7
+      x: -61.4
+      y: -79.4
       z: 0.0
       yaw: 3.14
 
@@ -67,7 +66,7 @@ bt_navigator:
   ros__parameters:
     use_sim_time: True
     global_frame: map
-    robot_base_frame: base_link
+    robot_base_frame: base_footprint
     odom_topic: /odom
     enable_groot_monitoring: True
     groot_zmq_publisher_port: 1666
@@ -176,7 +175,7 @@ local_costmap:
       update_frequency: 5.0
       publish_frequency: 2.0
       global_frame: odom
-      robot_base_frame: base_link
+      robot_base_frame: base_footprint
       use_sim_time: True
       rolling_window: true
       width: 3
@@ -193,7 +192,7 @@ local_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          # topic: /scan
+         #topic: /scan
           topic: /surestar_scan
           max_obstacle_height: 2.0
           clearing: True
@@ -210,7 +209,7 @@ local_costmap:
         mark_threshold: 0
         observation_sources: scan
         scan:
-          # topic: /scan
+         #topic: /scan
           topic: /surestar_scan
           max_obstacle_height: 2.0
           clearing: True
@@ -239,7 +238,7 @@ global_costmap:
       update_frequency: 1.0
       publish_frequency: 1.0
       global_frame: map
-      robot_base_frame: base_link
+      robot_base_frame: base_footprint
       use_sim_time: True
       robot_radius: 0.3
       resolution: 0.05
@@ -250,7 +249,7 @@ global_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          # topic: /scan
+         #topic: /scan
           topic: /surestar_scan
           max_obstacle_height: 2.0
           clearing: True
