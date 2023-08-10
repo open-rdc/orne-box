@@ -45,13 +45,13 @@ def generate_launch_description():
             # parameters=[driver_param]
         ),
         #robot_state_publisher and joint_state_publisher
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/description.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch robot_description  node."
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/description.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch robot_description  node."
+        # ),
           IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [launch_include_file_dir, '/teleop.launch.py'])
