@@ -37,7 +37,7 @@ class Icart_mini_driver : public rclcpp::Node
         std::string right_wheel_joint;
         int loop_hz;
         double liner_vel_lim,liner_accel_lim,angular_vel_lim,angular_accel_lim;
-        bool odom_from_ypspur, debug_mode=false;
+        bool odom_from_ypspur, debug_mode=false,publish_odom_tf;
         // loop_ms_ = std::chrono::milliseconds{loop_hz};
         
     private:
@@ -77,6 +77,7 @@ class Icart_mini_driver : public rclcpp::Node
       declare_parameter("angular_accel_lim",3.14);
       declare_parameter("calculate_odom_from_ypspur",true);
       declare_parameter("debug_mode",false);
+      declare_parameter("publish_odom_tf",true);
       
       get_parameter("odom_frame_id",odom_frame_id);
       get_parameter("base_frame_id",base_frame_id);
@@ -89,6 +90,7 @@ class Icart_mini_driver : public rclcpp::Node
       get_parameter("Hz",loop_hz);
       get_parameter("calculate_odom_from_ypspur",odom_from_ypspur);
       get_parameter("debug_mode",debug_mode);
+      get_parameter("publish_odom_tf",publish_odom_tf);
       RCLCPP_INFO(this->get_logger(),"Set param!!");
       
     }
@@ -162,7 +164,7 @@ class Icart_mini_driver : public rclcpp::Node
         // rclcpp::Time t = this->now();
         // const rclcpp::Time current_stamp(t);
         rclcpp::Time current_stamp = rclcpp::Clock(RCL_ROS_TIME).now();
-        //compute odom from ypspur's function
+        //compute odom from ypspur function
         if (odom_from_ypspur)
         {
           
@@ -194,17 +196,18 @@ class Icart_mini_driver : public rclcpp::Node
         odom_pub_->publish(odom);
 
         //odom_tf
-        odom_trans.header.stamp = current_stamp + rclcpp::Duration::from_seconds(tf_time_offset_);
-        odom_trans.header.frame_id = odom_frame_id;
-        odom_trans.child_frame_id = base_frame_id;
-        odom_trans.transform.translation.x = x;
-        odom_trans.transform.translation.y = y;
-        odom_trans.transform.translation.z = 0;
-       odom_trans.transform.rotation = odom.pose.pose.orientation;
-        tf_broadcaster_->sendTransform(odom_trans);
+        if(publish_odom_tf)
+        {
+          odom_trans.header.stamp = current_stamp + rclcpp::Duration::from_seconds(tf_time_offset_);
+          odom_trans.header.frame_id = odom_frame_id;
+          odom_trans.child_frame_id = base_frame_id;
+          odom_trans.transform.translation.x = x;
+          odom_trans.transform.translation.y = y;
+          odom_trans.transform.translation.z = 0;
+          odom_trans.transform.rotation = odom.pose.pose.orientation;
+          tf_broadcaster_->sendTransform(odom_trans);
+        }
 
-        //if debug_mode
-        //if (debug_mode)
     }
    
     //main loop function
@@ -212,16 +215,15 @@ class Icart_mini_driver : public rclcpp::Node
     {
       if (!YP_get_error_state())
       {
-          odometry();
-          joint_states();
-     
+        odometry();
+        joint_states();
       }
       
       else
       {
-          RCLCPP_WARN(this->get_logger(),"Disconnected ypspur reconnect ypspur");
-          bringup_ypspur();
-          return false;
+        RCLCPP_WARN(this->get_logger(),"Disconnected ypspur reconnect ypspur");
+        bringup_ypspur();
+        return false;
       }
      return true;
     }
