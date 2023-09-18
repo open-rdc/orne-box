@@ -25,10 +25,10 @@ def generate_launch_description():
     param_file_name = 'nav2_params.yaml'
 
     param_dir = LaunchConfiguration(
-        'params',
+        'params_file',
         default=os.path.join(
             config_dir,
-            'param',
+            'params',
             param_file_name))
 
     rviz_config_dir = os.path.join(
@@ -43,7 +43,7 @@ def generate_launch_description():
             description='Full path to map file to load'),
 
         DeclareLaunchArgument(
-            'params',
+            'params_file',
             default_value=param_dir,
             description='Full path to param file to load'),
 
@@ -57,13 +57,15 @@ def generate_launch_description():
             launch_arguments={
                 'map': map_dir,
                 'use_sim_time': use_sim_time,
-                'params': param_dir}.items(),
+                'use_composition':'True',
+                'params_file': param_dir}.items(),
+                
         ),
 
         Node(
             package='rviz2',
-            node_executable='rviz2',
-            node_name='rviz2',
+            executable='rviz2',
+            name='rviz2',
             arguments=['-d', rviz_config_dir],
             parameters=[{'use_sim_time': use_sim_time}],
             output='screen'),

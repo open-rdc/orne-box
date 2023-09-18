@@ -3,9 +3,12 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable
-from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument, GroupAction, SetEnvironmentVariable
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
+from launch_ros.actions import LoadComposableNodes
 from launch_ros.actions import Node
+from launch_ros.descriptions import ComposableNode, ParameterFile
 from nav2_common.launch import RewrittenYaml
 
 
@@ -19,6 +22,11 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     autostart = LaunchConfiguration('autostart')
     params_file = LaunchConfiguration('params_file')
+    use_composition = LaunchConfiguration('use_composition')
+    container_name = LaunchConfiguration('container_name')
+    container_name_full = (namespace, '/', container_name)
+    use_respawn = LaunchConfiguration('use_respawn')
+
     lifecycle_nodes = ['map_server', 'amcl']
 
     remappings = [('/tf', 'tf'),
@@ -53,36 +61,78 @@ def generate_launch_description():
             description='Use simulation (Gazebo) clock if true'),
 
         DeclareLaunchArgument(
-            'autostart', default_value='true',
-            description='Automatically startup the nav2 stack'),
-
-        DeclareLaunchArgument(
             'params_file',
             default_value=os.path.join(config_dir, 'params', 'nav2_params.yaml'),
             description='Full path to the ROS2 parameters file to use'),
 
-        Node(
-            package='nav2_map_server',
-            executable='map_server',
-            name='map_server',
-            output='screen',
-            parameters=[configured_params],
-            remappings=remappings),
+        DeclareLaunchArgument(
+            'autostart', default_value='true',
+            description='Automatically startup the nav2 stack'),
 
-        Node(
-            package='nav2_amcl',
-            executable='amcl',
-            name='amcl',
-            output='screen',
-            parameters=[configured_params],
-            remappings=remappings),
+        DeclareLaunchArgument(
+            'use_composition', default_value='False',
+            description='Use composed bringup if True'),
 
-        Node(
-            package='nav2_lifecycle_manager',
-            executable='lifecycle_manager',
-            name='lifecycle_manager_localization',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time},
-                        {'autostart': autostart},
-                        {'node_names': lifecycle_nodes}])
+        DeclareLaunchArgument(
+            'container_name', default_value='nav2_container',
+            description='the name of conatiner that nodes will load in if use composition'),
+
+        DeclareLaunchArgument(
+            'use_respawn', default_value='False',
+            description='Whether to respawn if a node crashes. Applied when composition is disabled.'),
+        GroupAction(
+            condition=IfCondition(PythonExpression(['not ', use_composition])),
+            actions=[
+                Node(
+                    package='nav2_map_server',
+                    executable='map_server',
+                    name='map_server',
+                    output='screen',
+                    parameters=[configured_params],
+                    remappings=remappings),
+
+                Node(
+                    package='nav2_amcl',
+                    executable='amcl',
+                    name='amcl',
+                    output='screen',
+                    parameters=[configured_params],
+                    remappings=remappings),
+
+                Node(
+                    package='nav2_lifecycle_manager',
+                    executable='lifecycle_manager',
+                    name='lifecycle_manager_localization',
+                    output='screen',
+                    parameters=[{'use_sim_time': use_sim_time},
+                                {'autostart': autostart},
+                                {'node_names': lifecycle_nodes}])
+            ]
+        ),
+
+        LoadComposableNodes(
+            condition=IfCondition(use_composition),
+            target_container=container_name_full,
+            composable_node_descriptions=[
+                ComposableNode(
+                    package='nav2_map_server',
+                    plugin='nav2_map_server::MapServer',
+                    name='map_server',
+                    parameters=[configured_params],
+                    remappings=remappings),
+                ComposableNode(
+                    package='nav2_amcl',
+                    plugin='nav2_amcl::AmclNode',
+                    name='amcl',
+                    parameters=[configured_params],
+                    remappings=remappings),
+                ComposableNode(
+                    package='nav2_lifecycle_manager',
+                    plugin='nav2_lifecycle_manager::LifecycleManager',
+                    name='lifecycle_manager_localization',
+                    parameters=[{'use_sim_time': use_sim_time,
+                                'autostart': autostart,
+                                'node_names': lifecycle_nodes}]),
+            ],
+        )
     ])
