@@ -24,12 +24,7 @@ def generate_launch_description():
         launch.actions.LogInfo(
             msg="Launch ypspur coordinator."
         ),
-        # Node(
-        #     package='icart_mini_driver',
-        #     namespace='ypspur_coordinator',
-        #     executable='ypspur_coordinator_bridge',
-        #     parameters=[icart_mini_param]
-        # ),
+        
         launch.actions.ExecuteProcess(
             cmd=[ypspur_coordinator_path,ypspur_param],
             shell=True,
@@ -41,17 +36,28 @@ def generate_launch_description():
         ),
         Node(
             package='orne_box_bringup',
-            executable='icart_mini_driver'
-            # parameters=[driver_param]
+            executable='icart_mini_driver',
+            parameters=[{'odom_frame_id':'odom',
+                        'base_frame_id':'base_footprint',
+                        'Hz':40,
+                        'left_wheel_joint':'left_wheel_joint',
+                        'right_wheel_joint':'right_wheel_joint',
+                        'liner_vel_lim':1.5,
+                        'liner_accel_lim':1.5,
+                        'angular_vel_lim':3.14,
+                        'angular_accel_lim':3.14,
+                        'calculate_odom_from_ypspur':True,
+                        'publish_odom_tf':True
+            }]
         ),
         #robot_state_publisher and joint_state_publisher
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/description.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch robot_description  node."
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/description.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch robot_description  node."
+        # ),
           IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [launch_include_file_dir, '/teleop.launch.py'])

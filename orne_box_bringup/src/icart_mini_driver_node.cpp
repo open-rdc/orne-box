@@ -1,10 +1,10 @@
-#include <rclcpp/rclcpp.hpp>
+#include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/twist.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 // #include <memory>
 #include <tf2/utils.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/transform_listener.h>
@@ -37,7 +37,7 @@ class Icart_mini_driver : public rclcpp::Node
         std::string right_wheel_joint;
         int loop_hz;
         double liner_vel_lim,liner_accel_lim,angular_vel_lim,angular_accel_lim;
-        bool odom_from_ypspur, debug_mode=false, pub_odom_tf;
+        bool odom_from_ypspur, debug_mode=false,publish_odom_tf;
         // loop_ms_ = std::chrono::milliseconds{loop_hz};
         
     private:
@@ -59,7 +59,7 @@ class Icart_mini_driver : public rclcpp::Node
         void cmd_vel_cb(const geometry_msgs::msg::Twist::SharedPtr msg)
         {
           cmd_vel_ =  msg;
-          Spur_vel(-(msg->linear.x),msg->angular.z);
+          Spur_vel(msg->linear.x,msg->angular.z);
         }
         
 };
@@ -75,10 +75,9 @@ class Icart_mini_driver : public rclcpp::Node
       declare_parameter("liner_accel_lim",1.5);
       declare_parameter("angular_vel_lim",3.14);
       declare_parameter("angular_accel_lim",3.14);
-      declare_parameter("pub_odom_tf",true);
-
       declare_parameter("calculate_odom_from_ypspur",true);
       declare_parameter("debug_mode",false);
+      declare_parameter("publish_odom_tf",true);
       
       get_parameter("odom_frame_id",odom_frame_id);
       get_parameter("base_frame_id",base_frame_id);
@@ -91,7 +90,7 @@ class Icart_mini_driver : public rclcpp::Node
       get_parameter("Hz",loop_hz);
       get_parameter("calculate_odom_from_ypspur",odom_from_ypspur);
       get_parameter("debug_mode",debug_mode);
-      get_parameter("pub_odom_tf",pub_odom_tf);
+      get_parameter("publish_odom_tf",publish_odom_tf);
       RCLCPP_INFO(this->get_logger(),"Set param!!");
       
     }
@@ -116,7 +115,8 @@ class Icart_mini_driver : public rclcpp::Node
         js.position.resize(2);
         js.velocity.resize(2);
     }
-    //this function is set ypspur_param and bringup ypspur_coordinator
+
+    //this function is set ypspur_param
     void Icart_mini_driver::bringup_ypspur()
     {
         if(Spur_init()>0)
@@ -141,9 +141,6 @@ class Icart_mini_driver : public rclcpp::Node
     {
         // rclcpp::Time js_t = this->now();
         // const rclcpp::Time current_stamp_js(js_t);
-        // rclcpp::Clock ros_clock(rcl_clock_type_t RCL_ROS_TIME);
-        // rclcpp::Time current_stamp_js = ros_clock.now();
-        // rclcpp::Clock ros_clock(RCL_ROS_TIME);
         rclcpp::Time current_stamp_js = rclcpp::Clock(RCL_ROS_TIME).now();
         double l_ang_pos{},r_ang_pos{},l_wheel_vel{},r_wheel_vel{};
         YP_get_wheel_ang(&l_ang_pos, &r_ang_pos);
@@ -151,8 +148,8 @@ class Icart_mini_driver : public rclcpp::Node
         js.header.stamp = current_stamp_js;
         js.header.frame_id = "base_link";
         js.position[0] = -l_ang_pos;
-        js.position[1] = -r_ang_pos;
-        js.velocity[0] = l_wheel_vel;
+        js.position[1] = r_ang_pos;
+        js.velocity[0] = -l_wheel_vel;
         js.velocity[1] = r_wheel_vel;
         js_pub_->publish(js);
     }
@@ -166,11 +163,8 @@ class Icart_mini_driver : public rclcpp::Node
         z_axis_.setZ(1);
         // rclcpp::Time t = this->now();
         // const rclcpp::Time current_stamp(t);
-        // rclcpp::Clock ros_clock(rcl_clock_type_t RCL_ROS_TIME);
-        // rclcpp::Time current_stamp = ros_clock.now();
-        
         rclcpp::Time current_stamp = rclcpp::Clock(RCL_ROS_TIME).now();
-        //compute odom from ypspur's function
+        //compute odom from ypspur function
         if (odom_from_ypspur)
         {
           
@@ -192,8 +186,8 @@ class Icart_mini_driver : public rclcpp::Node
         odom.header.stamp = current_stamp;
         odom.header.frame_id = odom_frame_id;
         odom.child_frame_id = base_frame_id;
-        odom.pose.pose.position.x = -x;
-        odom.pose.pose.position.y = -y;
+        odom.pose.pose.position.x = x;
+        odom.pose.pose.position.y = y;
         odom.pose.pose.position.z = 0;
         odom.pose.pose.orientation = tf2::toMsg(tf2::Quaternion(z_axis_, yaw));
         odom.twist.twist.linear.x = v;
@@ -202,19 +196,18 @@ class Icart_mini_driver : public rclcpp::Node
         odom_pub_->publish(odom);
 
         //odom_tf
-        if (pub_odom_tf)
+        if(publish_odom_tf)
         {
           odom_trans.header.stamp = current_stamp + rclcpp::Duration::from_seconds(tf_time_offset_);
           odom_trans.header.frame_id = odom_frame_id;
           odom_trans.child_frame_id = base_frame_id;
-          odom_trans.transform.translation.x = -x;
-          odom_trans.transform.translation.y = -y;
+          odom_trans.transform.translation.x = x;
+          odom_trans.transform.translation.y = y;
           odom_trans.transform.translation.z = 0;
           odom_trans.transform.rotation = odom.pose.pose.orientation;
           tf_broadcaster_->sendTransform(odom_trans);
         }
-        //if debug_mode
-        //if (debug_mode)
+
     }
    
     //main loop function
@@ -222,16 +215,15 @@ class Icart_mini_driver : public rclcpp::Node
     {
       if (!YP_get_error_state())
       {
-          odometry();
-          joint_states();
-     
+        odometry();
+        joint_states();
       }
       
       else
       {
-          RCLCPP_WARN(this->get_logger(),"Disconnected ypspur reconnect ypspur");
-          bringup_ypspur();
-          return false;
+        RCLCPP_WARN(this->get_logger(),"Disconnected ypspur reconnect ypspur");
+        bringup_ypspur();
+        return false;
       }
      return true;
     }
@@ -242,10 +234,10 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);
 //   Icart_mini_driver icart;
   auto icart = std::make_shared<Icart_mini_driver>();
-
   icart->read_param();
   icart->reset_param();
   icart->bringup_ypspur();
+  // rclcpp::spin(icart);
   rclcpp::Rate loop_rate(icart->loop_hz);
   //
   while (rclcpp::ok())
@@ -255,8 +247,5 @@ int main(int argc, char * argv[])
     loop_rate.sleep();
 
   }
-  //
-  // rclcpp::spin(icart);
-  rclcpp::shutdown();
   return 0;
 }
