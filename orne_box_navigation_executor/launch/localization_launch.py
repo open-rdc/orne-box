@@ -120,6 +120,14 @@ def generate_launch_description():
                     name='map_server',
                     parameters=[configured_params],
                     remappings=remappings),
+                # ComposableNode(
+                #     package='nav2_map_server',
+                #     executable='costmap_filter_info_server',
+                #     name='costmap_filter_info_server',
+                #     namespace=namespace,
+                #     output='screen',
+                #     emulate_tty=True,  # https://github.com/ros2/launch/issues/188
+                #     parameters=[configured_params]),
                 ComposableNode(
                     package='nav2_amcl',
                     plugin='nav2_amcl::AmclNode',

@@ -41,7 +41,7 @@ def generate_launch_description():
             'map',
             default_value=map_dir,
             description='Full path to map file to load'),
-
+        
         DeclareLaunchArgument(
             'params_file',
             default_value=param_dir,
@@ -58,7 +58,8 @@ def generate_launch_description():
                 'map': map_dir,
                 'use_sim_time': use_sim_time,
                 'use_composition':'True',
-                'params_file': param_dir}.items(),
+                'params_file': param_dir,
+                'emcl2_params_file': param_dir}.items(),
                 
         ),
 
