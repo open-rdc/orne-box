@@ -23,14 +23,20 @@ def generate_launch_description():
             'cit_3f_map.yaml'))
 
     param_file_name = 'nav2_params.yaml'
-
+    bt_file_name ='navigate_w_replanning_and_wait.xml'
+    # bt_file_name ='navigate_w_replanning_and_recovery.xml'
     param_dir = LaunchConfiguration(
         'params_file',
         default=os.path.join(
             config_dir,
             'params',
             param_file_name))
-
+    bt_dir = LaunchConfiguration(
+        'default_bt_xml_filename',
+        default=os.path.join(
+            config_dir,
+            'behavior_trees',
+            bt_file_name))
     rviz_config_dir = os.path.join(
         config_dir,
         'rviz',
@@ -59,7 +65,8 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'use_composition':'True',
                 'params_file': param_dir,
-                'emcl2_params_file': param_dir}.items(),
+                'emcl2_params_file': param_dir,
+                'default_bt_xml_filename':bt_dir}.items(),
                 
         ),
 

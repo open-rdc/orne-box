@@ -14,14 +14,16 @@ def generate_launch_description():
     spawn_entity_node = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
+        output='screen',
         arguments=['-entity', 'orne_box',
                     '-topic', '/robot_description',
                     '-x','0.0',
                     '-y','0.0',
-                    '-z','0.0'
+                    '-z','0.0',
+                    '-R','0.0',
+                    '-P','0.0',
+                    '-Y','0.0'
                     ],
-
-        output='screen',
     )
 
     ld = LaunchDescription()
