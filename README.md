@@ -14,7 +14,7 @@ Platform hardware for autonomous robot
 
 #Install
 ```
-git clone https://github.com/haruyama8940/orne-box.git -b hunble-devel
+git clone https://github.com/haruyama8940/orne-box.git -b humble-devel
 ```
 sim利用だけであれば,pacakge.xmlとCmake.txtからypspurに関する記述をコメントアウトしてください
 
