@@ -32,3 +32,18 @@ navの起動
 ros2 launch orne_box_navigation_executor navigation2.launch
 ```
 
+ロボット起動
+```
+ros2 launch orne_box_bringup orne_box_drive.launch.py
+```
+```
+ros2 launch orne_box_bringup description.launch.py
+```
+```
+ros2 launch orne_box_bringup rfans16.launch.py
+```
+```
+ros2 launch orne_box_navigation_executor navigation2.launch
+```
+
+
