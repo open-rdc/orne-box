@@ -92,7 +92,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('auto_start', default_value='true'),
         DeclareLaunchArgument('node_name', default_value='urg_node2'),
-        DeclareLaunchArgument('scan_topic_name', default_value='scan'),
+        DeclareLaunchArgument('scan_topic_name', default_value='mirror_scan'),
         lifecycle_node,
         urg_node2_node_configure_event_handler,
         urg_node2_node_activate_event_handler,
