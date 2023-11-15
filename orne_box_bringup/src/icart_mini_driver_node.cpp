@@ -54,7 +54,7 @@ class Icart_mini_driver : public rclcpp::Node
         tf2::Vector3 z_axis_;
         std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
         geometry_msgs::msg::TransformStamped odom_trans;
-
+        bool first_connect = true;
         //this function is cmd_vel callback and send command ypspur
         void cmd_vel_cb(const geometry_msgs::msg::Twist::SharedPtr msg)
         {
@@ -124,11 +124,14 @@ class Icart_mini_driver : public rclcpp::Node
           RCLCPP_INFO(this->get_logger(),"Bringup ypspur!!");
           Spur_stop();
           Spur_free();
-          Spur_set_pos_GL(0,0,0);
           Spur_set_vel(liner_vel_lim);
           Spur_set_accel(liner_accel_lim);
           Spur_set_angvel(angular_vel_lim);
           Spur_set_angaccel(angular_accel_lim);
+          if (first_connect){
+            Spur_set_pos_GL(0,0,0);
+            first_connect = false;
+          }
         }
         else 
         {
