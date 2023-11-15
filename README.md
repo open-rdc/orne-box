@@ -11,3 +11,39 @@ Platform hardware for autonomous robot
 
 # Reference
 * [orne-x](https://drive.google.com/drive/folders/1ViINGsmbruIFg-iK9aN-tVQHTLGuMvhR?usp=sharing) (designed in 2017)
+
+#Install
+```
+git clone https://github.com/haruyama8940/orne-box.git -b humble-devel
+```
+sim利用だけであれば,pacakge.xmlとCmake.txtからypspurに関する記述をコメントアウトしてください
+
+rosdepで依存パッケージをインストールします
+```
+rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+```
+
+simの起動
+```
+ros2 launch orne_box_simulation box3_cit3f.launch.py
+```
+navの起動
+```
+ros2 launch orne_box_navigation_executor navigation2.launch
+```
+
+ロボット起動
+```
+ros2 launch orne_box_bringup orne_box_drive.launch.py
+```
+```
+ros2 launch orne_box_bringup description.launch.py
+```
+```
+ros2 launch orne_box_bringup rfans16.launch.py
+```
+```
+ros2 launch orne_box_navigation_executor navigation2.launch
+```
+
+
