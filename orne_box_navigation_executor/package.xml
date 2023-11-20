@@ -3,7 +3,7 @@
   <name>orne_box_navigation_executor</name>
   <version>0.1.0</version>
   <description>The orne_box_navigation_executor package</description>
-  <maintainer email="xxx@todo.todo">xxx</maintainer>
+  <maintainer email="yasuo.hayashibara@it-chiba.ac.jp">yasuo.hayashibara</maintainer>
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>move_base</build_depend>
