@@ -1,0 +1,8 @@
+<launch>
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true" output="screen">
+        <rosparam command="load" file="$(find orne_box_navigation_executer)/config/ekf_localization.yaml" />
+        <remap from="/odometry/filtered" to="odom" />
+        <remap from="odom0" to="/mobile_base_controller/odom" />
+        <remap from="imu0"  to="/imu_data" />
+    </node>
+</launch>
