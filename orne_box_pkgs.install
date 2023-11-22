@@ -1,23 +1,23 @@
 - git:
     uri: https://github.com/open-rdc/icart_mini
     local-name: icart_mini
-    version: melodic-devel
+    version: noetic-devel
 - git:
     uri: https://github.com/open-rdc/ypspur/
     local-name: ypspur
-    version: melodic-devel
+    version: noetic-devel
 - git:
     uri: https://github.com/open-rdc/fulanghua_navigation
     local-name: fulanghua_navigation
-    version: melodic-devel
+    version: noetic-devel
 - git:
     uri: https://github.com/open-rdc/orne-box
     local-name: orne-box
-    version: melodic-devel
+    version: noetic-devel
 - git:
     uri: https://github.com/open-rdc/navigation
     local-name: navigation
-    version: melodic-devel
+    version: noetic-devel
 - git:
     uri: https://github.com/open-rdc/orne_tools
     local-name: orne_tools

@@ -30,8 +30,8 @@ void SimpleLeadOut::initialize(std::string name, tf2_ros::Buffer* tf, costmap_2d
       width_min_>footprint.points.at(i).y?width_min_=footprint.points.at(i).y:width_min_=width_min_;
     }
 
-    private_nh_.param("base_frame_id", base_frame_id_, std::string("base_link"));
-    private_nh_.param("scan_frame_id", scan_frame_id_, std::string("scan"));
+    private_nh_.param("base_frame_id", base_frame_id_, std::string("/base_link"));
+    private_nh_.param("scan_frame_id", scan_frame_id_, std::string("/scan"));
 
     ros::NodeHandle private_nh_("~/" + name);
     std::string planner_namespace;
