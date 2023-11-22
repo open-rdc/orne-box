@@ -15,10 +15,6 @@
     local-name: orne-box
     version: noetic-devel
 - git:
-    uri: https://github.com/open-rdc/navigation
-    local-name: navigation
-    version: noetic-devel
-- git:
     uri: https://github.com/open-rdc/orne_tools
     local-name: orne_tools
     version: master

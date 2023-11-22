@@ -1,12 +1,9 @@
 <package>
   <name>orne_box_rviz_plugins</name>
   <version>0.0.1</version>
-  <description>
-      The orne_box_rviz_plugins package
-  </description>
-  <maintainer email="d.maekawa@rapyuta-robotics.com">Daiki Maekawa</maintainer>
+  <description>The orne_box_rviz_plugins package</description>
+  <maintainer email="yasuo.hayashibara@it-chiba.ac.jp">yasuohayashibara</maintainer>
   <license>BSD</license>
-
   <author>Daiki Maekawa</author>
 
   <buildtool_depend>catkin</buildtool_depend>
