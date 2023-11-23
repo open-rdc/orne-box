@@ -19,6 +19,7 @@ wstool up
 rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
 cd ~/catkin_ws
 catkin build
+source ~/.bashrc
 ```
 
 ### Excecution
