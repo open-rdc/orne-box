@@ -30,6 +30,8 @@ roslaunch orne_box_bringup orne_box_sim.launch
 roslaunch orne_box_navigation_executor nav_static_map.launch
 ```
 
+[![IMAGE](http://img.youtube.com/vi/HwTbgvv611k/0.jpg)](https://youtu.be/HwTbgvv611k)
+
 On real robot  
 Under constructing  
 
