@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <include file="$(find icart_mini_driver)/launch/icart_mini_drive.launch">
+    <arg name="model"           value="$(find xacro)/xacro '$(find orne_box_description)/urdf/orne_box.urdf.xacro'" />
+    <arg name="ypspur_params"   value="$(find orne_box_setup)/config/orne_box.param" />
+    <arg name="scan_dev"        value="/dev/sensors/hokuyo_H1885238" />
+  </include>
+
+  <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
+
+</launch>
+
