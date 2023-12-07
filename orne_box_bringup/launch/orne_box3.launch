@@ -8,6 +8,7 @@
     <arg name="scan_dev"        value="/dev/sensors/hokuyo_H1885238" />
   </include>
 
+  <include file="$(find orne_box_bringup)/launch/includes/adis16465.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/base.launch.xml"/>
 
 </launch>
