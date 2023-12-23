@@ -188,9 +188,14 @@
   </xacro:sensor_imu>
 
 
+  <xacro:include filename="$(find icart_mini_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+  <xacro:sensor_hokuyo name="hokuyo" parent="base_link">
+    <origin xyz="0.374295 0 0.2185" rpy="${-PI} 0 0"/>
+  </xacro:sensor_hokuyo>
+
   <xacro:include filename="$(find orne_box_description)/urdf/sensor/rfans16.urdf.xacro"/>
   <xacro:sensor_rfans16 name="rfans16" parent="base_link">
-    <origin xyz="0.23 0 0.40" rpy="0 0 0"/>
+    <origin xyz="0.23 0 0.40" rpy="0 0 ${PI}"/>
   </xacro:sensor_rfans16>
 
   <transmission name="tran1">

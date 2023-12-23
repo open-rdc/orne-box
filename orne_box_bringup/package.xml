@@ -11,4 +11,5 @@
   <build_depend>icart_mini_gazebo</build_depend>
   <exec_depend>icart_mini_driver</exec_depend>
   <exec_depend>icart_mini_gazebo</exec_depend>
+  <exec_depend>pointcloud_to_laserscan</exec_depend>
 </package>
