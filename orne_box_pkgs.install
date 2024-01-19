@@ -9,7 +9,7 @@
 - git:
     uri: https://github.com/open-rdc/orne-box
     local-name: orne-box
-    version: TC_2021
+    version: TC_2023
 - git:
     uri: https://github.com/ros-planning/navigation
     local-name: navigation
