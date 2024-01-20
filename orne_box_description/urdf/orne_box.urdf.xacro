@@ -10,7 +10,7 @@
   <xacro:include filename="$(find orne_box_description)/urdf/joints/caster_wheel_joint.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/joints/caster_swivel_joint.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/joints/wheel_joint.urdf.xacro"/>
-  <xacro:include filename="$(find orne_box_description)/urdf/sensors/imu.urdf.xacro"/>
+  <!-- <xacro:include filename="$(find orne_box_description)/urdf/sensors/imu.urdf.xacro"/> -->
   <xacro:include filename="$(find orne_box_description)/urdf/sensors/hokuyo.urdf.xacro"/>
   <!-- Setting for base -->
   <xacro:base_link/>
@@ -44,15 +44,15 @@
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
   </xacro:wheel_link>
   <!-- Setting for IMU -->
-  <xacro:sensor_imu name="imu" parent="base_link" size="0.05 0.05 0.05">
+  <!-- <xacro:sensor_imu name="imu" parent="base_link" size="0.05 0.05 0.05">
     <origin xyz="0.23 0.0 0.270" rpy="${-PI} 0 ${PI/2}"/>
-  </xacro:sensor_imu>
+  </xacro:sensor_imu> -->
   <!-- Setting for 2D-LiDAR -->
-  <xacro:sensor_hokuyo name="hokuyo" parent="base_link" size="0.05 0.05 0.05">
-    <origin xyz="0.23 0 0.35" rpy="0 0 0"/>
+  <!-- <xacro:sensor_hokuyo name="hokuyo" parent="base_link" size="0.05 0.05 0.05">
+    <origin xyz="0.23 0 0.35" rpy="0 0 0"/> -->
     <!--origin xyz="0.23 0 0.4" rpy="0 0 0"/-->
-  </xacro:sensor_hokuyo>
-  <xacro:sensor_hokuyo name="low_hokuyo" parent="base_link" size="0.05 0.05 0.05">
+  <!-- </xacro:sensor_hokuyo> -->
+  <xacro:sensor_hokuyo name="hokuyo" parent="base_link" size="0.05 0.05 0.05">
     <origin xyz="0.374295 0 0.2185" rpy="${-PI} 0 0"/>
   </xacro:sensor_hokuyo>
 </robot>
