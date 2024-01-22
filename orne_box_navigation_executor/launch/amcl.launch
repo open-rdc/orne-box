@@ -10,6 +10,6 @@
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <rosparam file="$(find orne_box_navigation_executor)/config/amcl.yaml" command="load"/>
     <rosparam file="$(arg init_pos_file)" command="load"/>
-  <remap from="scan" to="hokuyo_scan"/>
+  <!-- <remap from="scan" to="hokuyo_scan"/> -->
   </node>
 </launch>
