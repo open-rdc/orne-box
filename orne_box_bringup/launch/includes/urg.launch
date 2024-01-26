@@ -18,7 +18,7 @@
     <param name="angle_max" value="0.349"/-->
 
     <param name="publish_multiecho" value="false"/>
-    <param name="angle_min" value="-2.36"/>
-    <param name="angle_max" value="2.36"/>
+    <param name="angle_min" value="-1.57"/>
+    <param name="angle_max" value="1.57"/>
   </node>
 </launch>
