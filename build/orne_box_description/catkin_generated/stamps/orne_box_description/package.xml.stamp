@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>orne_box_description</name>
+  <version>0.1.0</version>
+  <description>3D models of the orne-box for simulation and visualization</description>
+  <maintainer email="xxx@todo.todo">xxx</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>xacro</build_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>velodyne_simulator</exec_depend>
+</package>

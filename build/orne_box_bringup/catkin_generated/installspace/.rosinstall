@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/takumi/tc_ws/src/orne-box/install/orne_box_bringup/setup.sh

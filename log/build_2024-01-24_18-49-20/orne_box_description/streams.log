@@ -1,0 +1,74 @@
+[0.441s] Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_description -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_description
+[0.615s] -- The C compiler identification is GNU 9.4.0
+[0.774s] -- The CXX compiler identification is GNU 9.4.0
+[0.784s] -- Check for working C compiler: /usr/bin/cc
+[0.861s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.863s] -- Detecting C compiler ABI info
+[0.945s] -- Detecting C compiler ABI info - done
+[0.961s] -- Detecting C compile features
+[0.961s] -- Detecting C compile features - done
+[0.966s] -- Check for working CXX compiler: /usr/bin/c++
+[1.058s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[1.060s] -- Detecting CXX compiler ABI info
+[1.159s] -- Detecting CXX compiler ABI info - done
+[1.187s] -- Detecting CXX compile features
+[1.188s] -- Detecting CXX compile features - done
+[1.191s] -- Using CATKIN_DEVEL_PREFIX: /home/takumi/tc_ws/src/orne-box/build/orne_box_description/devel
+[1.191s] -- Using CMAKE_PREFIX_PATH: /home/takumi/tc_ws/devel;/opt/ros/noetic
+[1.191s] -- This workspace overlays: /home/takumi/tc_ws/devel;/opt/ros/noetic
+[1.219s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[1.219s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[1.219s] -- Using Debian Python package layout
+[1.262s] -- Found PY_em: /usr/lib/python3/dist-packages/em.py  
+[1.262s] -- Using empy: /usr/lib/python3/dist-packages/em.py
+[1.426s] -- Using CATKIN_ENABLE_TESTING: ON
+[1.426s] -- Call enable_testing()
+[1.429s] -- Using CATKIN_TEST_RESULTS_DIR: /home/takumi/tc_ws/src/orne-box/build/orne_box_description/test_results
+[1.817s] -- Forcing gtest/gmock from source, though one was otherwise available.
+[1.817s] -- Found gtest sources under '/usr/src/googletest': gtests will be built
+[1.817s] -- Found gmock sources under '/usr/src/googletest': gmock will be built
+[1.853s] -- Found PythonInterp: /usr/bin/python3 (found version "3.8.10") 
+[1.857s] -- Found Threads: TRUE  
+[1.863s] -- Using Python nosetests: /usr/bin/nosetests3
+[1.937s] -- catkin 0.8.10
+[1.937s] -- BUILD_SHARED_LIBS is on
+[2.328s] -- Configuring done
+[2.341s] -- Generating done
+[2.343s] -- Build files have been written to: /home/takumi/tc_ws/src/orne-box/build/orne_box_description
+[2.351s] Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_description -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_description
+[2.358s] Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description -- -j8 -l8
+[2.402s] [35m[1mScanning dependencies of target orne_box_description_xacro_generated_to_devel_space_[0m
+[2.413s] Built target orne_box_description_xacro_generated_to_devel_space_
+[2.427s] Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description -- -j8 -l8
+[2.459s] Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description --target tests -- -j8 -l8
+[2.514s] [35m[1mScanning dependencies of target tests[0m
+[2.525s] Built target tests
+[2.541s] Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description --target tests -- -j8 -l8
+[2.583s] Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_description
+[2.595s] -- Install configuration: ""
+[2.596s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/pkgconfig/orne_box_description.pc
+[2.597s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/cmake/orne_box_descriptionConfig.cmake
+[2.597s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/cmake/orne_box_descriptionConfig-version.cmake
+[2.597s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/package.xml
+[2.597s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/rviz
+[2.597s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/rviz/model.rviz
+[2.598s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf
+[2.598s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/orne_box.urdf.xacro
+[2.598s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/joints
+[2.598s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/joints/caster_wheel_joint.urdf.xacro
+[2.598s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/joints/wheel_joint.urdf.xacro
+[2.599s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/joints/caster_swivel_joint.urdf.xacro
+[2.599s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/sensors
+[2.600s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/sensors/camera.urdf.xacro
+[2.600s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/sensors/imu.urdf.xacro
+[2.600s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/sensors/hokuyo.urdf.xacro
+[2.602s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/sensors/gnss.urdf.xacro
+[2.602s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/orne_box_3d_lidar.urdf.xacro
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/material_colors.xacro
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/links
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/links/wheel_link.urdf.xacro
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/links/caster_swivel_link.urdf.xacro
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/links/caster_wheel_link.urdf.xacro
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/links/base_link.urdf.xacro
+[2.603s] -- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/urdf/orne_box.gazebo.xacro
+[2.604s] Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_description

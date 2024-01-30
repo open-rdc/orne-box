@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libgmock_main.so -o ../lib/libgmock_main.so CMakeFiles/gmock_main.dir/src/gmock_main.cc.o  -Wl,-rpath,/home/takumi/tc_ws/src/orne-box/build/orne_box_bringup/gtest/lib ../lib/libgmock.so ../lib/libgtest.so -lpthread 

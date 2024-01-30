@@ -1,0 +1,347 @@
+[1.434s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[1.434s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f025fd2e0d0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=8, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f025fd2e0d0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f025fc93850>)
+[1.512s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.513s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.513s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.513s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.513s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.513s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.513s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/takumi/tc_ws/src/orne-box'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.513s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.521s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extensions ['ignore', 'ignore_ament_install']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extension 'ignore'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extension 'ignore_ament_install'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extensions ['colcon_pkg']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extension 'colcon_pkg'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extensions ['colcon_meta']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extension 'colcon_meta'
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extensions ['ros']
+[1.522s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box) by extension 'ros'
+[1.524s] DEBUG:colcon.colcon_core.package_identification:Package 'orne_box' with type 'ros.catkin' and name 'orne_box'
+[1.524s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extensions ['ignore', 'ignore_ament_install']
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extension 'ignore'
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extension 'ignore_ament_install'
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extensions ['colcon_pkg']
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extension 'colcon_pkg'
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extensions ['colcon_meta']
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extension 'colcon_meta'
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extensions ['ros']
+[1.530s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_bringup) by extension 'ros'
+[1.531s] DEBUG:colcon.colcon_core.package_identification:Package 'orne_box_bringup' with type 'ros.catkin' and name 'orne_box_bringup'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extensions ['ignore', 'ignore_ament_install']
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extension 'ignore'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extension 'ignore_ament_install'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extensions ['colcon_pkg']
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extension 'colcon_pkg'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extensions ['colcon_meta']
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extension 'colcon_meta'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extensions ['ros']
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_description) by extension 'ros'
+[1.531s] DEBUG:colcon.colcon_core.package_identification:Package 'orne_box_description' with type 'ros.catkin' and name 'orne_box_description'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extensions ['ignore', 'ignore_ament_install']
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extension 'ignore'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extension 'ignore_ament_install'
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extensions ['colcon_pkg']
+[1.531s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extension 'colcon_pkg'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extensions ['colcon_meta']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extension 'colcon_meta'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extensions ['ros']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_navigation_executor) by extension 'ros'
+[1.532s] DEBUG:colcon.colcon_core.package_identification:Package 'orne_box_navigation_executor' with type 'ros.catkin' and name 'orne_box_navigation_executor'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extensions ['ignore', 'ignore_ament_install']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extension 'ignore'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extension 'ignore_ament_install'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extensions ['colcon_pkg']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extension 'colcon_pkg'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extensions ['colcon_meta']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extension 'colcon_meta'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extensions ['ros']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_setup) by extension 'ros'
+[1.532s] DEBUG:colcon.colcon_core.package_identification:Package 'orne_box_setup' with type 'ros.catkin' and name 'orne_box_setup'
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extensions ['ignore', 'ignore_ament_install']
+[1.532s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extension 'ignore'
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extension 'ignore_ament_install'
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extensions ['colcon_pkg']
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extension 'colcon_pkg'
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extensions ['colcon_meta']
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extension 'colcon_meta'
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extensions ['ros']
+[1.533s] Level 1:colcon.colcon_core.package_identification:_identify(orne_box_simulations) by extension 'ros'
+[1.533s] DEBUG:colcon.colcon_core.package_identification:Package 'orne_box_simulations' with type 'ros.catkin' and name 'orne_box_simulations'
+[1.533s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.533s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.533s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.533s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.533s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.665s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.665s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.740s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'cmake_args' from command line to 'None'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'cmake_target' from command line to 'None'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[1.789s] Level 5:colcon.colcon_core.verb:set package 'orne_box_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.789s] DEBUG:colcon.colcon_core.verb:Building package 'orne_box_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/takumi/tc_ws/src/orne-box/build/orne_box_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/takumi/tc_ws/src/orne-box/install/orne_box_bringup', 'merge_install': False, 'path': '/home/takumi/tc_ws/src/orne-box/orne_box_bringup', 'symlink_install': False, 'test_result_base': None}
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'cmake_args' from command line to 'None'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'cmake_target' from command line to 'None'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'cmake_clean_cache' from command line to 'False'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'cmake_clean_first' from command line to 'False'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'cmake_force_configure' from command line to 'False'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'ament_cmake_args' from command line to 'None'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'catkin_cmake_args' from command line to 'None'
+[1.812s] Level 5:colcon.colcon_core.verb:set package 'orne_box_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.812s] DEBUG:colcon.colcon_core.verb:Building package 'orne_box_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/takumi/tc_ws/src/orne-box/build/orne_box_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/takumi/tc_ws/src/orne-box/install/orne_box_description', 'merge_install': False, 'path': '/home/takumi/tc_ws/src/orne-box/orne_box_description', 'symlink_install': False, 'test_result_base': None}
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'cmake_args' from command line to 'None'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'cmake_target' from command line to 'None'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'cmake_clean_cache' from command line to 'False'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'cmake_clean_first' from command line to 'False'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'cmake_force_configure' from command line to 'False'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'ament_cmake_args' from command line to 'None'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'catkin_cmake_args' from command line to 'None'
+[1.835s] Level 5:colcon.colcon_core.verb:set package 'orne_box_navigation_executor' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.835s] DEBUG:colcon.colcon_core.verb:Building package 'orne_box_navigation_executor' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor', 'merge_install': False, 'path': '/home/takumi/tc_ws/src/orne-box/orne_box_navigation_executor', 'symlink_install': False, 'test_result_base': None}
+[1.857s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'cmake_args' from command line to 'None'
+[1.857s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'cmake_target' from command line to 'None'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'cmake_clean_cache' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'cmake_clean_first' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'cmake_force_configure' from command line to 'False'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'ament_cmake_args' from command line to 'None'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'catkin_cmake_args' from command line to 'None'
+[1.858s] Level 5:colcon.colcon_core.verb:set package 'orne_box_setup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.858s] DEBUG:colcon.colcon_core.verb:Building package 'orne_box_setup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup', 'merge_install': False, 'path': '/home/takumi/tc_ws/src/orne-box/orne_box_setup', 'symlink_install': False, 'test_result_base': None}
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'cmake_args' from command line to 'None'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'cmake_target' from command line to 'None'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'cmake_clean_cache' from command line to 'False'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'cmake_clean_first' from command line to 'False'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'cmake_force_configure' from command line to 'False'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'ament_cmake_args' from command line to 'None'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'catkin_cmake_args' from command line to 'None'
+[1.880s] Level 5:colcon.colcon_core.verb:set package 'orne_box_simulations' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.880s] DEBUG:colcon.colcon_core.verb:Building package 'orne_box_simulations' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/takumi/tc_ws/src/orne-box/build/orne_box_simulations', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/takumi/tc_ws/src/orne-box/install/orne_box_simulations', 'merge_install': False, 'path': '/home/takumi/tc_ws/src/orne-box/orne_box_simulations', 'symlink_install': False, 'test_result_base': None}
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'cmake_args' from command line to 'None'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'cmake_target' from command line to 'None'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'cmake_clean_cache' from command line to 'False'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'cmake_clean_first' from command line to 'False'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'cmake_force_configure' from command line to 'False'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'ament_cmake_args' from command line to 'None'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'catkin_cmake_args' from command line to 'None'
+[1.903s] Level 5:colcon.colcon_core.verb:set package 'orne_box' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.903s] DEBUG:colcon.colcon_core.verb:Building package 'orne_box' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/takumi/tc_ws/src/orne-box/build/orne_box', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/takumi/tc_ws/src/orne-box/install/orne_box', 'merge_install': False, 'path': '/home/takumi/tc_ws/src/orne-box/orne_box', 'symlink_install': False, 'test_result_base': None}
+[1.926s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.949s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.949s] INFO:colcon.colcon_ros.task.catkin.build:Building ROS package in '/home/takumi/tc_ws/src/orne-box/orne_box_description' with build type 'catkin'
+[1.949s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/takumi/tc_ws/src/orne-box/orne_box_description'
+[1.983s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.983s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.983s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.031s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/takumi/tc_ws/devel'
+[2.054s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/noetic'
+[2.057s] INFO:colcon.colcon_ros.task.catkin.build:Building ROS package in '/home/takumi/tc_ws/src/orne-box/orne_box_bringup' with build type 'catkin'
+[2.057s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/takumi/tc_ws/src/orne-box/orne_box_bringup'
+[2.088s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.088s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.137s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/takumi/tc_ws/devel'
+[2.161s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/noetic'
+[2.164s] INFO:colcon.colcon_ros.task.catkin.build:Building ROS package in '/home/takumi/tc_ws/src/orne-box/orne_box_navigation_executor' with build type 'catkin'
+[2.164s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/takumi/tc_ws/src/orne-box/orne_box_navigation_executor'
+[2.194s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.194s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.245s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/takumi/tc_ws/devel'
+[2.272s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/noetic'
+[2.275s] INFO:colcon.colcon_ros.task.catkin.build:Building ROS package in '/home/takumi/tc_ws/src/orne-box/orne_box_setup' with build type 'catkin'
+[2.275s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/takumi/tc_ws/src/orne-box/orne_box_setup'
+[2.306s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.307s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.355s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/takumi/tc_ws/devel'
+[2.383s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/noetic'
+[2.391s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_description -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_description
+[2.395s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_bringup': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_bringup -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_bringup
+[2.401s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_navigation_executor -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor
+[2.409s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_setup -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_setup
+[4.301s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_description -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_description
+[4.308s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description -- -j8 -l8
+[4.324s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup' returned '0': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_setup -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_setup
+[4.328s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_setup -- -j8 -l8
+[4.372s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_setup -- -j8 -l8
+[4.377s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description -- -j8 -l8
+[4.403s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_setup --target tests -- -j8 -l8
+[4.409s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description --target tests -- -j8 -l8
+[4.485s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_setup --target tests -- -j8 -l8
+[4.491s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_description --target tests -- -j8 -l8
+[4.528s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_setup
+[4.533s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_description
+[4.542s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_setup' returned '0': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_setup
+[4.554s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_description' returned '0': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_description
+[4.571s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_setup', 'ros_package_path')
+[4.628s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/ros_package_path.ps1'
+[4.629s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/ros_package_path.dsv'
+[4.630s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/ros_package_path.sh'
+[4.631s] Level 1:colcon.colcon_ros.task.catkin:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/lib/python3/dist-packages'
+[4.631s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_setup', 'pkg_config_path')
+[4.662s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config_path.ps1'
+[4.662s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config_path.dsv'
+[4.662s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config_path.sh'
+[4.665s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_setup', 'pkg_config_path_multiarch')
+[4.698s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config_path_multiarch.ps1'
+[4.698s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config_path_multiarch.dsv'
+[4.699s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config_path_multiarch.sh'
+[4.730s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(orne_box_setup)
+[4.760s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup' for CMake module files
+[4.761s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup' for CMake config files
+[4.761s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_setup', 'cmake_prefix_path')
+[4.784s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/cmake_prefix_path.ps1'
+[4.785s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/cmake_prefix_path.dsv'
+[4.785s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/cmake_prefix_path.sh'
+[4.785s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/lib'
+[4.785s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/bin'
+[4.785s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/lib/pkgconfig/orne_box_setup.pc'
+[4.785s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_setup', 'pkg_config')
+[4.812s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config.ps1'
+[4.812s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config.dsv'
+[4.812s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/hook/pkg_config.sh'
+[4.813s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/lib/python3.8/site-packages'
+[4.813s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/bin'
+[4.837s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/package.ps1'
+[4.837s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/package.dsv'
+[4.838s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/package.sh'
+[4.839s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/package.bash'
+[4.840s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/package.zsh'
+[4.840s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/colcon-core/packages/orne_box_setup)
+[4.842s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_description', 'ros_package_path')
+[4.868s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/ros_package_path.ps1'
+[4.869s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/ros_package_path.dsv'
+[4.869s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/ros_package_path.sh'
+[4.870s] Level 1:colcon.colcon_ros.task.catkin:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/python3/dist-packages'
+[4.870s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_description', 'pkg_config_path')
+[4.900s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config_path.ps1'
+[4.900s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config_path.dsv'
+[4.900s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config_path.sh'
+[4.901s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_description', 'pkg_config_path_multiarch')
+[4.925s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config_path_multiarch.ps1'
+[4.925s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config_path_multiarch.dsv'
+[4.925s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config_path_multiarch.sh'
+[4.949s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(orne_box_description)
+[4.972s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description' for CMake module files
+[4.972s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description' for CMake config files
+[4.973s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_description', 'cmake_prefix_path')
+[4.998s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/cmake_prefix_path.ps1'
+[4.998s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/cmake_prefix_path.dsv'
+[4.998s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/cmake_prefix_path.sh'
+[4.998s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib'
+[4.998s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/bin'
+[4.999s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/pkgconfig/orne_box_description.pc'
+[4.999s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_description', 'pkg_config')
+[5.023s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config.ps1'
+[5.023s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config.dsv'
+[5.023s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/hook/pkg_config.sh'
+[5.023s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/python3.8/site-packages'
+[5.024s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/bin'
+[5.050s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/package.ps1'
+[5.051s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/package.dsv'
+[5.051s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/package.sh'
+[5.051s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/package.bash'
+[5.052s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/orne_box_description/package.zsh'
+[5.052s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share/colcon-core/packages/orne_box_description)
+[5.052s] INFO:colcon.colcon_ros.task.catkin.build:Building ROS package in '/home/takumi/tc_ws/src/orne-box/orne_box_simulations' with build type 'catkin'
+[5.052s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/takumi/tc_ws/src/orne-box/orne_box_simulations'
+[5.079s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.080s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.131s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/takumi/tc_ws/devel'
+[5.154s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/noetic'
+[5.160s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor' returned '0': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_navigation_executor -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor
+[5.161s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor -- -j8 -l8
+[5.161s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_bringup' returned '0': /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_bringup -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_bringup
+[5.163s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_bringup': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_bringup -- -j8 -l8
+[5.170s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_simulations': CMAKE_PREFIX_PATH=/home/takumi/tc_ws/src/orne-box/install/orne_box_description:${CMAKE_PREFIX_PATH} PKG_CONFIG_PATH=/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/x86_64-linux-gnu/pkgconfig:/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/pkgconfig:${PKG_CONFIG_PATH} ROS_PACKAGE_PATH=/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share:${ROS_PACKAGE_PATH} /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_simulations -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_simulations
+[5.200s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor -- -j8 -l8
+[5.251s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor --target tests -- -j8 -l8
+[5.322s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor' returned '0': /usr/bin/cmake --build /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor --target tests -- -j8 -l8
+[5.375s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor
+[5.384s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor' returned '0': /usr/bin/cmake --install /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor
+[5.433s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_navigation_executor', 'ros_package_path')
+[5.473s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/ros_package_path.ps1'
+[5.474s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/ros_package_path.dsv'
+[5.474s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/ros_package_path.sh'
+[5.475s] Level 1:colcon.colcon_ros.task.catkin:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/lib/python3/dist-packages'
+[5.475s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_navigation_executor', 'pkg_config_path')
+[5.514s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config_path.ps1'
+[5.514s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config_path.dsv'
+[5.514s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config_path.sh'
+[5.515s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_navigation_executor', 'pkg_config_path_multiarch')
+[5.548s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config_path_multiarch.ps1'
+[5.548s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config_path_multiarch.dsv'
+[5.549s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config_path_multiarch.sh'
+[5.585s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(orne_box_navigation_executor)
+[5.622s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor' for CMake module files
+[5.623s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor' for CMake config files
+[5.623s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_navigation_executor', 'cmake_prefix_path')
+[5.661s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/cmake_prefix_path.ps1'
+[5.662s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/cmake_prefix_path.dsv'
+[5.662s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/cmake_prefix_path.sh'
+[5.663s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/lib'
+[5.663s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/bin'
+[5.663s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/lib/pkgconfig/orne_box_navigation_executor.pc'
+[5.663s] Level 1:colcon.colcon_core.shell:create_environment_hook('orne_box_navigation_executor', 'pkg_config')
+[5.700s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config.ps1'
+[5.700s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config.dsv'
+[5.700s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/hook/pkg_config.sh'
+[5.701s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/lib/python3.8/site-packages'
+[5.701s] Level 1:colcon.colcon_core.environment:checking '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/bin'
+[5.739s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.ps1'
+[5.740s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.dsv'
+[5.741s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.sh'
+[5.741s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.bash'
+[5.741s] INFO:colcon.colcon_core.shell:Creating package script '/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.zsh'
+[5.742s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/colcon-core/packages/orne_box_navigation_executor)
+[7.099s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete was interrupted
+[7.100s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete again
+[7.103s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/takumi/tc_ws/src/orne-box/build/orne_box_simulations' returned '-2': CMAKE_PREFIX_PATH=/home/takumi/tc_ws/src/orne-box/install/orne_box_description:${CMAKE_PREFIX_PATH} PKG_CONFIG_PATH=/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/x86_64-linux-gnu/pkgconfig:/home/takumi/tc_ws/src/orne-box/install/orne_box_description/lib/pkgconfig:${PKG_CONFIG_PATH} ROS_PACKAGE_PATH=/home/takumi/tc_ws/src/orne-box/install/orne_box_description/share:${ROS_PACKAGE_PATH} /usr/bin/cmake /home/takumi/tc_ws/src/orne-box/orne_box_simulations -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/takumi/tc_ws/src/orne-box/install/orne_box_simulations
+[7.120s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished
+[7.120s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[7.120s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[7.120s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[7.157s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[7.157s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[7.157s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[7.172s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[7.202s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/takumi/tc_ws/src/orne-box/install/local_setup.ps1'
+[7.203s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/takumi/tc_ws/src/orne-box/install/_local_setup_util_ps1.py'
+[7.204s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/takumi/tc_ws/src/orne-box/install/setup.ps1'
+[7.230s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/takumi/tc_ws/src/orne-box/install/local_setup.sh'
+[7.231s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/takumi/tc_ws/src/orne-box/install/_local_setup_util_sh.py'
+[7.231s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/takumi/tc_ws/src/orne-box/install/setup.sh'
+[7.258s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/takumi/tc_ws/src/orne-box/install/local_setup.bash'
+[7.259s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/takumi/tc_ws/src/orne-box/install/setup.bash'
+[7.287s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/takumi/tc_ws/src/orne-box/install/local_setup.zsh'
+[7.287s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/takumi/tc_ws/src/orne-box/install/setup.zsh'

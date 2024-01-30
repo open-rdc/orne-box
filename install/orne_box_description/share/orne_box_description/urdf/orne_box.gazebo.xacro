@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="orne_box">
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:arg name="laser_visual" default="true"/>
+  <xacro:arg name="imu_visual" default="false"/>
+  <xacro:arg name="ignition_gazebo" default="false"/>
+  <xacro:arg name="enable_camera" default="false"/>
+  <gazebo reference="left_caster_wheel_link">
+    <mu1>0.75</mu1>
+    <mu2>0.75</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>1.0</maxVel>
+  </gazebo>
+  <gazebo reference="right_caster_wheel_link">
+    <mu1>0.75</mu1>
+    <mu2>0.75</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>1.0</maxVel>
+  </gazebo>
+  <gazebo reference="left_wheel">
+    <mu1>0.85</mu1>
+    <mu2>0.85</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>1.0</maxVel>
+    <material>Gazebo/White</material>
+  </gazebo>
+  <gazebo reference="right_wheel">
+    <mu1>0.85</mu1>
+    <mu2>0.85</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>1.0</maxVel>
+    <material>Gazebo/White</material>
+  </gazebo>
+  <!-- @TODO More clear boolean operation -->
+  <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>orne_box</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+    </gazebo>
+    <gazebo reference="base_link">
+      <material>Gazebo/Orange</material>
+    </gazebo>
+    <gazebo reference="imu_link">
+      <sensor type="imu" name="imu">
+        <always_on>true</always_on>
+        <visualize>$(arg imu_visual)</visualize>
+      </sensor>
+      <material>Gazebo/Green</material>
+    </gazebo>
+    <!-- hokuyo -->
+    <gazebo reference="hokuyo_link">
+      <sensor type="ray" name="head_hokuyo_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>$(arg laser_visual)</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>880</samples>
+              <resolution>0.25</resolution>
+              <min_angle>${-PI/180*110}</min_angle>
+              <max_angle>${ PI/180*110}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise parameters based on published spec for Hokuyo laser
+                 achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                 stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                 reading. -->
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <topicName>/scan</topicName>
+          <frameName>hokuyo_link</frameName>
+        </plugin>
+      </sensor>
+      <material>Gazebo/Black</material>
+    </gazebo>
+  </xacro:if>
+  <xacro:if value="$(arg ignition_gazebo)">
+    <gazebo>
+      <static>false</static>
+      <selfCollide>true</selfCollide>
+      <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
+        <topic>model/orne_box/joint_states</topic>
+      </plugin>
+      <plugin filename="ignition-gazebo-pose-publisher-system" name="ignition::gazebo::systems::PosePublisher">
+        <publish_link_pose>true</publish_link_pose>
+        <publish_collision_pose>true</publish_collision_pose>
+        <publish_visual_pose>false</publish_visual_pose>
+        <publish_nested_model_pose>false</publish_nested_model_pose>
+      </plugin>
+      <plugin filename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive">
+        <left_joint>left_wheel_joint</left_joint>
+        <right_joint>right_wheel_joint</right_joint>
+        <wheel_separation>0.38</wheel_separation>
+        <wheel_radius>0.152</wheel_radius>
+        <odom_publish_frequency>30</odom_publish_frequency>
+        <max_angular_acceleration>3.14</max_angular_acceleration>
+        <min_angular_acceleration>-3.14</min_angular_acceleration>
+        <max_angular_velocity>1.57</max_angular_velocity>
+        <min_angular_velocity>-1.57</min_angular_velocity>
+      </plugin>
+      <plugin filename="libignition-gazebo-wheel-slip-system.so" name="ignition::gazebo::systems::WheelSlip">
+        <wheel link_name="left_caster_wheel_link">
+          <slip_compliance_lateral>0.2</slip_compliance_lateral>
+          <slip_compliance_longitudinal>0.15</slip_compliance_longitudinal>
+          <wheel_normal_force>20.6</wheel_normal_force>
+          <wheel_radius>0.04</wheel_radius>
+        </wheel>
+        <wheel link_name="right_caster_wheel_link">
+          <slip_compliance_lateral>0.2</slip_compliance_lateral>
+          <slip_compliance_longitudinal>0.15</slip_compliance_longitudinal>
+          <wheel_normal_force>20.6</wheel_normal_force>
+          <wheel_radius>0.04</wheel_radius>
+        </wheel>
+        <wheel link_name="wheel_left_link">
+          <slip_compliance_lateral>0.7</slip_compliance_lateral>
+          <slip_compliance_longitudinal>0.55</slip_compliance_longitudinal>
+          <wheel_normal_force>294.6</wheel_normal_force>
+          <wheel_radius>0.15</wheel_radius>
+        </wheel>
+        <wheel link_name="wheel_right_link">
+          <slip_compliance_lateral>0.7</slip_compliance_lateral>
+          <slip_compliance_longitudinal>0.55</slip_compliance_longitudinal>
+          <wheel_normal_force>294.6</wheel_normal_force>
+          <wheel_radius>0.15</wheel_radius>
+        </wheel>
+      </plugin>
+    </gazebo>
+    <gazebo reference="hokuyo_link">
+      <sensor type="gpu_lidar" name="head_hokuyo_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>$(arg laser_visual)</visualize>
+        <update_rate>40</update_rate>
+        <topic>model/orne_box/hokuyo_scan</topic>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>361</samples>
+              <resolution>1</resolution>
+              <min_angle>${-PI/180*110}</min_angle>
+              <max_angle>${ PI/180*110}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </lidar>
+      </sensor>
+    </gazebo>
+    <gazebo reference="imu_link">
+      <sensor name="imu_link" type="imu">
+        <always_on>1</always_on>
+        <update_rate>200</update_rate>
+        <visualize>false</visualize>
+        <topic>model/orne_box/imu</topic>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.2</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.2</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+    </gazebo>
+    <xacro:if value="$(arg enable_camera)">
+      <gazebo reference="zed_camera_center">
+        <sensor name="zed_camera_center" type="camera">
+          <always_on>1</always_on>
+          <update_rate>15</update_rate>
+          <visualize>false</visualize>
+          <topic>model/orne_box/zed_node/image</topic>
+          <camera>
+            <horizontal_fov>1.919805</horizontal_fov>
+            <image>
+              <width>1920</width>
+              <height>1080</height>
+            </image>
+            <clip>
+              <near>0.01</near>
+              <far>50</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.025</stddev>
+            </noise>
+          </camera>
+        </sensor>
+        <sensor name="zed_depth_camera_center" type="depth_camera">
+          <pose>0 0 -0.8 3.14 -0.38 0</pose>
+          <always_on>1</always_on>
+          <update_rate>15</update_rate>
+          <visualize>false</visualize>
+          <topic>model/orne_box/zed_node/depth_image</topic>
+          <camera>
+            <horizontal_fov>1.919805</horizontal_fov>
+            <image>
+              <width>1280</width>
+              <height>720</height>
+            </image>
+            <clip>
+              <near>0.4</near>
+              <far>6</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.1</stddev>
+            </noise>
+          </camera>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+    <gazebo reference="gnss_link">
+      <sensor name="gnss_link" type="navsat">
+        <always_on>1</always_on>
+        <update_rate>1</update_rate>
+        <topic>model/orne_box/navsat</topic>
+      </sensor>
+    </gazebo>
+  </xacro:if>
+</robot>

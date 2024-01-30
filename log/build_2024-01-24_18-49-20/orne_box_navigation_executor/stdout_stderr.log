@@ -1,0 +1,46 @@
+-- The C compiler identification is GNU 9.4.0
+-- The CXX compiler identification is GNU 9.4.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Using CATKIN_DEVEL_PREFIX: /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor/devel
+-- Using CMAKE_PREFIX_PATH: /home/takumi/tc_ws/devel;/opt/ros/noetic
+-- This workspace overlays: /home/takumi/tc_ws/devel;/opt/ros/noetic
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Using Debian Python package layout
+-- Found PY_em: /usr/lib/python3/dist-packages/em.py  
+-- Using empy: /usr/lib/python3/dist-packages/em.py
+-- Using CATKIN_ENABLE_TESTING: ON
+-- Call enable_testing()
+-- Using CATKIN_TEST_RESULTS_DIR: /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor/test_results
+-- Forcing gtest/gmock from source, though one was otherwise available.
+-- Found gtest sources under '/usr/src/googletest': gtests will be built
+-- Found gmock sources under '/usr/src/googletest': gmock will be built
+-- Found PythonInterp: /usr/bin/python3 (found version "3.8.10") 
+-- Found Threads: TRUE  
+-- Using Python nosetests: /usr/bin/nosetests3
+-- catkin 0.8.10
+-- BUILD_SHARED_LIBS is on
+-- Using these message generators: gencpp;geneus;genlisp;gennodejs;genpy
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") 
+-- Checking for one of the modules 'yaml-cpp'
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/takumi/tc_ws/src/orne-box/build/orne_box_navigation_executor
+[35m[1mScanning dependencies of target tests[0m
+Built target tests
+-- Install configuration: ""
+-- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/lib/pkgconfig/orne_box_navigation_executor.pc
+-- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/cmake/orne_box_navigation_executorConfig.cmake
+-- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/cmake/orne_box_navigation_executorConfig-version.cmake
+-- Installing: /home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.xml
