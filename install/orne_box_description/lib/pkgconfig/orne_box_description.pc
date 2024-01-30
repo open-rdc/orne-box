@@ -1,8 +1,0 @@
-prefix=/home/takumi/tc_ws/src/orne-box/install/orne_box_description
-
-Name: orne_box_description
-Description: Description of orne_box_description
-Version: 0.1.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,4 +1,0 @@
-/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/lib/pkgconfig/orne_box_navigation_executor.pc
-/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/cmake/orne_box_navigation_executorConfig.cmake
-/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/cmake/orne_box_navigation_executorConfig-version.cmake
-/home/takumi/tc_ws/src/orne-box/install/orne_box_navigation_executor/share/orne_box_navigation_executor/package.xml

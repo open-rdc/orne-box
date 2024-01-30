@@ -1,8 +1,0 @@
-prefix=/home/takumi/tc_ws/src/orne-box/install/orne_box_bringup
-
-Name: orne_box_bringup
-Description: Description of orne_box_bringup
-Version: 0.1.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

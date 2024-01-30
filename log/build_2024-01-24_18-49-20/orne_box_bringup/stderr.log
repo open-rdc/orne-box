@@ -1,3 +1,0 @@
-make[2]: *** [CMakeFiles/projected_transform_publisher_node.dir/build.make:63: CMakeFiles/projected_transform_publisher_node.dir/src/projected_transform_publisher_node.cpp.o] Interrupt
-make[1]: *** [CMakeFiles/Makefile2:580: CMakeFiles/projected_transform_publisher_node.dir/all] Interrupt
-make: *** [Makefile:141: all] Interrupt

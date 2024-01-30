@@ -1,6 +1,0 @@
-/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/lib/pkgconfig/orne_box_setup.pc
-/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/cmake/orne_box_setupConfig.cmake
-/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/cmake/orne_box_setupConfig-version.cmake
-/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/package.xml
-/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/scripts/create_udev_rules
-/home/takumi/tc_ws/src/orne-box/install/orne_box_setup/share/orne_box_setup/config/70-sensors.rules
