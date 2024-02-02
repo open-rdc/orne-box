@@ -21,7 +21,7 @@
     <arg name="init_pos_file" value="$(arg init_pos_file)"/>
   </include>
 
-  <!-- <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file).yaml"/> -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file).yaml"/>
   
   <!-- <include file="$(find emcl2)/launch/emcl2.launch">
      <arg name="scan_topic" default="scan"/>	 

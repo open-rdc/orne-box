@@ -5,7 +5,7 @@
   <arg name="map_file"      default="$(find orne_box_navigation_executor)/maps/tsudanuma"/>
   <arg name="init_pos_file" default="$(find orne_box_navigation_executor)/config/initial_pose_cfg/initial_pose.yaml"/>
 
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file).yaml"/>
+  <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file).yaml"/> -->
 
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <rosparam file="$(find orne_box_navigation_executor)/config/amcl.yaml" command="load"/>
