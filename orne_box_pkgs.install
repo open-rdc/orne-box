@@ -27,9 +27,9 @@
     local-name: robot_localization
     version: noetic-devel
 - git:
-    uri: https://github.com/NaokiTakahashi12/waypoint_manager
+    uri: https://github.com/open-rdc/waypoint_manager.git
     local-name: waypoint_manager
-    version: main
+    version: stop_mode
 - git:
     uri: https://github.com/at-wat/mcl_3dl
     local-name: mcl_3dl
@@ -49,4 +49,8 @@
 - git:
     uri: https://github.com/ANYbotics/message_logger.git
     local-name: message_logger
+    version: master
+- git:
+    uri: https://github.com/masakifujiwara1/obstacle_detector.git
+    local-name: obstacle_detector
     version: master
