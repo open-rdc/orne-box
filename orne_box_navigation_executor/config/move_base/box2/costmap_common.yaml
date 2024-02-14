@@ -79,5 +79,5 @@ inflation_layer:
   inflate_unknown: true
   inflation_radius: 0.4
   #inflation_radius: 0.5
-  cost_scaling_factor: 3.0 #1.5
+  cost_scaling_factor: 10.0 #1.5
   #cost_scaling_factor: 0.9
