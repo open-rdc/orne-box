@@ -16,16 +16,20 @@ Platform hardware for autonomous robot
 ```
 git clone https://github.com/open-rdc/orne-box.git -b humble-devel
 ```
-* sim利用だけであれば,pacakge.xmlとCmake.txtからypspurに関する記述をコメントアウトしてください //
-wstoolで必要なリポジトリをクローンします //
-* sim利用の場合
+* sim利用だけであれば,pacakge.xmlとCmake.txtからypspurに関する記述をコメントアウトしてください \
+wstoolで必要なリポジトリをクローンします 
+## sim利用の場合
 ```
 wstool init
 wstool merge orne-box/orne_box3_simulation_pkgs.install
 wstool up
 ```
-* 実ロボットの場合
-後日記載 //
+## 実ロボットの場合 
+```
+wstool init
+wstool merge orne-box/orne_box3_simulation_pkgs.install (後日記載)
+wstool up
+```
 rosdepで依存パッケージをインストールします
 ```
 rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
@@ -53,7 +57,7 @@ bringup
 ```
 ros2 launch orne_box_bringup orne_box_bringup.launch.py
 ```
-imuのキャリブレーション（後日記載） //
+imuのキャリブレーション（後日記載） \
 navの起動
 ```
 ros2 launch orne_box_navigation_executor play_waypoints_nav.launch
