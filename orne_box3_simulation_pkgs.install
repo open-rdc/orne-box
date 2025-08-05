@@ -1,0 +1,28 @@
+- git:
+    uri: https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2.git
+    local-name: emcl2_ros2
+    version: main
+- git:
+    uri: https://github.com/Ryusei-Baba/joy_command.git
+    local-name: joy_command
+    version: refactoring/c++
+- git:
+    uri: https://github.com/haruyama8940/rfans_driver_msgs.git
+    local-name: rfans_driver_msgs
+    version: main
+- git:
+    uri: https://github.com/ros-drivers/velodyne.git
+    local-name: velodyne
+    version: ros2
+- git:
+    uri: https://bitbucket.org/DataspeedInc/velodyne_simulator.git
+    local-name: velodyne_simulator
+    version: humble-devel
+- git:
+    uri: https://github.com/Shuma-s58/waypoint_manager2.git
+    local-name: waypoint_manager2
+    version: traffic_waypoint_manager
+- git:
+    uri: https://github.com/kyo0221/waypoint_reconfigure.git
+    local-name: waypoint_reconfigure
+    version: main
