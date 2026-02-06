@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="orne_box">
   <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:arg name="laser_visual" default="true"/>
+  <!-- <xacro:arg name="laser_visual" default="true"/> -->
   <xacro:arg name="imu_visual" default="false"/>
-  <xacro:arg name="enable_camera" default="false"/>
 
   <gazebo reference="left_caster_wheel_link">
     <mu1>0.75</mu1>
@@ -150,7 +149,7 @@
     
     </gazebo>
     <!-- hokuyo -->
-    <gazebo reference="hokuyo_link">
+    <!-- <gazebo reference="hokuyo_link">
       <sensor type="ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>$(arg laser_visual)</visualize>
@@ -175,10 +174,6 @@
           </range>
           <noise>
             <type>gaussian</type>
-            <!-- Noise parameters based on published spec for Hokuyo laser
-                 achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
-                 stddev of 0.01m will put 99.7% of samples within 0.03m of the true
-                 reading. -->
             <mean>0.0</mean>
             <stddev>0.01</stddev>
           </noise>
@@ -192,5 +187,5 @@
         </plugin>
       </sensor>
       <material>Gazebo/Black</material>
-    </gazebo>
+    </gazebo> -->
 </robot>

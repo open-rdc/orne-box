@@ -50,10 +50,10 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([include_dir, '/teleop.launch.py'])
         ),
         LogInfo(msg="Launch teleop node."),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([include_dir, '/urg_node2.launch.py'])
-        ),
-        LogInfo(msg="Launch URG node."),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource([include_dir, '/urg_node2.launch.py'])
+        # ),
+        # LogInfo(msg="Launch URG node."),
         # IncludeLaunchDescription(
         #     PythonLaunchDescriptionSource([include_dir, '/mirror_lidar.launch.py'])
         # ), 
