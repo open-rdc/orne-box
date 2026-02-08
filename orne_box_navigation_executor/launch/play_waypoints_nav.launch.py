@@ -124,7 +124,8 @@ def generate_launch_description():
         ),     
         SetLaunchConfiguration(
             name='use_sim_time',
-            value='false'
+            #value='false'
+            value='true'
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([launch_file_dir, '/bringup_launch.py']),

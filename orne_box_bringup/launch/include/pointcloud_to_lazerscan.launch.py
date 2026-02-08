@@ -16,7 +16,7 @@ def generate_launch_description():
             #('scan', 'scan'), 
         ],
         parameters=[{
-                'target_frame': '',
+                'target_frame': 'base_link',
                 'transform_tolerance': 0.1,
                 'min_height': 0.1,
                 'max_height': 5.0,
