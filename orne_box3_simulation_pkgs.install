@@ -1,3 +1,7 @@
+ git:
+    uri: https://github.com/openspur/yp-spur.git
+    local-name: yp-spur
+    version: main
 - git:
     uri: https://github.com/CIT-Autonomous-Robot-Lab/emcl2_ros2.git
     local-name: emcl2_ros2
