@@ -15,8 +15,8 @@ def generate_launch_description():
 
     # map_pass = 'tsudanuma_all' # z軸（2~5m）
     # map_pass = 'tsudanuma' # z軸（0~5m）
-    map_pass = 'tsukuba2024_all' # z軸（0~5m）
-    # map_pass = 'cit_3f_map'
+    #map_pass = 'tsukuba2024_all' # z軸（0~5m）
+    map_pass = 'cit_3f_map'
     # WAYPOI    NT_PATH = 'tsukuba2024_all'
     # WAYPOINT_PATH = 'tsudanuma2-3'
     bt_file_name ='navigate_w_replanning_and_wait.xml'
