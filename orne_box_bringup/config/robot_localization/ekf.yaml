@@ -1,7 +1,8 @@
 ### ekf config file ###
 ekf_filter_node:
     ros__parameters:
-        frequency: 40.0
+        use_sim_time: false #true
+        frequency: 20.0 #40.0
         sensor_timeout: 0.5
         two_d_mode: true
         transform_time_offset: 0.0
@@ -15,7 +16,7 @@ ekf_filter_node:
 
 #         publish_acceleration: true
 
-        # publish_tf: true
+        publish_tf: true
 
         map_frame: map              # Defaults to "map" if unspecified
         odom_frame: odom            # Defaults to "odom" if unspecified
@@ -26,8 +27,8 @@ ekf_filter_node:
         odom0: /odom
         odom0_config:   [false, false, false,
                         false, false, false,
-                        true , true, true,
-                        true, true, true,
+                        true, true, false,
+                        false, false, true,
                         false, false, false]
         
 #         #        [x_pos   , y_pos    , z_pos,
@@ -38,8 +39,8 @@ ekf_filter_node:
 
 #         # odom0_queue_size: 2
 #         # odom0_nodelay: false
-#         odom0_differential: true
-#         # odom0_relative: false
+        odom0_differential: false
+        odom0_relative: true
 #         # odom0_pose_rejection_threshold: 5.0
 #         # odom0_twist_rejection_threshold: 1.0
 
@@ -56,9 +57,9 @@ ekf_filter_node:
         imu0: /imu/data
         imu0_config:    [false, false, false,
                         false, false, true,
-                        true, true, false,
-                        true, true, true,
-                        false, false, true]
+                        false, false, false,
+                        false, false, true,
+                        true, true, false]
 #         #        [x_pos   , y_pos    , z_pos,
 #         #         roll    , pitch    , yaw,
 #         #         x_vel   , y_vel    , z_vel,
@@ -66,13 +67,13 @@ ekf_filter_node:
 #         #         x_accel , y_accel  , z_accel]
 
 #         # imu0_nodelay: false
-#         # imu0_differential: false
-#         # imu0_relative: true
+        imu0_differential: false
+        imu0_relative: false
 #         # imu0_queue_size: 5
 #         # imu0_pose_rejection_threshold: 0.8                 # Note the difference in parameter names
 #         # imu0_twist_rejection_threshold: 0.8                #
 #         # imu0_linear_acceleration_rejection_threshold: 0.8  #
-#         # imu0_remove_gravitational_acceleration: true
+        imu0_remove_gravitational_acceleration: true
 
 #         # use_control: true
 #         # stamped_control: false
