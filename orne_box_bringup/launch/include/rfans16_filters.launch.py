@@ -71,7 +71,7 @@ def generate_launch_description():
         name='cloud_process',
         remappings=[
             #publish pointcloud2
-            ('rfans_points', 'surestar_points')
+            ('rfans_points', 'surestar_points'),
             #subsclibe pointcloud2
             # ('/rfans_driver/rfans_points', '/rfans_points')
         ]
@@ -94,9 +94,10 @@ def generate_launch_description():
                 'angle_max': 3.1415,  # M_PI/2
                 'angle_increment': 0.0087,  # M_PI/360.0
                 'scan_time': 0.3333,
-                'range_min': 10.0,
+                'range_min': 0.0,
                 'range_max': 100.0,
                 'use_inf': True,
+                'use_sim_time': False,
                 'inf_epsilon': 1.0
             }]
     )
@@ -105,6 +106,7 @@ def generate_launch_description():
         package="laser_filters",
         executable="scan_to_scan_filter_chain",
         parameters=[
+            {'use_sim_time': False},
             PathJoinSubstitution([
                 get_package_share_directory("orne_box_bringup"),
                 "config", "box_filter_box3.yaml",

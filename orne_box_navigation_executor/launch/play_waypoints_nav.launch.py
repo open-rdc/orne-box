@@ -52,7 +52,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='true',
+            default_value='false',
             description='Use simulation (Gazebo) clock if true'
         ),
         DeclareLaunchArgument(
@@ -124,8 +124,8 @@ def generate_launch_description():
         ),     
         SetLaunchConfiguration(
             name='use_sim_time',
-            #value='false'
-            value='true'
+            value='false'
+            #value='true'
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([launch_file_dir, '/bringup_launch.py']),
