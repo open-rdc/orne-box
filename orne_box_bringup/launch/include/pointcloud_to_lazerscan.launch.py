@@ -10,13 +10,13 @@ def generate_launch_description():
         executable='pointcloud_to_laserscan_node',
         name='pointcloud_to_laserscan',
         remappings=[
-            ('cloud_in', 'surestar_points'),
-            #('cloud_in', 'rfans_points'),
+            #('cloud_in', 'surestar_points'),
+            ('cloud_in', 'rfans_points'),
             ('scan', 'surestar_scan'), # scan
             #('scan', 'scan'), 
         ],
         parameters=[{
-                'target_frame': '',
+                'target_frame': 'base_link',
                 'transform_tolerance': 0.1,
                 'min_height': 0.1,
                 'max_height': 5.0,
@@ -28,7 +28,7 @@ def generate_launch_description():
                 'range_max': 100.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
-                'use_sim_time': False,
+                'use_sim_time': True,
             }]
     )
 
@@ -36,7 +36,7 @@ def generate_launch_description():
         package="laser_filters",
         executable="scan_to_scan_filter_chain",
         parameters=[
-            {'use_sim_time': False},
+            {'use_sim_time': True},
             PathJoinSubstitution([
                 get_package_share_directory("orne_box_bringup"),
                 "config", "box_filter_box3.yaml",
