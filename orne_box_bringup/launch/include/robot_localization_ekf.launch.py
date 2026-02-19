@@ -13,23 +13,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from launch import LaunchDescription
-from ament_index_python.packages import get_package_share_directory
-import launch_ros.actions
 import os
-import yaml
-from launch.substitutions import EnvironmentVariable
-import pathlib
-import launch.actions
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
+import launch_ros.actions
+
 
 def generate_launch_description():
+    use_sim_time = LaunchConfiguration('use_sim_time')
+
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation time',
+    )
+
+    ekf_node = launch_ros.actions.Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[
+            os.path.join(
+                get_package_share_directory('orne_box_bringup'),
+                'config/robot_localization/',
+                'ekf.yaml',
+            ),
+            {'use_sim_time': use_sim_time},
+        ],
+    )
+
     return LaunchDescription([
-        launch_ros.actions.Node(
-            package='robot_localization',
-            executable='ekf_node',
-            name='ekf_filter_node',
-            output='screen',
-            parameters=[os.path.join(get_package_share_directory("orne_box_bringup"), 'config/robot_localization/', 'ekf.yaml')],
-           ),
-])
+        declare_use_sim_time_cmd,
+        ekf_node,
+    ])
