@@ -49,7 +49,7 @@ ros2 launch orne_box_bringup robot_localization_ekf.launch.py
 ```
 navの起動
 ```
-ros2 launch orne_box_navigation_executor play_waypoints_nav.launch
+ros2 launch orne_box_navigation_executor play_waypoints_nav.launch.py
 ```
 
 # ロボット起動(実環境)
@@ -60,7 +60,7 @@ ros2 launch orne_box_bringup orne_box_bringup.launch.py
 imuのキャリブレーション（後日記載） \
 navの起動
 ```
-ros2 launch orne_box_navigation_executor play_waypoints_nav.launch
+ros2 launch orne_box_navigation_executor play_waypoints_nav.launch.py
 ```
 
 
