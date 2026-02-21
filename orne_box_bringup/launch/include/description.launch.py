@@ -9,6 +9,12 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    use_sim_time = LaunchConfiguration("use_sim_time")
+    use_sim_time_arg = DeclareLaunchArgument(
+        "use_sim_time",
+        default_value="false",
+        description="Use simulation clock if true",
+    )
 
     packages_name = "orne_box_description"
     xacro_file_name = "orne_box_3d_lidar_rfans.urdf.xacro"
@@ -28,7 +34,7 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
-        parameters=[robot_description],
+        parameters=[robot_description, {"use_sim_time": use_sim_time}],
     )
     
     # joint_state_pub_gui_node = Node(
@@ -40,9 +46,11 @@ def generate_launch_description():
         package="joint_state_publisher",
         executable="joint_state_publisher",
         output="screen",
+        parameters=[{"use_sim_time": use_sim_time}],
     )
         
     nodes = [
+        use_sim_time_arg,
         robot_state_pub_node,
         # joint_state_pub_gui_node
         joint_state_pub_node

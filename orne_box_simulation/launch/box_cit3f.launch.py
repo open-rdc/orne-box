@@ -19,22 +19,15 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-from launch.conditions import IfCondition
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
     # パッケージディレクトリの取得
     this_directory = get_package_share_directory('orne_box_simulation')
     
-    # orne_box側のファイル
-    xacro_path = os.path.join(
-        get_package_share_directory('orne_box_description'),
-        'urdf',
-        'orne_box_3d_lidar_rfans.urdf.xacro'
-    )
     world_file_name = 'Tsudanuma_2-3.world'
     world = os.path.join(this_directory, 'world', world_file_name)
     
@@ -58,19 +51,12 @@ def generate_launch_description():
     gui = LaunchConfiguration('gui')
     use_sim_time = LaunchConfiguration('use_sim_time')
     
-    # robot_description (velodyne方式: launchファイル内でxacroを展開)
-    robot_description = Command(['xacro', ' ', xacro_path])
-    
-    # robot_state_publisher (velodyne方式: launchファイル内で定義)
-    start_robot_state_publisher_cmd = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='screen',
-        parameters=[{
-            'use_sim_time': use_sim_time,
-            'robot_description': robot_description
-        }]
+    # ロボットdescriptionはbringup側launchを読み込んで統一管理
+    start_description_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(bringup_dir, 'description.launch.py')
+        ),
+        launch_arguments={'use_sim_time': use_sim_time}.items()
     )
     
     # Gazebo起動 (velodyne方式: gazebo.launch.pyを使用)
@@ -98,6 +84,22 @@ def generate_launch_description():
         )
     )
 
+    # PointCloud -> LaserScan 変換
+    start_pointcloud_to_laserscan_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(bringup_dir, 'pointcloud_to_laserscan.launch.py')
+        ),
+        launch_arguments={'use_sim_time': use_sim_time}.items()
+    )
+
+    # robot_localization (EKF)
+    start_robot_localization_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(bringup_dir, 'robot_localization_ekf.launch.py')
+        ),
+        launch_arguments={'use_sim_time': use_sim_time}.items()
+    )
+
     # LaunchDescriptionの構築
     ld = LaunchDescription()
     
@@ -109,8 +111,10 @@ def generate_launch_description():
     ld.add_action(start_gazebo)
     
     # ロボット関連
-    ld.add_action(start_robot_state_publisher_cmd)
+    ld.add_action(start_description_cmd)
     ld.add_action(spawn_example_cmd)
+    ld.add_action(start_pointcloud_to_laserscan_cmd)
+    ld.add_action(start_robot_localization_cmd)
     
     # テレオペレーション
     ld.add_action(start_teleop_cmd)

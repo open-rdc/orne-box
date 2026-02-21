@@ -267,8 +267,7 @@ global_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          # topic: /scan
-          topic: /low_scan
+          topic: /scan
           obstacle_max_range: 10.0
           obstacle_min_range: 0.0
           raytrace_max_range: 11.0
@@ -319,7 +318,7 @@ local_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /low_scan
+          topic: /scan
           obstacle_max_range: 3.5
           obstacle_min_range: 0.0
           raytrace_max_range: 4.0
