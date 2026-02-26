@@ -161,18 +161,16 @@ controller_server:
 global_costmap:
   global_costmap:
     ros__parameters:
+      use_sim_time: False
       map_topic: /map_for_costmap
       update_frequency: 2.55055
       publish_frequency: 2.0
       global_frame: map
       robot_base_frame: base_link
-      use_sim_time: False
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
       resolution: 0.1
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
-      #filters
-      filters: ["keepout_filter", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -195,15 +193,12 @@ global_costmap:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
         inflation_radius: 1.25
-      #costmap filter 
-      keepout_filter:
-        plugin: "nav2_costmap_2d::KeepoutFilter"
-        enabled: True
-        filter_info_topic: "/costmap_filter_info"
-      always_send_full_costmap: True
+      always_send_full_costmap: False
+
   global_costmap_client:
     ros__parameters:
       use_sim_time: True
+
   global_costmap_rclcpp_node:
     ros__parameters:
       use_sim_time: True
@@ -211,19 +206,17 @@ global_costmap:
 local_costmap:
   local_costmap:
     ros__parameters:
+      use_sim_time: False
       update_frequency: 4.0505
       publish_frequency: 4.0
       global_frame: map
       robot_base_frame: base_link
-      use_sim_time: False
       rolling_window: true
       width: 10
       height: 10
       resolution: 0.1
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
       plugins: ["obstacle_layer", "inflation_layer"]
-      #keepout
-      filters: ["keepout_filter"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -243,15 +236,12 @@ local_costmap:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
         inflation_radius: 0.3
-      #keepout
-      keepout_filter:
-        plugin: "nav2_costmap_2d::KeepoutFilter"
-        enabled: True
-        filter_info_topic: "/costmap_filter_info"
-      always_send_full_costmap: True  
+      always_send_full_costmap: False
+
   local_costmap_client:
     ros__parameters:
       use_sim_time: True
+
   local_costmap_rclcpp_node:
     ros__parameters:
       use_sim_time: True
