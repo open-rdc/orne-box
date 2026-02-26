@@ -275,6 +275,9 @@ planner_server_rclcpp_node:
 smoother_server:
   ros__parameters:
     use_sim_time: False
+    costmap_topic: global_costmap/costmap_raw
+    footprint_topic: global_costmap/published_footprint
+    robot_base_frame: base_link
     smoother_plugins: ["simple_smoother"]
     simple_smoother:
       plugin: "nav2_smoother::SimpleSmoother"
