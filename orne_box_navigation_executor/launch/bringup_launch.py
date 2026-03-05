@@ -155,14 +155,14 @@ def generate_launch_description():
         #                       'container_name': 'nav2_container'}.items()
         # ),
         # # use emcl
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(emcl2_launch_dir,
-                                                       'emcl2.launch.py')),
-            condition=IfCondition(PythonExpression(['not ', slam])),
-            launch_arguments={'map': map_yaml_file,
-                              'use_sim_time': use_sim_time,
-                              'params_file': emcl2_params_file}.items()
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(os.path.join(emcl2_launch_dir,
+        #                                                'emcl2.launch.py')),
+        #     condition=IfCondition(PythonExpression(['not ', slam])),
+        #     launch_arguments={'map': map_yaml_file,
+        #                       'use_sim_time': use_sim_time,
+        #                       'params_file': emcl2_params_file}.items()
+        # ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(launch_dir, 'navigation_launch.py')),
             launch_arguments={'namespace': namespace,
