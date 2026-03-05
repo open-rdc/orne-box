@@ -1,0 +1,6 @@
+image: cit_3f_3d.pgm
+resolution: 0.1
+origin: [-15.12237548828125, -10.205296516418457, 0.0]
+occupied_thresh: 0.65
+free_thresh: 0.2
+negate: 0
