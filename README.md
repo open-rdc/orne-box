@@ -42,9 +42,6 @@ wstool up
 ```
 
 ### 3. Install dependencies
-```bash
-rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
-```
 
 ```bash
 sudo apt install -y \
@@ -53,11 +50,12 @@ sudo apt install -y \
   ros-$ROS_DISTRO-nav2-bringup \
   ros-$ROS_DISTRO-turtlebot3-gazebo \
   ros-$ROS_DISTRO-robot-localization \
-  ros-$ROS_DISTRO-pointcloud-to-laserscan
-```
+  ros-$ROS_DISTRO-pointcloud-to-laserscan \
+  ros-$ROS_DISTRO-xacro \
+  ros-$ROS_DISTRO-joint-state-publisher \
+  ros-$ROS_DISTRO-laser-filters 
 
-### Notes
-- simulation のみ利用する場合は、`package.xml` と `CMakeLists.txt` の ypspur 関連記述をコメントアウトしてください。
+```
 
 ## Simulation
 
