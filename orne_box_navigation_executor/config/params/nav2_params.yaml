@@ -31,7 +31,7 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    default_nav_to_pose_bt_xml: /home/ros/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
+    #default_nav_to_pose_bt_xml: /home/ros/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
     always_reload_bt_xml: false
     bt_loop_duration: 10
     default_server_timeout: 20
@@ -172,7 +172,7 @@ global_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /scan
+          topic: /low_scan
           obstacle_max_range: 10.0
           obstacle_min_range: 0.0
           raytrace_max_range: 11.0
@@ -218,7 +218,7 @@ local_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /scan
+          topic: /low_scan
           obstacle_max_range: 3.5
           obstacle_min_range: 0.0
           raytrace_max_range: 4.0
