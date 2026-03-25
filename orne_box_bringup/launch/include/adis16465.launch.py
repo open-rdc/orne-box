@@ -25,8 +25,8 @@ def generate_launch_description():
 
     adis16465 = Node(
         name='adis16465_node',
-        package='adi_driver',
-        executable='adis16465_node',
+        package='adi_driver2',
+        executable='adis16465',
         parameters=[params_file],
         output='screen')
 

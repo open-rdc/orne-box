@@ -117,6 +117,47 @@ def generate_launch_description():
         ],    
     )
 
+    low_pointcloud_to_laserscan_node = launch_ros.actions.Node(
+        package='pointcloud_to_laserscan',
+        executable='pointcloud_to_laserscan_node',
+        name='pointcloud_to_laserscan',
+        remappings=[
+            ('cloud_in', 'surestar_points'),
+            ('scan', 'low_surestar_scan'), # scan
+        ],
+        parameters=[{
+                'target_frame': '',
+                'transform_tolerance': 0.1,
+                'min_height': -0.5,
+                'max_height': 5.0,
+                'angle_min': -3.1415,  # -M_PI/2
+                'angle_max': 3.1415,  # M_PI/2
+                'angle_increment': 0.0087,  # M_PI/360.0
+                'scan_time': 0.3333,
+                'range_min': 0.0,
+                'range_max': 100.0,
+                'use_inf': True,
+                'use_sim_time': False,
+                'inf_epsilon': 1.0
+            }]
+    )
+
+    low_laser_filters_node = launch_ros.actions.Node(
+        package="laser_filters",
+        executable="scan_to_scan_filter_chain",
+        parameters=[
+            {'use_sim_time': False},
+            PathJoinSubstitution([
+                get_package_share_directory("orne_box_bringup"),
+                "config", "box_filter_box3.yaml",
+            ])],
+        remappings=[
+            ('scan_filtered', 'low_scan'),
+            ('scan', 'low_surestar_scan'),
+        ],
+    )
+
+
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument('namespace', default_value=namespace),
         launch.actions.DeclareLaunchArgument('output', default_value=output),
@@ -130,7 +171,10 @@ def generate_launch_description():
         calculation_node,
         cloud_process_node,
         pointcloud_to_laserscan_node,
-        laser_filters_node
+        laser_filters_node,
+        low_pointcloud_to_laserscan_node,
+        low_laser_filters_node
+
     ])
 
 if __name__ == '__main__':
