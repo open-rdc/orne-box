@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="orne_box">
   <xacro:arg name="ignition_gazebo" default="false"/>
+  <xacro:include filename="$(find orne_box_description)/urdf/orne_box.urdf.xacro"/>
   <!-- @TODO More clear boolean operation -->
   <!-- @gazebo Classic -->
   <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
-    <xacro:include filename="$(find orne_box_description)/urdf/orne_box.urdf.xacro"/>
+    <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
     <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
     <!-- Setting for 3D-LiDAR -->
     <xacro:VLP-16 parent="base_link" name="surestar" topic="/surestar_points" organize_cloud="false" hz="10" samples="440" gpu="false">
@@ -13,7 +14,7 @@
   </xacro:if>
   <!-- @Ignition gazebo -->
   <xacro:if value="$(arg ignition_gazebo)">
-    <xacro:include filename="$(find orne_box_description)/urdf/ign_orne_box.urdf.xacro"/>
+    <xacro:include filename="$(find orne_box_description)/urdf/ign_orne_box.gazebo.xacro"/>
     <link name="surestar">
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
