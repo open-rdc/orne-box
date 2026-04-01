@@ -3,14 +3,18 @@
   <xacro:arg name="ignition_gazebo" default="false"/>
   <xacro:include filename="$(find orne_box_description)/urdf/orne_box.urdf.xacro"/>
   <!-- @TODO More clear boolean operation -->
+  <!-- @gazebo Classic -->
   <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
+    <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
     <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
     <!-- Setting for 3D-LiDAR -->
     <xacro:VLP-16 parent="base_link" name="surestar" topic="/surestar_points" organize_cloud="false" hz="10" samples="440" gpu="false">
       <origin xyz="-0.12 0 0.60" rpy="0 0 0"/>
     </xacro:VLP-16>
   </xacro:if>
+  <!-- @Ignition gazebo -->
   <xacro:if value="$(arg ignition_gazebo)">
+    <xacro:include filename="$(find orne_box_description)/urdf/ign_orne_box.gazebo.xacro"/>
     <link name="surestar">
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
@@ -36,12 +40,14 @@
       <parent link="base_link"/>
       <child link="surestar"/>
     </joint>
+
     <gazebo reference="surestar">
-      <sensor name="surestar" type="gpu_lidar">
-        <alwaysOn>1</alwaysOn>
+      <sensor type="gpu_lidar" name="surestar">
+	<always_on>true</always_on> 
         <update_rate>10</update_rate>
-        <visualize>true</visualize>
-        <lidar>
+	<visualize>true</visualize>
+
+        <ray>
           <scan>
             <horizontal>
               <!-- Correct points of 1875 -->
@@ -63,12 +69,12 @@
             <resolution>0.001</resolution>
           </range>
           <noise>
-            <noise>gaussian</noise>
+            <type>gaussian</type>
             <mean>0.0</mean>
             <stddev>0.02</stddev>
           </noise>
-        </lidar>
-        <topic>model/orne_box/rfans</topic>
+        </ray>
+	<topic>/model/orne_box/rfans</topic>
       </sensor>
     </gazebo>
   </xacro:if>

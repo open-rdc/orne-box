@@ -60,9 +60,17 @@ sudo apt install -y \
 ## Simulation
 
 ### Start simulation
+以下のどちらかを選択して起動してください。 
+
+A. gazebo Classicで起動する場合:
 ```bash
 ros2 launch orne_box_simulation box_cit3f.launch.py
 ```
+B. Ignition gazeboで起動する場合:
+```bash
+ros2 launch orne_box_simulation ign_box_cit3f.launch.py
+```
+
 ### Start navigation
 ```bash
 ros2 launch orne_box_navigation_executor play_waypoints_nav.launch.py
