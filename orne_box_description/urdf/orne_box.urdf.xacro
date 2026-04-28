@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="orne_box">
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:include filename="$(find orne_box_description)/urdf/material_colors.xacro"/>
-  <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
+  <!--<xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>-->
   <xacro:include filename="$(find orne_box_description)/urdf/links/base_link.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/caster_wheel_link.urdf.xacro"/>
   <xacro:include filename="$(find orne_box_description)/urdf/links/caster_swivel_link.urdf.xacro"/>

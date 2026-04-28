@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="orne_box">
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:arg name="laser_visual" default="true"/>
+  <!--<xacro:arg name="imu_visual" default="false"/> -->
+  <!--<xacro:arg name="enable_camera" default="false"/>-->
+
+  <gazebo reference="left_caster_wheel_link">
+    <mu1>0.75</mu1>
+    <mu2>0.75</mu2>
+    <contact>
+      <ode>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <min_depth>0.001</min_depth>
+        <max_vel>1.0</max_vel>
+      </ode>
+    </contact>
+  </gazebo>
+  <gazebo reference="right_caster_wheel_link">
+    <mu1>0.75</mu1>
+    <mu2>0.75</mu2>
+    <contact>
+      <ode>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <min_depth>0.001</min_depth>
+        <max_vel>1.0</max_vel>
+      </ode>
+    </contact>
+  </gazebo>
+  <gazebo reference="left_wheel">
+    <mu1>0.85</mu1>
+    <mu2>0.85</mu2>
+    <contact>
+      <ode>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <min_depth>0.001</min_depth>
+        <max_vel>1.0</max_vel>
+      </ode>
+    </contact>
+    <material>
+      <ambient>1.0 1.0 1.0 1.0</ambient>
+      <diffuse>1.0 1.0 1.0 1.0</diffuse>
+    </material>
+  </gazebo>
+  <gazebo reference="right_wheel">
+    <mu1>0.85</mu1>
+    <mu2>0.85</mu2>
+    <contact>
+      <ode>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <min_depth>0.001</min_depth>
+        <max_vel>1.0</max_vel>
+      </ode>
+    </contact>
+    <material>
+      <ambient>1.0 1.0 1.0 1.0</ambient>
+      <diffuse>1.0 1.0 1.0 1.0</diffuse>
+    </material>
+  </gazebo>
+  <!-- @TODO More clear boolean operation -->
+    <!-- <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>orne_box</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+    </gazebo> -->
+
+    <!-- diff_drive -->
+    <gazebo>
+      <plugin filename="libignition-gazebo-diff-drive-system.so" name="ignition::gazebo::systems::DiffDrive">
+	<always_on>true</always_on>
+
+	<ros>
+          <namespace>/base_link</namespace>   <!-- ← これが prefix になっている -->
+        </ros>
+
+        <!-- frame and cmd_vel -->
+        <topic>cmd_vel</topic>
+        <odom_topic>odom</odom_topic>
+        <odom_frame>odom</odom_frame>
+	<robot_base_frame>base_link</robot_base_frame>
+	<frame_id>odom</frame_id>                      <!-- ← 追加 -->
+	<child_frame_id>base_link</child_frame_id> <!-- ← 追加 -->
+        <update_rate>30</update_rate>
+        <!-- wheels -->
+        <left_joint>left_wheel_joint</left_joint>
+        <right_joint>right_wheel_joint</right_joint>
+        <!-- kinematics -->
+        <wheel_separation>0.46</wheel_separation>
+        <wheel_diameter>0.304</wheel_diameter>
+        <wheel_acceleration>1</wheel_acceleration>
+        <max_wheel_torque>20</max_wheel_torque>
+        <max_wheel_acceleration>1.0</max_wheel_acceleration>
+        <!-- output -->
+        <publish_odom>true</publish_odom>
+        <publish_odom_tf>false</publish_odom_tf>
+        <publish_wheel_tf>false</publish_wheel_tf>
+      </plugin>
+    </gazebo>
+
+    <!-- joint_state_publisher -->
+    <gazebo>
+      <plugin filename="libignition-gazebo-joint-state-publisher-system.so" name="ignition::gazebo::systems::JointStatePublisher">
+        <ros>
+          <namespace>/orne_box</namespace>
+          <remapping>~/out:=joint_states</remapping>
+        </ros>
+        <joint_name>left_wheel_joint</joint_name>
+        <joint_name>right_wheel_joint</joint_name>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="base_link">
+      <material>
+        <ambient>1.0 0.5 0.0 1.0</ambient>
+        <diffuse>1.0 0.5 0.0 1.0</diffuse>
+      </material>
+    </gazebo>
+    <!-- imu -->
+    <gazebo reference="imu_link">
+      <sensor type="imu" name="imu">
+        <plugin filename="libignition-gazebo-imu-system.so" name="ignition::gazebo::systems::Imu">
+          <ros>
+            <remapping>~/imu:=imu/data</remapping>
+          </ros>
+        </plugin>
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+
+        <imu>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                <bias_mean>0.0</bias_mean>
+		<bias_stddev>0.0</bias_stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                <bias_mean>0.0</bias_mean>
+                <bias_stddev>0.0</bias_stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+      <material>
+        <ambient>0.0 1.0 0.0 1.0</ambient>
+        <diffuse>0.0 1.0 0.0 1.0</diffuse>
+      </material>
+
+    </gazebo>
+    <!-- hokuyo -->
+    <!--<gazebo reference="hokuyo_link">
+      <sensor type="ray" name="head_hokuyo_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>$(arg laser_visual)</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>880</samples>
+              <resolution>0.25</resolution>
+              <min_angle>${-PI/180*110}</min_angle>
+              <max_angle>${ PI/180*110}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type> 
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <remapping>~/out:=hokuyo_scan</remapping>
+          </ros>
+          <frame_name>hokuyo_link</frame_name>
+          <output_type>sensor_msgs/LaserScan</output_type>
+        </plugin>
+      </sensor>
+      <material>Gazebo/Black</material>
+    </gazebo> -->
+</robot>
