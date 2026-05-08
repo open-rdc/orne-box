@@ -1,8 +1,11 @@
 import launch
 import launch_ros.actions
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription  # ←追加
+from launch.launch_description_sources import PythonLaunchDescriptionSource  # ←追加
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from ament_index_python.packages import get_package_share_directory
+
+import os
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -54,18 +57,30 @@ def generate_launch_description():
         ],    
     )
 
+    ground_segmentation_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            get_package_share_directory('ground_segmentation_ros2'),
+            '/launch/ground_segmentation.launch.py'
+        ]),
+        launch_arguments={
+            'pointcloud_topic': '/surestar_points',
+            'use_sim_time': "true",
+            'params_file': os.path.join(get_package_share_directory('ground_segmentation_ros2'),'config', 'parameters.yaml'),
+        }.items()
+    )
+
     low_pointcloud_to_laserscan_node = launch_ros.actions.Node(
         package='pointcloud_to_laserscan',
         executable='pointcloud_to_laserscan_node',
         name='pointcloud_to_laserscan',
         remappings=[
-            ('cloud_in', 'surestar_points'),
+            ('cloud_in', '/ground_segmentation/obstacle_points'), #ground_segmentation_output
             ('scan', 'low_surestar_scan'), # scan
         ],
         parameters=[{
                 'target_frame': '',
                 'transform_tolerance': 0.1,
-                'min_height': -0.4,
+                'min_height': -1.0, #-0.4 
                 'max_height': 0.5,
                 'angle_min': -3.1415,  # -M_PI/2
                 'angle_max': 3.1415,  # M_PI/2
@@ -98,6 +113,7 @@ def generate_launch_description():
         declare_use_sim_time_cmd,
         pointcloud_to_laserscan_node,
         laser_filters_node,
+        ground_segmentation_launch,  # ←追加
         low_pointcloud_to_laserscan_node,
         low_laser_filters_node
     ])
