@@ -13,8 +13,7 @@ def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_navigation_executor'), 'launch')
     config_dir = os.path.join(nav_dir, 'config')
 
-    map_pass = 'tsudanuma'
-    #map_pass = 'cit_3f_map'
+    map_pass = 'tsudanuma/tsudanuma'
     bt_file_name ='navigate_w_replanning_and_wait.xml'
 
     map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
@@ -32,14 +31,14 @@ def generate_launch_description():
  
     return LaunchDescription([
         # waypoint_manager2
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([launch_file_dir, '/waypoint_manager2.launch.py']),
-            # launch_arguments={
-            #     'waypoint_path': waypoint_file,
-            #     'overwrite': 'True',
-            #     'wp_feedback_visible': 'True',
-            # }.items()
-        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource([launch_file_dir, '/waypoint_manager2.launch.py']),
+        #     # launch_arguments={
+        #     #     'waypoint_path': waypoint_file,
+        #     #     'overwrite': 'True',
+        #     #     'wp_feedback_visible': 'True',
+        #     # }.items()
+        # ),
 
         DeclareLaunchArgument(
             'namespace',
