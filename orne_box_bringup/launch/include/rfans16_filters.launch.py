@@ -3,6 +3,10 @@ import launch_ros.actions
 from launch.substitutions import PathJoinSubstitution
 from ament_index_python.packages import get_package_share_directory
 
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription  # ←追加
+from launch.launch_description_sources import PythonLaunchDescriptionSource  # ←追加
+
+
 def generate_launch_description():
     namespace = launch.substitutions.LaunchConfiguration('namespace', default='rfans')
     output = launch.substitutions.LaunchConfiguration('output', default='screen')
@@ -157,6 +161,15 @@ def generate_launch_description():
         ],
     )
 
+    pointcloud_to_laserscan_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            get_package_share_directory('orne_box_bringup'),
+            '/launch/include/pointcloud_to_laserscan.launch.py'
+        ]),
+        launch_arguments={
+            'use_sim_time': "false",
+        }.items()
+    )
 
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument('namespace', default_value=namespace),
@@ -170,10 +183,11 @@ def generate_launch_description():
         rfans_driver_node,
         calculation_node,
         cloud_process_node,
-        pointcloud_to_laserscan_node,
-        laser_filters_node,
-        low_pointcloud_to_laserscan_node,
-        low_laser_filters_node
+        #pointcloud_to_laserscan_node,
+        #laser_filters_node,
+        #low_pointcloud_to_laserscan_node,
+        #low_laser_filters_node,
+        pointcloud_to_laserscan_launch
 
     ])
 

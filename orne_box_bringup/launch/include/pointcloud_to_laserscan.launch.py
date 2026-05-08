@@ -64,7 +64,7 @@ def generate_launch_description():
         ]),
         launch_arguments={
             'pointcloud_topic': '/surestar_points',
-            'use_sim_time': "true",
+            'use_sim_time': use_sim_time,
             'params_file': os.path.join(get_package_share_directory('ground_segmentation_ros2'),'config', 'parameters.yaml'),
         }.items()
     )
