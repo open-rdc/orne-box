@@ -53,6 +53,8 @@ def generate_launch_description():
     param_substitutions = {
         'use_sim_time': use_sim_time,
         'default_bt_xml_filename': default_bt_xml_filename,
+        'default_nav_to_pose_bt_xml': default_bt_xml_filename,
+        'default_nav_through_poses_bt_xml': default_bt_xml_filename,
         'autostart': autostart,
         'map_subscribe_transient_local': map_subscribe_transient_local}
 
@@ -202,7 +204,9 @@ def generate_launch_description():
                 executable='map_server',
                 name='map_server_for_costmap',
                 output='screen',
-                parameters=[{'yaml_filename': costmap, 'map_subscribe_transient_local': True}],
+                parameters=[{'use_sim_time': use_sim_time,
+                             'yaml_filename': costmap,
+                             'map_subscribe_transient_local': map_subscribe_transient_local}],
                 remappings=[('map', 'map_for_costmap')]),
             ]
         ),
@@ -265,7 +269,9 @@ def generate_launch_description():
                     package='nav2_map_server',
                     plugin='nav2_map_server::MapServer',
                     name='map_server_for_costmap',
-                    parameters=[{'yaml_filename': costmap, 'map_subscribe_transient_local': True}],
+                    parameters=[{'use_sim_time': use_sim_time,
+                                'yaml_filename': costmap,
+                                'map_subscribe_transient_local': map_subscribe_transient_local}],
                     remappings=[('map', 'map_for_costmap')]),
             ],
         )

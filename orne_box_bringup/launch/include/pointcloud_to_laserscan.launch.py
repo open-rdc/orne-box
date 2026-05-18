@@ -74,7 +74,7 @@ def generate_launch_description():
                 'range_min': 0.0,
                 'range_max': 100.0,
                 'use_inf': True,
-                'use_sim_time': False,
+                'use_sim_time': use_sim_time,
                 'inf_epsilon': 1.0
             }]
     )
@@ -83,7 +83,7 @@ def generate_launch_description():
         package="laser_filters",
         executable="scan_to_scan_filter_chain",
         parameters=[
-            {'use_sim_time': False},
+            {'use_sim_time': use_sim_time},
             PathJoinSubstitution([
                 get_package_share_directory("orne_box_bringup"),
                 "config", "box_filter_box3.yaml",

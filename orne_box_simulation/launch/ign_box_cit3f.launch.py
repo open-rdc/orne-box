@@ -107,6 +107,7 @@ def generate_launch_description():
     start_bridge_cmd = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
+        parameters=[{'use_sim_time': use_sim_time}],
         arguments=[
             # 制御コマンド: ROS 2 → Ignition
             '/cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist',
@@ -147,7 +148,8 @@ def generate_launch_description():
     start_teleop_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(bringup_dir, 'teleop.launch.py')
-        )
+        ),
+        launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
     # PointCloud -> LaserScan 変換 (変更なし)
