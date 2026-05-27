@@ -31,7 +31,7 @@ def generate_launch_description():
                 'angle_max': 3.1415,  # M_PI/2
                 'angle_increment': 0.0261, #0.0087,  # M_PI/360.0
                 'scan_time': 0.1, #0.3333,
-                'range_min': 0.0,
+                'range_min': 0.3,
                 'range_max': 100.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
@@ -71,7 +71,7 @@ def generate_launch_description():
                 'angle_max': 3.1415,  # M_PI/2
                 'angle_increment': 0.0087,  # M_PI/360.0
                 'scan_time': 0.3333,
-                'range_min': 0.0,
+                'range_min': 0.3,
                 'range_max': 100.0,
                 'use_inf': True,
                 'use_sim_time': use_sim_time,
@@ -89,7 +89,7 @@ def generate_launch_description():
                 "config", "box_filter_box3.yaml",
             ])],
         remappings=[
-            ('scan_filtered', 'low_scan'),
+            ('scan_filtered', 'low_scan_raw'),
             ('scan', 'low_surestar_scan'),
         ],
     )
