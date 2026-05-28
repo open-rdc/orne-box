@@ -192,6 +192,14 @@ def generate_launch_description():
                 remappings=remappings +
                         [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_raw')]),
             Node(
+                package='prestop',
+                executable='prestop_node',
+                name='prestop_node',
+                output='screen',
+                respawn=use_respawn,
+                respawn_delay=2.0,
+                parameters=[configured_params]),
+            Node(
                 package='nav2_lifecycle_manager',
                 executable='lifecycle_manager',
                 name='lifecycle_manager_navigation',
@@ -275,4 +283,13 @@ def generate_launch_description():
                     remappings=[('map', 'map_for_costmap')]),
             ],
         ),
+        Node(
+            package='prestop',
+            executable='prestop_node',
+            name='prestop_node',
+            output='screen',
+            respawn=use_respawn,
+            respawn_delay=2.0,
+            parameters=[configured_params],
+            condition=IfCondition(use_composition)),
     ])
