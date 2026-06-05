@@ -31,7 +31,8 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    #default_nav_to_pose_bt_xml: /home/ros/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
+    default_nav_to_pose_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
+    default_nav_through_poses_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
     always_reload_bt_xml: false
     bt_loop_duration: 10
     default_server_timeout: 20
@@ -84,8 +85,9 @@ bt_navigator_navigate_to_pose_rclcpp_node:
 controller_server:
   ros__parameters:
     use_sim_time: False
-    controller_frequency: 5.0
+    controller_frequency: 10.0
     use_realtime_priority: true ##CPU
+    publish_zero_velocity: false
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
@@ -100,13 +102,13 @@ controller_server:
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
       required_movement_radius: 0.5
-      movement_time_allowance: 10.0
+      movement_time_allowance: 20.0
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
-      stateful: True
+      xy_goal_tolerance: 2.0
+      yaw_goal_tolerance: 3.14
+      stateful: False
     # DWB parameters
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
@@ -119,8 +121,6 @@ controller_server:
       min_speed_xy: 0.0
       max_speed_xy: 0.9
       min_speed_theta: 0.0
-      # Add high threshold velocity for turtlebot 3 issue.
-      # https://github.com/ROBOTIS-GIT/turtlebot3_simulations/issues/75
       acc_lim_x: 1.0
       acc_lim_y: 0.0
       acc_lim_theta: 3.2
@@ -128,24 +128,23 @@ controller_server:
       decel_lim_y: 0.0
       decel_lim_theta: -3.2
       vx_samples: 20
-      vy_samples: 5
+      vy_samples: 1
       vtheta_samples: 20
       sim_time: 1.7
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
       xy_goal_tolerance: 0.25
-      trans_stopped_velocity: 0.25
+      trans_stopped_velocity: 0.05
       short_circuit_trajectory_evaluation: True
       stateful: True
       critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
-      BaseObstacle.scale: 0.02
-      PathAlign.scale: 32.0
-      PathAlign.forward_point_distance: 0.1
-      GoalAlign.scale: 24.0
-      GoalAlign.forward_point_distance: 0.1
-      PathDist.scale: 32.0
-      GoalDist.scale: 24.0
+      BaseObstacle.scale: 0.08
+      PathAlign.scale: 48.0
+      PathAlign.forward_point_distance: 0.2
+      PathDist.scale: 64.0
+      GoalAlign.scale: 16.0
+      GoalDist.scale: 16.0
       RotateToGoal.scale: 32.0
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
@@ -159,11 +158,11 @@ global_costmap:
     ros__parameters:
       use_sim_time: False
       map_topic: /map_for_costmap
-      update_frequency: 2.55055
-      publish_frequency: 2.0
+      update_frequency: 3.0
+      publish_frequency: 3.0
       global_frame: map
       robot_base_frame: base_link
-      footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
+      footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
       resolution: 0.1
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
@@ -181,6 +180,7 @@ global_costmap:
           min_obstacle_height: 0.0
           clearing: True
           marking: True
+          inf_is_valid: true
           data_type: "LaserScan"
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
@@ -203,15 +203,15 @@ local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: False
-      update_frequency: 4.0505
-      publish_frequency: 4.0
-      global_frame: map
+      update_frequency: 5.0
+      publish_frequency: 5.0
+      global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
       width: 10
       height: 10
       resolution: 0.1
-      footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
+      footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
       plugins: ["obstacle_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
@@ -227,11 +227,12 @@ local_costmap:
           min_obstacle_height: 0.0
           clearing: True
           marking: True
+          inf_is_valid: True
           data_type: "LaserScan"
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.3
+        inflation_radius: 0.5
       always_send_full_costmap: False
 
   local_costmap_client:
@@ -261,8 +262,8 @@ planner_server:
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
       tolerance: 0.5
-      use_astar: false
       allow_unknown: true
+      use_astar: true
 
 planner_server_rclcpp_node:
   ros__parameters:
@@ -286,9 +287,7 @@ behavior_server:
     costmap_topic: local_costmap/costmap_raw
     footprint_topic: local_costmap/published_footprint
     cycle_frequency: 10.0
-    recovery_plugins: ["spin", "backup", "wait"]
-    spin:
-      plugin: "nav2_behaviors/Spin"
+    recovery_plugins: ["backup", "wait"]
     back_up:
       plugin: "nav2_behaviors/BackUp"
     wait:
@@ -314,8 +313,8 @@ waypoint_follower:
     waypoint_task_executor_plugin: "wait_at_waypoint"
     wait_at_waypoint:
       plugin: "nav2_waypoint_follower::WaitAtWaypoint"
-      enabled: True
-      waypoint_pause_duration: 200
+      enabled: False
+      waypoint_pause_duration: 0
 
 velocity_smoother:
   ros__parameters:
@@ -323,7 +322,7 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.6, 0.0, 1.7]
+    max_velocity: [0.6, 0.0, 0.7]
     min_velocity: [-0.6, 0.0, -0.7]
     max_accel: [0.5, 0.0, 1.0]
     max_decel: [-2.0, 0.0, -2.0]
@@ -331,3 +330,23 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
+
+prestop_node:
+  ros__parameters:
+    use_sim_time: False
+    cmd_vel_in_topic: "/cmd_vel_raw"
+    cmd_vel_out_topic: "/cmd_vel"
+    scan_in_topic: "/low_scan_raw"
+    scan_out_topic: "/low_scan"
+
+    base_frame_id: "base_link"
+    visualize_stop_zone: true
+    stop_zone_polygon_topic: "/prestop/stop_zone_polygon"
+    stop_duration: 3.0
+    min_obstacle_scan_duration: 5.0
+
+    polygons:
+      stop_zone:
+        enabled: true
+        action_type: "stop"
+        points: "[[-0.3, 0.5], [1.5, 0.5], [1.5, -0.5], [-0.3, -0.5]]"
