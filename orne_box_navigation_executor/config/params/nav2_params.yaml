@@ -212,7 +212,7 @@ local_costmap:
       height: 10
       resolution: 0.1
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
-      plugins: ["obstacle_layer", "inflation_layer", "gradient_layer"]
+      plugins: ["obstacle_layer", "inflation_layer", "elevation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -233,8 +233,8 @@ local_costmap:
         cost_scaling_factor: 3.0
         inflation_radius: 0.3
 
-      gradient_layer:
-        plugin: "nav2_gradient_costmap_plugin::GradientLayer"
+      elevation_layer:
+        plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
       always_send_full_costmap: False
 
