@@ -212,7 +212,7 @@ local_costmap:
       height: 10
       resolution: 0.1
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
-      plugins: ["obstacle_layer", "inflation_layer", "elevation_layer"]
+      plugins: ["elevation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
