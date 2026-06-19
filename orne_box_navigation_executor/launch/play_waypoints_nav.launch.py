@@ -13,8 +13,10 @@ def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_navigation_executor'), 'launch')
     config_dir = os.path.join(nav_dir, 'config')
 
-    map_pass = 'tsudanuma/tsudanuma'
+    # map_pass = 'tsudanuma/tsudanuma'
     # map_pass = 'tsudanuma/cit_3f_map'
+    map_pass = 'tsudanuma/tudanu_map'
+
     bt_file_name ='navigate_w_replanning_and_recovery.xml'
 
     map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
