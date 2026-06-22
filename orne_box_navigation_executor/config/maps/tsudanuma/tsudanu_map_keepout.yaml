@@ -1,4 +1,4 @@
-image: tudanu_map_keepout.pgm
+image: tsudanu_map_keepout.pgm
 mode: trinary
 resolution: 0.1
 origin: [-28.7, -125, 0]
