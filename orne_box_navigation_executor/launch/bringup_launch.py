@@ -31,6 +31,7 @@ def generate_launch_description():
     costmap_yaml_file = LaunchConfiguration('costmap')
     use_sim_time = LaunchConfiguration('use_sim_time')
     params_file = LaunchConfiguration('params_file')
+    no_overtake_mask = LaunchConfiguration('no_overtake_mask')
     
     autostart = LaunchConfiguration('autostart')
     use_composition = LaunchConfiguration('use_composition')
@@ -93,7 +94,13 @@ def generate_launch_description():
         default_value=os.path.join(config_dir, 'params', 'nav2_params.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
-    declare_params_file_cmd = DeclareLaunchArgument(
+    declare_no_overtake_mask_cmd = DeclareLaunchArgument(
+        'no_overtake_mask',
+        default_value=os.path.join(
+            config_dir, 'maps', 'tsudanuma', 'cit_3f_map_no_overtake.yaml'),
+        description='Full path to the binary no-overtake filter mask')
+
+    declare_emcl2_params_file_cmd = DeclareLaunchArgument(
         'emcl2_params_file',
         default_value=os.path.join(config_dir, 'params', 'emcl2_params.yaml'),
         description='Full path to the EMCL2 parameters file to use for all launched nodes')
@@ -174,7 +181,8 @@ def generate_launch_description():
                               'use_respawn': use_respawn,
                             #   'use_lifecycle_mgr': 'false',
                               'costmap': costmap_yaml_file,
-                              'map_subscribe_transient_local': 'ture',
+                              'no_overtake_mask': no_overtake_mask,
+                              'map_subscribe_transient_local': 'true',
                               'container_name': 'nav2_container'}.items()
         ),
     ])
@@ -193,6 +201,8 @@ def generate_launch_description():
     ld.add_action(declare_costmap_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
+    ld.add_action(declare_no_overtake_mask_cmd)
+    ld.add_action(declare_emcl2_params_file_cmd)
     ld.add_action(declare_autostart_cmd)
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_use_respawn_cmd)

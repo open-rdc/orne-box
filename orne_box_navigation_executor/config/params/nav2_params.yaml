@@ -166,6 +166,15 @@ global_costmap:
       resolution: 0.1
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      filters: ["no_overtake_filter"]
+      no_overtake_filter:
+        plugin: "nav2_costmap_2d::BinaryFilter"
+        enabled: True
+        filter_info_topic: "/no_overtake_filter_info"
+        transform_tolerance: 0.2
+        default_state: False
+        binary_state_topic: "/no_overtake_active"
+        flip_threshold: 50.0
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -243,15 +252,21 @@ local_costmap:
     ros__parameters:
       use_sim_time: True
 
-costmap_filter_info_server:
+no_overtake_mask_server:
   ros__parameters:
-    use_sim_time: false
-    type: 0
-    filter_info_topic: "/costmap_filter_info"
-    mask_topic: "/keepout_filter_mask"
+    use_sim_time: False
+    frame_id: "map"
+    topic_name: "/no_overtake_filter_mask"
+    yaml_filename: ""
+
+no_overtake_filter_info_server:
+  ros__parameters:
+    use_sim_time: False
+    type: 3
+    filter_info_topic: "/no_overtake_filter_info"
+    mask_topic: "/no_overtake_filter_mask"
     base: 0.0
     multiplier: 1.0
-    transform_tolerance: 5.0
 
 planner_server:
   ros__parameters:
@@ -342,10 +357,25 @@ prestop_node:
     base_frame_id: "base_link"
     visualize_stop_zone: true
     stop_zone_polygon_topic: "/prestop/stop_zone_polygon"
+    no_overtake_zone_polygon_topic: "/prestop/no_overtake_zone_polygon"
     stop_duration: 3.0
     min_obstacle_scan_duration: 5.0
+    no_overtake_topic: "/no_overtake_active"
+    no_overtake_status_topic: "/prestop/no_overtake_active"
+    no_overtake_default: true
+    no_overtake_exit_delay: 3.0
+    clear_costmaps_before_no_overtake_exit: true
+    local_costmap_clear_service: "/local_costmap/clear_entirely_local_costmap"
+    global_costmap_clear_service: "/global_costmap/clear_entirely_global_costmap"
+    local_costmap_lifecycle_service: "/controller_server/get_state"
+    global_costmap_lifecycle_service: "/planner_server/get_state"
+    state_topic: "/prestop/state"
 
     polygons:
+      no_overtake_zone:
+        enabled: true
+        action_type: "no_overtake"
+        points: "[[-0.3, 0.5], [1.0, 0.5], [1.0, -0.5], [-0.3, -0.5]]"
       stop_zone:
         enabled: true
         action_type: "stop"

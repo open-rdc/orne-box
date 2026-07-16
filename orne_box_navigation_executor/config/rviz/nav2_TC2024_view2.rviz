@@ -543,7 +543,7 @@ Visualization Manager:
       Class: rviz_default_plugins/Polygon
       Color: 224; 27; 36
       Enabled: true
-      Name: Polygon
+      Name: Temporary Stop Polygon
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -551,6 +551,19 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /prestop/stop_zone_polygon
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/Polygon
+      Color: 255; 170; 0
+      Enabled: true
+      Name: No Overtake Polygon
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /prestop/no_overtake_zone_polygon
       Value: true
   Enabled: true
   Global Options:

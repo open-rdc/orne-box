@@ -14,13 +14,16 @@ def generate_launch_description():
     config_dir = os.path.join(nav_dir, 'config')
 
     # map_pass = 'tsudanuma/tsudanuma'
-    # map_pass = 'tsudanuma/cit_3f_map'
-    map_pass = 'tsudanuma/tsudanu_map'
+    map_pass = 'tsudanuma/cit_3f_map'
+    # map_pass = 'tsudanuma/tsudanu_map'
 
     bt_file_name ='navigate_w_replanning_and_recovery.xml'
 
     map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
     costmap_data = LaunchConfiguration('mask', default=os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml'))
+    no_overtake_mask_data = LaunchConfiguration(
+        'no_overtake_mask',
+        default=os.path.join(config_dir, 'maps', map_pass + '_no_overtake.yaml'))
     # waypoint_file = os.path.join(config_dir, 'waypoints', f'{WAYPOINT_PATH}.yaml')
     bt_dir = LaunchConfiguration('default_bt_xml_filename', default=os.path.join(config_dir, 'behavior_trees', bt_file_name))
     rviz_config_dir = os.path.join(config_dir, 'rviz', 'nav2_TC2024_view2.rviz')
@@ -50,7 +53,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='false',
+            default_value='true',
             description='Use simulation (Gazebo) clock if true'
         ),
         DeclareLaunchArgument(
@@ -115,7 +118,12 @@ def generate_launch_description():
             'costmap',
             default_value=costmap_data,
             description='Full path to map file to load'
-        ),     
+        ),
+        DeclareLaunchArgument(
+            'no_overtake_mask',
+            default_value=no_overtake_mask_data,
+            description='Full path to binary no-overtake filter mask'
+        ),
         SetLaunchConfiguration(
             name='params_file',
             value=os.path.join(config_dir, 'params', 'nav2_params.yaml')
@@ -125,6 +133,7 @@ def generate_launch_description():
             launch_arguments={
                 'map': map_data,
                 'costmap': costmap_data,
+                'no_overtake_mask': no_overtake_mask_data,
                 'use_sim_time': use_sim_time,
                 'use_composition':'True',
                 'params_file': params_file,

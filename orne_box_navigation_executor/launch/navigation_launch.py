@@ -3,7 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable,GroupAction
+from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, GroupAction
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration,PythonExpression
 from launch_ros.actions import LoadComposableNodes
@@ -29,6 +29,7 @@ def generate_launch_description():
     default_bt_xml_filename = LaunchConfiguration('default_bt_xml_filename')
     map_subscribe_transient_local = LaunchConfiguration('map_subscribe_transient_local')
     costmap = LaunchConfiguration('costmap')
+    no_overtake_mask = LaunchConfiguration('no_overtake_mask')
 
     lifecycle_nodes = ['controller_server',
                        'smoother_server',
@@ -116,6 +117,50 @@ def generate_launch_description():
             'map_subscribe_transient_local', default_value='false',
             description='Whether to set the map subscriber QoS to transient local'),
 
+        DeclareLaunchArgument(
+            'no_overtake_mask',
+            default_value=os.path.join(
+                config_dir, 'maps', 'tsudanuma', 'cit_3f_map_no_overtake.yaml'),
+            description='Full path to the binary no-overtake filter mask'),
+
+        # Start prestop before the BinaryFilter so its non-transient initial state is not missed.
+        Node(
+            package='prestop',
+            executable='prestop_node',
+            name='prestop_node',
+            output='screen',
+            respawn=use_respawn,
+            respawn_delay=2.0,
+            parameters=[configured_params]),
+
+        Node(
+            package='nav2_map_server',
+            executable='map_server',
+            name='no_overtake_mask_server',
+            output='screen',
+            parameters=[configured_params, {'yaml_filename': no_overtake_mask}]),
+
+        Node(
+            package='nav2_map_server',
+            executable='costmap_filter_info_server',
+            name='no_overtake_filter_info_server',
+            output='screen',
+            parameters=[configured_params]),
+
+        Node(
+            package='nav2_lifecycle_manager',
+            executable='lifecycle_manager',
+            name='lifecycle_manager_no_overtake_filter',
+            output='screen',
+            parameters=[
+                {'use_sim_time': use_sim_time},
+                {'autostart': autostart},
+                {'node_names': [
+                    'no_overtake_mask_server',
+                    'no_overtake_filter_info_server',
+                ]},
+            ]),
+
         GroupAction(
             condition=IfCondition(PythonExpression(['not ', use_composition])),
             actions=[
@@ -191,14 +236,6 @@ def generate_launch_description():
                 parameters=[configured_params],
                 remappings=remappings +
                         [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_raw')]),
-            Node(
-                package='prestop',
-                executable='prestop_node',
-                name='prestop_node',
-                output='screen',
-                respawn=use_respawn,
-                respawn_delay=2.0,
-                parameters=[configured_params]),
             Node(
                 package='nav2_lifecycle_manager',
                 executable='lifecycle_manager',
@@ -283,13 +320,4 @@ def generate_launch_description():
                     remappings=[('map', 'map_for_costmap')]),
             ],
         ),
-        Node(
-            package='prestop',
-            executable='prestop_node',
-            name='prestop_node',
-            output='screen',
-            respawn=use_respawn,
-            respawn_delay=2.0,
-            parameters=[configured_params],
-            condition=IfCondition(use_composition)),
     ])

@@ -16,3 +16,7 @@ install(DIRECTORY
   launch
   config
   DESTINATION share/${PROJECT_NAME})
+
+install(PROGRAMS
+  scripts/create_empty_no_overtake_mask.py
+  DESTINATION lib/${PROJECT_NAME})
