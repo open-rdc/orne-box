@@ -24,6 +24,14 @@ def generate_launch_description():
         description="Use Ignition Gazebo if true",
     )
 
+    simulation_lidar = LaunchConfiguration("simulation_lidar")
+    simulation_lidar_arg = DeclareLaunchArgument(
+        "simulation_lidar",
+        default_value="3d",
+        description="Simulated lidar type (2d or 3d)",
+        choices=["2d", "3d"],
+    )
+
     packages_name = "orne_box_description"
     xacro_file_name = "orne_box_3d_lidar_rfans.urdf.xacro"
     # Get URDF via xacro
@@ -35,7 +43,9 @@ def generate_launch_description():
                 [FindPackageShare(packages_name), "urdf", xacro_file_name]
             ),
             " ignition_gazebo:=",
-            ignition_gazebo,   # ← 引数を xacro に渡す
+            ignition_gazebo,
+            " simulation_lidar:=",
+            simulation_lidar,
         ]
     )
     robot_description = {"robot_description": robot_description_content}
@@ -61,7 +71,8 @@ def generate_launch_description():
         
     nodes = [
         use_sim_time_arg,
-        ignition_gazebo_arg,  # ← 追加
+        ignition_gazebo_arg,
+        simulation_lidar_arg,
         robot_state_pub_node,
         # joint_state_pub_gui_node
         joint_state_pub_node

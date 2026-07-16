@@ -1,16 +1,90 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="orne_box">
   <xacro:arg name="ignition_gazebo" default="false"/>
+  <xacro:arg name="simulation_lidar" default="3d"/>
   <xacro:include filename="$(find orne_box_description)/urdf/orne_box.urdf.xacro"/>
   <!-- @TODO More clear boolean operation -->
   <!-- @gazebo Classic -->
   <xacro:if value="${'$(arg ignition_gazebo)' == 'false'}">
     <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
-    <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
-    <!-- Setting for 3D-LiDAR -->
-    <xacro:VLP-16 parent="base_link" name="surestar" topic="/surestar_points" organize_cloud="false" hz="10" samples="440" gpu="false">
-      <origin xyz="-0.12 0 0.60" rpy="0 0 0"/>
-    </xacro:VLP-16>
+
+    <!-- Gazebo Classic supports CPU ray sensors. Keep the 3D sensor as an
+         option, but use the 2D sensor for navigation on GPU-less systems. -->
+    <xacro:if value="${'$(arg simulation_lidar)' == '3d'}">
+      <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+      <xacro:VLP-16 parent="base_link" name="surestar" topic="/surestar_points" organize_cloud="false" hz="10" samples="440" gpu="false">
+        <origin xyz="-0.12 0 0.60" rpy="0 0 0"/>
+      </xacro:VLP-16>
+    </xacro:if>
+
+    <xacro:if value="${'$(arg simulation_lidar)' == '2d'}">
+      <link name="surestar">
+        <inertial>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <mass value="0.3"/>
+          <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+        <visual>
+          <geometry>
+            <cylinder radius="0.06" length="0.10"/>
+          </geometry>
+          <material name="green"/>
+        </visual>
+        <collision>
+          <geometry>
+            <cylinder radius="0.06" length="0.10"/>
+          </geometry>
+        </collision>
+      </link>
+      <joint name="surestar_joint" type="fixed">
+        <origin xyz="-0.12 0 0.60" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="surestar"/>
+      </joint>
+
+      <gazebo reference="surestar">
+        <sensor type="ray" name="surestar_2d">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <always_on>true</always_on>
+          <update_rate>10</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>720</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.141592</min_angle>
+                <max_angle>3.141592</max_angle>
+              </horizontal>
+            </scan>
+            <range>
+              <min>0.3</min>
+              <max>30.0</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </ray>
+          <plugin name="surestar_2d_ros" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <remapping>~/out:=low_scan_raw</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>surestar</frame_name>
+          </plugin>
+          <plugin name="surestar_2d_localization_ros" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <remapping>~/out:=scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>surestar</frame_name>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
   </xacro:if>
   <!-- @Ignition gazebo -->
   <xacro:if value="$(arg ignition_gazebo)">

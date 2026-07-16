@@ -14,13 +14,6 @@
         <mass value="0.005"/>
         <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
       </inertial>
-      <visual>
-        <!-- <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <box size="${size}"/>
-        </geometry>
-        <material name="green"/> -->
-      </visual>
     </link>
 
     <joint name="${name}_base_joint" type="fixed">
