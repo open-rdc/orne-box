@@ -54,7 +54,7 @@
   </xacro:sensor_imu>
 
   <xacro:sensor_mid360 name="livox_frame" parent="base_link">
-    <origin xyz="0.424 0.0 0.343" rpy="0 0 0"/>
+    <origin xyz="0.424 0.0 0.203" rpy="0 3.14159 0"/>
   </xacro:sensor_mid360>
   
   <!-- Setting for 2D-LiDAR -->
