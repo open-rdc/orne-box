@@ -241,7 +241,7 @@ local_costmap:
         # Gap interpolation
         ground_neighbor_search_cells: 0
         # Logging
-        enable_kpi_logging: false
+        enable_kpi_logging: true
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
