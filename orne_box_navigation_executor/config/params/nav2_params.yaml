@@ -212,10 +212,19 @@ local_costmap:
       height: 10
       resolution: 0.1
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
-      plugins: ["elevation_layer"]
+      plugins: ["elevation_layer", "denoise_layer" ,"inflation_layer"]
       elevation_layer:
         plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
+      denoise_layer:
+        plugin: "nav2_costmap_2d::DenoiseLayer"
+        enabled: true
+        minimal_group_size: 2
+        group_connectivity_type: 8
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.5
       always_send_full_costmap: False
 
   local_costmap_client:
