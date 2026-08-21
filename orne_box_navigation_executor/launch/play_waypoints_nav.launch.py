@@ -14,6 +14,7 @@ def generate_launch_description():
     config_dir = os.path.join(nav_dir, 'config')
 
     #map_pass = 'tsudanuma'
+    map_pass = 'elevation_tsudanuma_2_round_map'
     map_pass = 'cit_3f_map'
     bt_file_name ='navigate_w_replanning_and_wait.xml'
 
