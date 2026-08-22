@@ -14,7 +14,8 @@ def generate_launch_description():
     config_dir = os.path.join(nav_dir, 'config')
 
     #map_pass = 'tsudanuma'
-    map_pass = 'cit_3f_map'
+    #map_pass = 'cit_3f_map'
+    map_pass = 'elevation_tsudanuma_2_round_map'
     bt_file_name ='navigate_w_replanning_and_wait.xml'
 
     map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
@@ -32,14 +33,14 @@ def generate_launch_description():
  
     return LaunchDescription([
         # waypoint_manager2
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([launch_file_dir, '/waypoint_manager2.launch.py']),
+        #IncludeLaunchDescription(
+        #    PythonLaunchDescriptionSource([launch_file_dir, '/waypoint_manager2.launch.py']),
             # launch_arguments={
             #     'waypoint_path': waypoint_file,
             #     'overwrite': 'True',
             #     'wp_feedback_visible': 'True',
             # }.items()
-        ),
+        #),
 
         DeclareLaunchArgument(
             'namespace',
