@@ -1,0 +1,323 @@
+waypoint_server:
+  euler_angles:
+    x: 0
+    y: 0
+    z: 1.57
+  position:
+    x: 1
+    y: 2
+    z: 3
+  scale: 1
+  waypoints:
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -0.0030930054711681095
+    id: registed_goal_3
+    position:
+      x: 4.498363494873047
+      y: 14.146800994873047
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -0.003093005471167466
+    id: 1
+    position:
+      x: 23.737457275390625
+      y: 16.474910736083984
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -0.003093005471167466
+    id: 2
+    position:
+      x: 44.18680953979492
+      y: 17.8736515045166
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 0.8733861128518776
+    id: 3
+    position:
+      x: 56.52843475341797
+      y: 22.28703498840332
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.6649488788854898
+    id: 4
+    position:
+      x: 58.342926025390625
+      y: 33.78507995605469
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.6649488788854896
+    id: 5
+    position:
+      x: 56.6270751953125
+      y: 52.72732162475586
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.6649488788854896
+    id: 6
+    position:
+      x: 54.132789611816406
+      y: 76.65119934082031
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.6649488788854896
+    id: 7
+    position:
+      x: 52.115638732910156
+      y: 105.11688232421875
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.6649488788854896
+    id: 8
+    position:
+      x: 51.223628997802734
+      y: 126.89989471435547
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 2.778244216236971
+    id: 9
+    position:
+      x: 49.239253997802734
+      y: 137.78500366210938
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -3.132056408541165
+    id: 10
+    position:
+      x: 37.49503707885742
+      y: 143.22012329101562
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -3.1320564083838045
+    id: 11
+    position:
+      x: 24.913265228271484
+      y: 140.78335571289062
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -3.1320564074525348
+    id: 12
+    position:
+      x: 7.756145477294922
+      y: 137.77044677734375
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -3.1320564065212655
+    id: 13
+    position:
+      x: -28.39720916748047
+      y: 135.0719757080078
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -3.132056404658726
+    id: 14
+    position:
+      x: -65.48238372802734
+      y: 130.5206756591797
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.7421673990200022
+    id: 15
+    position:
+      x: -72.01773834228516
+      y: 122.04290771484375
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.4226357316482425
+    id: 16
+    position:
+      x: -70.91199493408203
+      y: 103.74189758300781
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.3258686728987046
+    id: 17
+    position:
+      x: -67.32988739013672
+      y: 85.03504943847656
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.4706561203325963
+    id: 18
+    position:
+      x: -64.7662124633789
+      y: 70.49642944335938
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.7421673990200022
+    id: 19
+    position:
+      x: -59.42920684814453
+      y: 45.808712005615234
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.440791687014114
+    id: 20
+    position:
+      x: -57.32090759277344
+      y: 26.26541519165039
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -0.42772301404378044
+    id: 21
+    position:
+      x: -54.51551055908203
+      y: 11.613395690917969
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 0.07833406251724279
+    id: 22
+    position:
+      x: -35.90385437011719
+      y: 12.512633323669434
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 0.07833406251724305
+    id: 23
+    position:
+      x: -22.959491729736328
+      y: 13.853128433227539
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 0.07833406251724305
+    id: 24
+    position:
+      x: -10.994425773620605
+      y: 14.775031089782715
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 0.07833406251724305
+    id: 25
+    position:
+      x: -0.004826545715332031
+      y: 15.041157722473145
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
