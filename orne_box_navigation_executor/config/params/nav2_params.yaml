@@ -166,13 +166,18 @@ global_costmap:
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
       resolution: 0.1
       track_unknown_space: true
-      plugins: ["static_layer", "elevation_layer", "inflation_layer"]
+      plugins: ["static_layer", "elevation_layer", "denoise_layer", "inflation_layer"]
       elevation_layer:
         plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
+      denoise_layer:
+        plugin: "nav2_costmap_2d::DenoiseLayer"
+        enabled: True
+        minimal_group_size: 2
+        group_connectivity_type: 8
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
@@ -200,10 +205,14 @@ local_costmap:
       height: 10
       resolution: 0.1
       footprint: "[ [-0.3, -0.2775], [-0.3, 0.2775], [0.6, 0.2775], [0.6, -0.2775] ]"
-      plugins: ["elevation_layer", "inflation_layer"]
+      plugins: ["elevation_layer", "denoise_layer", "inflation_layer"]
       elevation_layer:
         plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
+      denoise_layer:
+        plugin: "nav2_costmap_2d::DenoiseLayer"
+        enabled: True
+        minimal_group_size: 2
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
