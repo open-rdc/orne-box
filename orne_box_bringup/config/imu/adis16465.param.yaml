@@ -2,6 +2,6 @@
   ros__parameters:
     device: "/dev/sensors/imu16465"
     frame_id: "base_link"
-    burst_mode: false
-    publish_temperature: true
-    rate: 100.0
+    burst_mode: true
+    publish_temperature: false
+    rate: 200.0
