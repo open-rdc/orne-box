@@ -61,5 +61,11 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([include_dir, '/pointcloud_to_laserscan.launch.py'])
         ),
-        LogInfo(msg="Launch pointcloud_to_laserscan node.")
+        LogInfo(msg="Launch pointcloud_to_laserscan node."),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(include_dir, 'mid360.launch.py')
+            )
+        ),
+        LogInfo(msg="Launch MID360 driver.")
     ])
