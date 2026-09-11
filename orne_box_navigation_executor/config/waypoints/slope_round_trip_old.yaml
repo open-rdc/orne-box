@@ -1,0 +1,95 @@
+waypoint_server:
+  euler_angles:
+    x: 0
+    y: 0
+    z: 1.57
+  position:
+    x: 1
+    y: 2
+    z: 3
+  scale: 1
+  waypoints:
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.5309430090187255
+    id: registed_goal_3
+    position:
+      x: 4.6039137840271
+      y: 14.994529724121094
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 1.5309430024369084
+    id: 1
+    position:
+      x: 3.664978504180908
+      y: 25.350736618041992
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: 0.8315135675055234
+    id: 2
+    position:
+      x: 1.2129039764404297
+      y: 29.724945068359375
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -0.9949556861044762
+    id: 3
+    position:
+      x: 3.6877150535583496
+      y: 31.88587760925293
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.6621948271501534
+    id: 4
+    position:
+      x: 3.6810545921325684
+      y: 27.435617446899414
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.662194819113121
+    id: 5
+    position:
+      x: 5.109741687774658
+      y: 12.193078994750977
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
+  - euler_angles:
+      x: 2.8498978650661344e-06
+      y: 5.468046064827092e-07
+      z: -1.662194819113121
+    id: 6
+    position:
+      x: 5.197977542877197
+      y: 6.590588569641113
+      z: -3.0
+    properties:
+      Stop_wp: Stop_OFF
+      goal_radius: 1.5
