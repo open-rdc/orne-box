@@ -50,24 +50,22 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([include_dir, '/teleop.launch.py'])
         ),
         LogInfo(msg="Launch teleop node."),
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource([include_dir, '/urg_node2.launch.py'])
-        # ),
-        # LogInfo(msg="Launch URG node."),
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource([include_dir, '/mirror_lidar.launch.py'])
-        # ), 
-        # LogInfo(msg="Launch mirror_lidar node."),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([include_dir, '/adis16465.launch.py'])
         ),
         LogInfo(msg="Launch IMU node."),
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource([include_dir, '/rfans16.launch.py'])
-        # ),
-        # LogInfo(msg="Launch rfans16 node."),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([include_dir, '/rfans16_filters.launch.py'])
         ),
         LogInfo(msg="Launch rfans16_filters node."),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([include_dir, '/pointcloud_to_laserscan.launch.py'])
+        ),
+        LogInfo(msg="Launch pointcloud_to_laserscan node."),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(include_dir, 'MID360.launch.py')
+            )
+        ),
+        LogInfo(msg="Launch MID360 driver.")
     ])
