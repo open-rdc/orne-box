@@ -5,7 +5,7 @@ from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.actions import DeclareLaunchArgument, SetLaunchConfiguration, GroupAction, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
 from nav2_common.launch import RewrittenYaml
 
 def generate_launch_description():
@@ -14,13 +14,14 @@ def generate_launch_description():
     config_dir = os.path.join(nav_dir, 'config')
 
     # map_pass = 'tsudanuma/tsudanuma'
-    # map_pass = 'tsudanuma/cit_3f_map'
-    map_pass = 'tsudanuma/tsudanu_map'
+    map_pass = 'tsudanuma/cit_3f_map'
+    # map_pass = 'tsudanuma/tsudanu_map'
 
-    bt_file_name ='navigate_w_replanning_and_recovery.xml'
+    bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
     map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
-    costmap_data = LaunchConfiguration('mask', default=os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml'))
+    costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
+        'mask', default=os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')))
     # waypoint_file = os.path.join(config_dir, 'waypoints', f'{WAYPOINT_PATH}.yaml')
     bt_dir = LaunchConfiguration('default_bt_xml_filename', default=os.path.join(config_dir, 'behavior_trees', bt_file_name))
     rviz_config_dir = os.path.join(config_dir, 'rviz', 'nav2_TC2024_view2.rviz')
@@ -50,7 +51,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='false',
+            default_value='true',
             description='Use simulation (Gazebo) clock if true'
         ),
         DeclareLaunchArgument(
@@ -116,9 +117,9 @@ def generate_launch_description():
             default_value=costmap_data,
             description='Full path to map file to load'
         ),     
-        SetLaunchConfiguration(
-            name='params_file',
-            value=os.path.join(config_dir, 'params', 'nav2_params.yaml')
+        DeclareLaunchArgument(
+            'use_composition', default_value='False',
+            description='Use composed Nav2 nodes if true'
         ),     
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([launch_file_dir, '/bringup_launch.py']),
@@ -126,7 +127,7 @@ def generate_launch_description():
                 'map': map_data,
                 'costmap': costmap_data,
                 'use_sim_time': use_sim_time,
-                'use_composition':'True',
+                'use_composition': LaunchConfiguration('use_composition'),
                 'params_file': params_file,
                 'emcl2_params_file': params_file,
                 'default_bt_xml_filename':bt_dir}.items(),            

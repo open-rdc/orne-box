@@ -31,8 +31,9 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    default_nav_to_pose_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
-    default_nav_through_poses_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_w_replanning_and_recovery.xml
+    # SmoothPath + RoundRobin recovery (Spin/Wait/BackUp) 付きBTへ変更
+    default_nav_to_pose_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
+    default_nav_through_poses_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
     always_reload_bt_xml: false
     bt_loop_duration: 10
     default_server_timeout: 20
@@ -48,6 +49,7 @@ bt_navigator:
     #bot humble
       - nav2_compute_path_to_pose_action_bt_node
       - nav2_compute_path_through_poses_action_bt_node
+      - nav2_smooth_path_action_bt_node # kuams: BTのSmoothPathに必要
       - nav2_follow_path_action_bt_node
       - nav2_back_up_action_bt_node
       - nav2_spin_action_bt_node
@@ -85,7 +87,7 @@ bt_navigator_navigate_to_pose_rclcpp_node:
 controller_server:
   ros__parameters:
     use_sim_time: False
-    controller_frequency: 10.0
+    controller_frequency: 20.0 # kuams (旧: 10.0)
     use_realtime_priority: true ##CPU
     publish_zero_velocity: false
     min_x_velocity_threshold: 0.001
@@ -102,52 +104,92 @@ controller_server:
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
       required_movement_radius: 0.5
-      movement_time_allowance: 20.0
+      movement_time_allowance: 5.0 # kuams (旧: 20.0)
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 2.0
       yaw_goal_tolerance: 3.14
       stateful: False
-    # DWB parameters
+    # MPPI parameters (kuams/develop より移植。旧DWB設定はgit履歴とbackupを参照)
     FollowPath:
-      plugin: "dwb_core::DWBLocalPlanner"
-      debug_trajectory_details: True
-      min_vel_x: 0.0
-      min_vel_y: 0.0
-      max_vel_x: 0.6
-      max_vel_y: 0.0
-      max_vel_theta: 0.7
-      min_speed_xy: 0.0
-      max_speed_xy: 0.9
-      min_speed_theta: 0.0
-      acc_lim_x: 1.0
-      acc_lim_y: 0.0
-      acc_lim_theta: 3.2
-      decel_lim_x: -2.5
-      decel_lim_y: 0.0
-      decel_lim_theta: -3.2
-      vx_samples: 20
-      vy_samples: 1
-      vtheta_samples: 20
-      sim_time: 1.7
-      linear_granularity: 0.05
-      angular_granularity: 0.025
-      transform_tolerance: 0.2
-      xy_goal_tolerance: 0.25
-      trans_stopped_velocity: 0.05
-      short_circuit_trajectory_evaluation: True
-      stateful: True
-      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
-      BaseObstacle.scale: 0.08
-      PathAlign.scale: 48.0
-      PathAlign.forward_point_distance: 0.2
-      PathDist.scale: 64.0
-      GoalAlign.scale: 16.0
-      GoalDist.scale: 16.0
-      RotateToGoal.scale: 32.0
-      RotateToGoal.slowing_factor: 5.0
-      RotateToGoal.lookahead_time: -1.0
+      plugin: "nav2_mppi_controller::MPPIController"
+      time_steps: 56
+      model_dt: 0.05
+      batch_size: 2000
+      vx_std: 0.2
+      vy_std: 0.0
+      wz_std: 0.4
+      vx_max: 0.6 # 機体側の制限に合わせて据え置き (kuams: 0.8)
+      vx_min: 0.0
+      vy_max: 0.0
+      wz_max: 0.7 # 機体側の制限に合わせて据え置き (kuams: 0.3)
+      iteration_count: 1
+      prune_distance: 1.7
+      transform_tolerance: 1.0
+      temperature: 0.3
+      gamma: 0.008
+      motion_model: "DiffDrive"
+      visualize: false
+      TrajectoryVisualizer:
+        trajectory_step: 5
+        time_step: 3
+      critics: ["ConstraintCritic", "ObstaclesCritic", "GoalCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic", "PathAngleCritic", "PreferForwardCritic"]
+      ConstraintCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 4.0
+      GoalCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 5.0
+        threshold_to_consider: 1.4
+      GoalAngleCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 3.0
+        threshold_to_consider: 0.5
+      PreferForwardCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 5.0
+        threshold_to_consider: 0.5
+      ObstaclesCritic:
+        enabled: true
+        cost_power: 1
+        repulsion_weight: 1.5
+        critical_weight: 20.0
+        consider_footprint: true
+        collision_cost: 10000.0
+        collision_margin_distance: 0.1
+        near_goal_distance: 0.5
+      PathAlignCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 14.0
+        max_path_occupancy_ratio: 0.05
+        trajectory_point_step: 3
+        threshold_to_consider: 0.5
+        offset_from_furthest: 20
+        use_path_orientations: false
+      PathFollowCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 5.0
+        offset_from_furthest: 5
+        threshold_to_consider: 1.4
+      PathAngleCritic:
+        enabled: true
+        cost_power: 1
+        cost_weight: 2.0
+        offset_from_furthest: 4
+        threshold_to_consider: 0.5
+        max_angle_to_furthest: 1.0
+        forward_preference: true
+      # TwirlingCritic:
+      #   enabled: true
+      #   twirling_cost_power: 1
+      #   twirling_cost_weight: 10.0
 
 # controller_server_rclcpp_node:
 #   ros__parameters:
@@ -158,8 +200,8 @@ global_costmap:
     ros__parameters:
       use_sim_time: False
       map_topic: /map_for_costmap
-      update_frequency: 3.0
-      publish_frequency: 3.0
+      update_frequency: 1.0 # kuams (旧: 3.0)
+      publish_frequency: 1.0 # kuams (旧: 3.0)
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
@@ -172,9 +214,9 @@ global_costmap:
         observation_sources: scan
         scan:
           topic: /low_scan
-          obstacle_max_range: 10.0
+          obstacle_max_range: 2.5 # kuams (旧: 10.0)
           obstacle_min_range: 0.0
-          raytrace_max_range: 11.0
+          raytrace_max_range: 3.0 # kuams (旧: 11.0)
           raytrace_min_range: 0.0
           max_obstacle_height: 2.0
           min_obstacle_height: 0.0
@@ -188,7 +230,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 1.25
+        inflation_radius: 0.5 # kuams (旧: 1.25)
       always_send_full_costmap: False
 
   global_costmap_client:
@@ -203,8 +245,9 @@ local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: False
-      update_frequency: 5.0
+      update_frequency: 10.0 # kuams (旧: 5.0)
       publish_frequency: 5.0
+      transform_tolerance: 1.0 # kuams
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
@@ -232,7 +275,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.5
+        inflation_radius: 1.0 # kuams (旧: 0.5)
       always_send_full_costmap: False
 
   local_costmap_client:
@@ -257,7 +300,7 @@ planner_server:
   ros__parameters:
     use_sim_time: False
     allow_partial_planning: true
-    expected_planner_frequency: 5.0
+    expected_planner_frequency: 20.0 # kuams (旧: 5.0)
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
@@ -275,6 +318,7 @@ smoother_server:
     costmap_topic: global_costmap/costmap_raw
     footprint_topic: global_costmap/published_footprint
     robot_base_frame: base_link
+    transform_tolerance: 1.0 # kuams
     smoother_plugins: ["simple_smoother"]
     simple_smoother:
       plugin: "nav2_smoother::SimpleSmoother"
@@ -330,27 +374,5 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
-
-prestop_node:
-  ros__parameters:
-    use_sim_time: False
-    cmd_vel_in_topic: "/cmd_vel_raw"
-    cmd_vel_out_topic: "/cmd_vel"
-    scan_in_topic: "/low_scan_raw"
-    scan_out_topic: "/low_scan"
-
-    base_frame_id: "base_link"
-    visualize_stop_zone: true
-    stop_zone_polygon_topic: "/prestop/stop_zone_polygon"
-    stop_duration: 3.0
-    min_obstacle_scan_duration: 5.0
-
-    noise_filter:
-      min_points_in_polygon: 4
-
-
-    polygons:
-      stop_zone:
-        enabled: true
-        action_type: "stop"
-        points: "[[-0.3, 0.5], [1.5, 0.5], [1.5, -0.5], [-0.3, -0.5]]"
+    # 速度・加速度の上限は機体側の制限に合わせて据え置き
+    # kuams: max_velocity [0.8, 0.0, 2.5] / max_accel [2.5, 0.0, 3.2] / max_decel [-2.5, 0.0, -3.2]

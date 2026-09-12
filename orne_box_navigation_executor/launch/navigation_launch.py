@@ -4,7 +4,7 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable,GroupAction
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch.substitutions import LaunchConfiguration,PythonExpression
 from launch_ros.actions import LoadComposableNodes
 from launch_ros.actions import Node
@@ -117,7 +117,7 @@ def generate_launch_description():
             description='Whether to set the map subscriber QoS to transient local'),
 
         GroupAction(
-            condition=IfCondition(PythonExpression(['not ', use_composition])),
+            condition=UnlessCondition(use_composition),
             actions=[
             Node(
                 package='nav2_controller',
@@ -153,7 +153,7 @@ def generate_launch_description():
                 respawn=use_respawn,
                 respawn_delay=2.0,
                 parameters=[configured_params],
-                remappings=remappings),
+                remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
             # Node(
             #     package='nav2_recoveries',
             #     executable='recoveries_server',
@@ -190,15 +190,7 @@ def generate_launch_description():
                 respawn_delay=2.0,
                 parameters=[configured_params],
                 remappings=remappings +
-                        [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_raw')]),
-            Node(
-                package='prestop',
-                executable='prestop_node',
-                name='prestop_node',
-                output='screen',
-                respawn=use_respawn,
-                respawn_delay=2.0,
-                parameters=[configured_params]),
+                        [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
             Node(
                 package='nav2_lifecycle_manager',
                 executable='lifecycle_manager',
@@ -246,7 +238,7 @@ def generate_launch_description():
                     plugin='behavior_server::BehaviorServer',
                     name='behavior_server',
                     parameters=[configured_params],
-                    remappings=remappings),
+                    remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
                 ComposableNode(
                     package='nav2_bt_navigator',
                     plugin='nav2_bt_navigator::BtNavigator',
@@ -265,7 +257,7 @@ def generate_launch_description():
                     name='velocity_smoother',
                     parameters=[configured_params],
                     remappings=remappings +
-                            [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_raw')]),
+                            [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
                 ComposableNode(
                     package='nav2_lifecycle_manager',
                     plugin='nav2_lifecycle_manager::LifecycleManager',
@@ -283,13 +275,4 @@ def generate_launch_description():
                     remappings=[('map', 'map_for_costmap')]),
             ],
         ),
-        Node(
-            package='prestop',
-            executable='prestop_node',
-            name='prestop_node',
-            output='screen',
-            respawn=use_respawn,
-            respawn_delay=2.0,
-            parameters=[configured_params],
-            condition=IfCondition(use_composition)),
     ])
