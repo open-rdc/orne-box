@@ -1,0 +1,7 @@
+# scan_to_scan_filter_chain 用の設定
+# このノードはQoS変換のみを目的に挟んでいるため、フィルタは登録しない
+# (フィルタ0個 = スキャンをそのまま再配信。TF参照も発生しない)
+# ノード起動には params ファイルの実体が必要なため、このファイルを置いている
+/**:
+  ros__parameters:
+    tf_message_filter_target_frame: ""
