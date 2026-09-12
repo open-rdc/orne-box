@@ -8,7 +8,7 @@
     <xacro:include filename="$(find orne_box_description)/urdf/orne_box.gazebo.xacro"/>
     <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
     <!-- Setting for 3D-LiDAR -->
-    <xacro:VLP-16 parent="base_link" name="surestar" topic="/surestar_points" organize_cloud="false" hz="10" samples="440" gpu="false">
+    <xacro:VLP-16 parent="base_link" name="surestar" topic="/surestar_points" organize_cloud="false" hz="10" samples="440" gpu="true">
       <origin xyz="-0.12 0 0.60" rpy="0 0 0"/>
     </xacro:VLP-16>
   </xacro:if>

@@ -85,18 +85,24 @@
           <ros>
             <remapping>~/out:=imu/data</remapping>
           </ros>
+          <!-- header.frame_idを明示しないと、fixed jointが親リンクに統合され
+               base_footprintになる。IMUはbase_linkに対してrpy=0で固定なので、
+               base_linkを直接指定する(EKFでのTF変換が不要になる) -->
+          <frame_name>base_link</frame_name>
           <initial_orientation_as_reference>false</initial_orientation_as_reference>
         </plugin>
         <always_on>true</always_on>
         <update_rate>100</update_rate>
         <visualize>true</visualize>
 
+        <!-- stddevが0だとcovarianceが全て0になり、robot_localizationが
+             観測を利用できない。MEMS IMU相当のノイズを設定する -->
         <imu>
-        <angular_velocity>
-          <x>
-            <noise type="gaussian">
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
                 <mean>0.0</mean>
-                <stddev>0.0</stddev>
+                <stddev>2e-4</stddev>
                 <bias_mean>0.0</bias_mean>
                 <bias_stddev>0.0</bias_stddev>
               </noise>
@@ -104,7 +110,7 @@
             <y>
               <noise type="gaussian">
                 <mean>0.0</mean>
-                <stddev>0.0</stddev>
+                <stddev>2e-4</stddev>
                 <bias_mean>0.0</bias_mean>
                 <bias_stddev>0.0</bias_stddev>
               </noise>
@@ -112,7 +118,7 @@
             <z>
               <noise type="gaussian">
                 <mean>0.0</mean>
-                <stddev>0.0</stddev>
+                <stddev>2e-4</stddev>
                 <bias_mean>0.0</bias_mean>
                 <bias_stddev>0.0</bias_stddev>
               </noise>
@@ -122,15 +128,15 @@
             <x>
               <noise type="gaussian">
                 <mean>0.0</mean>
-                <stddev>0.0</stddev>
+                <stddev>1.7e-2</stddev>
                 <bias_mean>0.0</bias_mean>
-		<bias_stddev>0.0</bias_stddev>
+                <bias_stddev>0.0</bias_stddev>
               </noise>
             </x>
             <y>
               <noise type="gaussian">
                 <mean>0.0</mean>
-                <stddev>0.0</stddev>
+                <stddev>1.7e-2</stddev>
                 <bias_mean>0.0</bias_mean>
                 <bias_stddev>0.0</bias_stddev>
               </noise>
@@ -138,7 +144,7 @@
             <z>
               <noise type="gaussian">
                 <mean>0.0</mean>
-                <stddev>0.0</stddev>
+                <stddev>1.7e-2</stddev>
                 <bias_mean>0.0</bias_mean>
                 <bias_stddev>0.0</bias_stddev>
               </noise>
@@ -147,7 +153,6 @@
         </imu>
       </sensor>
       <material>Gazebo/Green</material>
-    
     </gazebo>
     <!-- hokuyo -->
     <!--<gazebo reference="hokuyo_link">
