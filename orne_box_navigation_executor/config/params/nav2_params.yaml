@@ -158,30 +158,17 @@ global_costmap:
     ros__parameters:
       use_sim_time: False
       map_topic: /map_for_costmap
-      update_frequency: 3.0
-      publish_frequency: 3.0
+      update_frequency: 2.5
+      publish_frequency: 2.0
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
       resolution: 0.1
       track_unknown_space: true
-      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
-      obstacle_layer:
-        plugin: "nav2_costmap_2d::ObstacleLayer"
+      plugins: ["static_layer", "elevation_layer", "inflation_layer"]
+      elevation_layer:
+        plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
-        observation_sources: scan
-        scan:
-          topic: /low_scan
-          obstacle_max_range: 10.0
-          obstacle_min_range: 0.0
-          raytrace_max_range: 11.0
-          raytrace_min_range: 0.0
-          max_obstacle_height: 2.0
-          min_obstacle_height: 0.0
-          clearing: True
-          marking: True
-          inf_is_valid: true
-          data_type: "LaserScan"
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
@@ -203,32 +190,19 @@ local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: False
-      update_frequency: 5.0
-      publish_frequency: 5.0
-      global_frame: odom
+      update_frequency: 4.0
+      publish_frequency: 4.0
+      global_frame: map
       robot_base_frame: base_link
       rolling_window: true
       width: 10
       height: 10
       resolution: 0.1
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
-      plugins: ["obstacle_layer", "inflation_layer"]
-      obstacle_layer:
-        plugin: "nav2_costmap_2d::ObstacleLayer"
+      plugins: ["elevation_layer", "inflation_layer"]
+      elevation_layer:
+        plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
-        observation_sources: scan
-        scan:
-          topic: /low_scan
-          obstacle_max_range: 3.5
-          obstacle_min_range: 0.0
-          raytrace_max_range: 4.0
-          raytrace_min_range: 0.0
-          max_obstacle_height: 2.0
-          min_obstacle_height: 0.0
-          clearing: True
-          marking: True
-          inf_is_valid: True
-          data_type: "LaserScan"
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0

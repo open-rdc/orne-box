@@ -16,6 +16,7 @@ def generate_launch_description():
     # map_pass = 'tsudanuma/tsudanuma'
     # map_pass = 'tsudanuma/cit_3f_map'
     map_pass = 'tsudanuma/tsudanu_map'
+    map_pass = 'tukuba_0926_map_retry'
 
     bt_file_name ='navigate_w_replanning_and_recovery.xml'
 
