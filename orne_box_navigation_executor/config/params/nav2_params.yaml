@@ -230,7 +230,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.5 # kuams (旧: 1.25)
+        inflation_radius: 1.25
       always_send_full_costmap: False
 
   global_costmap_client:
