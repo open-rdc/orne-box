@@ -19,9 +19,9 @@ def generate_launch_description():
     config_dir = os.path.join(bringup_dir, 'config')
     launch_dir = os.path.join(bringup_dir, 'launch')
 
-    emcl2_dir = get_package_share_directory('emcl2')
-    emcl2_launch_dir = os.path.join(emcl2_dir, 'launch')
-    emcl2_params_file = LaunchConfiguration('emcl2_params_file')
+    wll_dir = get_package_share_directory('wheel_lidar_localization')
+    wll_params_file = LaunchConfiguration('wll_params_file')
+    pcd_map = LaunchConfiguration('pcd_map')
 
     # Create the launch configuration variables
     namespace = LaunchConfiguration('namespace')
@@ -93,10 +93,14 @@ def generate_launch_description():
         default_value=os.path.join(config_dir, 'params', 'nav2_params.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
-    declare_emcl2_params_file_cmd = DeclareLaunchArgument(
-        'emcl2_params_file',
-        default_value=params_file,
-        description='Full path to the EMCL2 parameters file to use for all launched nodes')
+    declare_wll_params_file_cmd = DeclareLaunchArgument(
+        'wll_params_file',
+        default_value=os.path.join(wll_dir, 'config', 'rfans_wheel.yaml'),
+        description='Full path to the wheel_lidar_localization parameters file')
+
+    declare_pcd_map_cmd = DeclareLaunchArgument(
+        'pcd_map', default_value='',
+        description='PCD map for wheel_lidar_localization (empty: use wll_params_file value)')
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',
@@ -154,15 +158,35 @@ def generate_launch_description():
         #                       'use_respawn': use_respawn,
         #                       'container_name': 'nav2_container'}.items()
         # ),
-        # # use emcl
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(emcl2_launch_dir,
-                                                       'emcl2.launch.py')),
+        # use wheel_lidar_localization (map_server still serves the 2D map for costmaps)
+        GroupAction(
             condition=UnlessCondition(slam),
-            launch_arguments={'map': map_yaml_file,
-                              'use_sim_time': use_sim_time,
-                              'params_file': emcl2_params_file}.items()
-        ),
+            actions=[
+                Node(
+                    package='nav2_map_server',
+                    executable='map_server',
+                    name='map_server',
+                    parameters=[{'yaml_filename': map_yaml_file,
+                                 'use_sim_time': use_sim_time}],
+                    output='screen'),
+                Node(
+                    package='nav2_lifecycle_manager',
+                    executable='lifecycle_manager',
+                    name='lifecycle_manager_localization',
+                    parameters=[{'use_sim_time': use_sim_time,
+                                 'autostart': True,
+                                 'node_names': ['map_server']}],
+                    output='screen'),
+                IncludeLaunchDescription(
+                    PythonLaunchDescriptionSource(os.path.join(wll_dir, 'launch',
+                                                               'localization.launch.py')),
+                    launch_arguments={
+                        'params_file': wll_params_file,
+                        'map_path': pcd_map,
+                        'use_sim_time': PythonExpression(
+                            ["'", use_sim_time, "'.lower()"]),
+                        'rviz': 'false'}.items()),
+            ]),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(launch_dir, 'navigation_launch.py')),
             launch_arguments={'namespace': namespace,
@@ -193,7 +217,8 @@ def generate_launch_description():
     ld.add_action(declare_costmap_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
-    ld.add_action(declare_emcl2_params_file_cmd)
+    ld.add_action(declare_wll_params_file_cmd)
+    ld.add_action(declare_pcd_map_cmd)
     ld.add_action(declare_autostart_cmd)
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_use_respawn_cmd)

@@ -128,7 +128,6 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'use_composition': LaunchConfiguration('use_composition'),
                 'params_file': params_file,
-                'emcl2_params_file': params_file,
                 'default_bt_xml_filename':bt_dir}.items(),            
         ),
         # ジョイスティックコマンド(Joyで/next_wpを送る)
