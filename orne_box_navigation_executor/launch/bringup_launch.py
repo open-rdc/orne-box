@@ -20,7 +20,6 @@ def generate_launch_description():
     launch_dir = os.path.join(bringup_dir, 'launch')
 
     wll_dir = get_package_share_directory('wheel_lidar_localization')
-    wll_params_file = LaunchConfiguration('wll_params_file')
     pcd_map = LaunchConfiguration('pcd_map')
 
     # Create the launch configuration variables
@@ -93,14 +92,9 @@ def generate_launch_description():
         default_value=os.path.join(config_dir, 'params', 'nav2_params.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
-    declare_wll_params_file_cmd = DeclareLaunchArgument(
-        'wll_params_file',
-        default_value=os.path.join(wll_dir, 'config', 'rfans_wheel.yaml'),
-        description='Full path to the wheel_lidar_localization parameters file')
-
     declare_pcd_map_cmd = DeclareLaunchArgument(
         'pcd_map', default_value='',
-        description='PCD map for wheel_lidar_localization (empty: use wll_params_file value)')
+        description='PCD map for wheel_lidar_localization (empty: use params_file value)')
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',
@@ -181,7 +175,7 @@ def generate_launch_description():
                     PythonLaunchDescriptionSource(os.path.join(wll_dir, 'launch',
                                                                'localization.launch.py')),
                     launch_arguments={
-                        'params_file': wll_params_file,
+                        'params_file': params_file,
                         'map_path': pcd_map,
                         'use_sim_time': PythonExpression(
                             ["'", use_sim_time, "'.lower()"]),
@@ -217,7 +211,6 @@ def generate_launch_description():
     ld.add_action(declare_costmap_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
-    ld.add_action(declare_wll_params_file_cmd)
     ld.add_action(declare_pcd_map_cmd)
     ld.add_action(declare_autostart_cmd)
     ld.add_action(declare_use_composition_cmd)

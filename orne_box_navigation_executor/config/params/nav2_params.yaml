@@ -1,29 +1,75 @@
-emcl2:
+wheel_lidar_localization:
   ros__parameters:
-    odom_freq: 20
-    transform_tolerance: 0.2
-    global_frame_id: "map"
-    odom_frame_id: "odom"
-    base_frame_id: "base_link"
-    footprint_frame_id: "base_link"
-    laser_min_range: 0.0
-    laser_max_range: 100000000.0
-    scan_increment: 1
-    initial_pose_x: 0.0
-    initial_pose_y: 0.0
-    initial_pose_a: 0.0
-    num_particles: 500
-    alpha_threshold: 0.5
-    expansion_radius_position: 0.1
-    expansion_radius_orientation: 0.2
-    extraction_rate: 0.1
-    range_threshold: 0.3
-    sensor_reset: false
-    odom_fw_dev_per_fw: 0.19
-    odom_fw_dev_per_rot: 0.01 
-    odom_rot_dev_per_fw: 0.13
-    odom_rot_dev_per_rot: 0.2
-    laser_likelihood_max_dist: 0.8
+    # Actual topics recorded in /home/takumi/bags/tsudanuma_3d_data_2.
+    cloud_topic: /surestar_points
+    odom_topic: /odometry/filtered
+    map_path: /home/takumi/map/tsudanuma_merged_map/merged.pcd
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_link
+    initial_pose_topic: /initialpose
+    map_topic: /localization/map
+    pose_topic: /localization/pose
+    status_topic: /localization/status
+
+    map_voxel_size: 0.2
+    map_display_voxel_size: 0.4
+    # Tuned against bag tsudanuma_3d_data_2: the 65 m local map made single-threaded
+    # pcl NDT take ~950 ms/scan, so ~95% of scans were dropped and tracking diverged.
+    # A 25 m local map + 2.0 m NDT resolution brings this to ~40 ms/scan and holds lock.
+    local_map_radius: 25.0
+    local_map_recenter_distance: 3.0
+    min_map_points: 500
+    scan_voxel_size: 0.5
+    scan_min_range: 1.0
+    scan_max_range: 18.0
+    min_scan_points: 60
+    # Header timestamp is the scan reference time. No per-point deskew in v0.1.
+    scan_time_offset: 0.0
+
+    ndt_resolution: 2.0
+    # epsilon 0.002 was too tight: NDT ran the full iteration budget every scan,
+    # so ScanMatcher::align() never saw hasConverged() && iters < max and every
+    # alignment was rejected -> LOST. 0.005 + step 0.15 converges in ~1 iteration
+    # at rmse ~0.37 / inliers ~0.85 on this bag.
+    ndt_step_size: 0.15
+    ndt_transformation_epsilon: 0.005
+    ndt_max_iterations: 40
+    correspondence_distance: 1.0
+    # This map overlaps the surestar scans ~50-85% (inlier ratio, dips while turning);
+    # the v0.1 defaults (0.5 / 0.5) reject every alignment and the node goes LOST
+    # before it ever publishes map->odom. Loosened so tracking can start; see README
+    # notes on improving map/extrinsic/deskew for a real fix.
+    max_rmse: 1.3
+    min_inlier_ratio: 0.35
+    max_translation_correction: 2.0
+    max_rotation_correction: 0.5  # radians, full 3D angular distance
+    initial_max_translation_correction: 5.0
+    initial_max_rotation_correction: 1.0
+
+    odom_buffer_duration: 10.0
+    odom_max_interpolation_gap: 0.2
+    odom_reset_time_jump: 1.0
+    odom_max_speed: 5.0
+    odom_max_rotation_speed: 5.0
+    odom_wait_timeout: 0.3
+    transform_wait_timeout: 0.1
+    max_scan_age: 2.0
+    # Matches are marginal on this map, so tolerate a longer failure streak / gap
+    # before declaring LOST.
+    failures_to_lost: 15
+    stale_timeout: 5.0
+    tf_publish_frequency: 20.0
+    transform_tolerance: 0.1
+
+    # RViz supplies X/Y/yaw; these complete the initial 6-DoF base_link pose.
+    initial_pose_use_2d: true
+    initial_z: 0.0
+    initial_roll: 0.0
+    initial_pitch: 0.0
+    # Explicit configured uncertainty, NOT covariance estimated by NDT.
+    pose_position_stddev: 0.3
+    pose_angle_stddev: 0.1
 
 bt_navigator:
   ros__parameters:
