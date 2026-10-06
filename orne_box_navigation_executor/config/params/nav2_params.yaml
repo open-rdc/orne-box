@@ -325,6 +325,6 @@ prestop_node:
 
     polygons:
       stop_zone:
-        enabled: true
+        enabled: false #true
         action_type: "stop"
         points: "[[-0.3, 0.5], [1.5, 0.5], [1.5, -0.5], [-0.3, -0.5]]"
