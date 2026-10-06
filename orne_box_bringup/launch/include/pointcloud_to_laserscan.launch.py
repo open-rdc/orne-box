@@ -89,7 +89,7 @@ def generate_launch_description():
                 "config", "box_filter_box3.yaml",
             ])],
         remappings=[
-            ('scan_filtered', 'low_scan_raw'),
+            ('scan_filtered', 'low_scan'),
             ('scan', 'low_surestar_scan'),
         ],
     )
