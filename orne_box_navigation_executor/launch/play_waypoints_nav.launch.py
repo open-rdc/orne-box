@@ -7,6 +7,7 @@ from launch_ros.actions import Node
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
 from nav2_common.launch import RewrittenYaml
+from waypoint_tools.paths import source_path
 
 def generate_launch_description():
     nav_dir = get_package_share_directory('orne_box_navigation_executor')
@@ -15,15 +16,16 @@ def generate_launch_description():
 
     # map_pass = 'tsudanuma/cit_3f_map'
     map_pass = 'tsudanuma/tsudanu_map'
+    WAYPOINT_PATH = 'tsudanuma_all'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
     map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
     costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
         'mask', default=os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')))
-    # waypoint_file = os.path.join(config_dir, 'waypoints', f'{WAYPOINT_PATH}.yaml')
     bt_dir = LaunchConfiguration('default_bt_xml_filename', default=os.path.join(config_dir, 'behavior_trees', bt_file_name))
-    rviz_config_dir = os.path.join(config_dir, 'rviz', 'nav2_TC2024_view2.rviz')
+    rviz_config_dir = os.path.join(config_dir, 'rviz', 'nav2_waypoint_tools.rviz')
+    waypoint_tools_launch_dir = os.path.join(get_package_share_directory('waypoint_tools'), 'launch')
     
     lifecycle_nodes = ['filter_mask_server', 'costmap_filter_info_server']
 
@@ -50,7 +52,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='true',
+            default_value='false',
             description='Use simulation (Gazebo) clock if true'
         ),
         DeclareLaunchArgument(
@@ -120,6 +122,11 @@ def generate_launch_description():
             'use_composition', default_value='False',
             description='Use composed Nav2 nodes if true'
         ),     
+        DeclareLaunchArgument(
+            'waypoint_path',
+            default_value=os.path.join(config_dir, 'waypoints', f'{WAYPOINT_PATH}.yaml'),
+            description='Waypoint YAML file sent by waypoint_tools'
+        ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([launch_file_dir, '/bringup_launch.py']),
             launch_arguments={
@@ -131,6 +138,17 @@ def generate_launch_description():
                 'emcl2_params_file': params_file,
                 'default_bt_xml_filename':bt_dir}.items(),            
         ),
+        # waypoint_tools(waypointを1点ずつNav2に送る)
+        # params_fileがNav2側と衝突しないようにGroupActionでスコープを分ける
+        GroupAction([
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([waypoint_tools_launch_dir, '/send.launch.py']),
+                launch_arguments={
+                    'params_file': source_path('config', 'params', 'waypoint_tools_params.yaml'),
+                    'send_waypoint_path': LaunchConfiguration('waypoint_path'),
+                    'use_sim_time': use_sim_time}.items(),
+            ),
+        ]),
         # ジョイスティックコマンド(Joyで/next_wpを送る)
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([launch_file_dir, '/joy_command.launch.py'])
