@@ -169,6 +169,8 @@ global_costmap:
       elevation_layer:
         plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
+        footprint_filter:
+          enabled: true
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
@@ -203,6 +205,8 @@ local_costmap:
       elevation_layer:
         plugin: "nav2_elevation_difference_costmap_plugin::ElevationLayer"
         enabled: True
+        footprint_filter:
+          enabled: true
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
