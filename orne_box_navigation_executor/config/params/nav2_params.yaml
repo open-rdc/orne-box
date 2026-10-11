@@ -250,7 +250,7 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
-      resolution: 0.1
+      resolution: 0.05 # kuams (旧: 0.1)
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:
@@ -296,9 +296,9 @@ local_costmap:
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
-      width: 10
-      height: 10
-      resolution: 0.1
+      width: 8 # kuams (旧: 10)
+      height: 8 # kuams (旧: 10)
+      resolution: 0.05 # kuams (旧: 0.1)
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
       plugins: ["obstacle_layer", "inflation_layer"]
       obstacle_layer:
