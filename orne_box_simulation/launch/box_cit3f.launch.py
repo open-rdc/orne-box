@@ -50,7 +50,7 @@ def generate_launch_description():
 
     declare_simulation_lidar_cmd = DeclareLaunchArgument(
         'simulation_lidar',
-        default_value='2d',
+        default_value='3d',
         description='CPU lidar type: 2d for navigation or 3d for point clouds',
         choices=['2d', '3d'])
     
@@ -84,6 +84,7 @@ def generate_launch_description():
         arguments=[
             '-entity', 'orne_box',
             '-topic', 'robot_description',
+            '-timeout', '120.0',  # Tsudanuma_2-3.world は読み込みに30秒以上かかる
         ],
         output='screen',
     )
