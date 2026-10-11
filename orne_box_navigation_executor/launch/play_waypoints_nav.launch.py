@@ -14,15 +14,19 @@ def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_navigation_executor'), 'launch')
     config_dir = os.path.join(nav_dir, 'config')
 
-    # map_pass = 'tsudanuma/cit_3f_map'
-    map_pass = 'tsudanuma/tsudanu_map'
+    # config/maps/<map_pass>.pcd (wheel_lidar_localization) と
+    # config/maps/<map_pass>_keepout.yaml (costmap) を使う
+    map_pass = 'tsudanuma/cit3f'
     WAYPOINT_PATH = 'tsudanuma_all'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
-    map_data = LaunchConfiguration('map', default=os.path.join(config_dir, 'maps', map_pass + '.yaml'))
+    keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')
+    # map_server(/map) は表示用。<map_pass>.yaml は置かないので keepout を表示する
+    map_data = LaunchConfiguration('map', default=keepout_yaml)
     costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
-        'mask', default=os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')))
+        'mask', default=keepout_yaml))
+    pcd_map_data = LaunchConfiguration('pcd_map', default=os.path.join(config_dir, 'maps', map_pass + '.pcd'))
     bt_dir = LaunchConfiguration('default_bt_xml_filename', default=os.path.join(config_dir, 'behavior_trees', bt_file_name))
     rviz_config_dir = os.path.join(config_dir, 'rviz', 'nav2_waypoint_tools.rviz')
     waypoint_tools_launch_dir = os.path.join(get_package_share_directory('waypoint_tools'), 'launch')
@@ -52,7 +56,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='false',
+            default_value='true',
             description='Use simulation (Gazebo) clock if true'
         ),
         DeclareLaunchArgument(
@@ -114,6 +118,11 @@ def generate_launch_description():
             description='Full path to map file to load'
         ),    
         DeclareLaunchArgument(
+            'pcd_map',
+            default_value=pcd_map_data,
+            description='Full path to PCD map file for wheel_lidar_localization'
+        ),
+        DeclareLaunchArgument(
             'costmap',
             default_value=costmap_data,
             description='Full path to map file to load'
@@ -131,6 +140,7 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([launch_file_dir, '/bringup_launch.py']),
             launch_arguments={
                 'map': map_data,
+                'pcd_map': pcd_map_data,
                 'costmap': costmap_data,
                 'use_sim_time': use_sim_time,
                 'use_composition': LaunchConfiguration('use_composition'),

@@ -94,7 +94,7 @@ def generate_launch_description():
 
     declare_pcd_map_cmd = DeclareLaunchArgument(
         'pcd_map', default_value='',
-        description='PCD map for wheel_lidar_localization (empty: use params_file value)')
+        description='Full path to PCD map file for wheel_lidar_localization')
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',

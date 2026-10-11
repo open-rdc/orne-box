@@ -1,0 +1,6 @@
+image: cit3f_keepout.pgm
+resolution: 0.05
+origin: [-19.0935001373291, -11.205460548400879, 0.0]
+occupied_thresh: 0.65
+free_thresh: 0.2
+negate: 0
