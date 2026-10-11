@@ -165,11 +165,11 @@ controller_server:
       batch_size: 2000
       vx_std: 0.2
       vy_std: 0.0
-      wz_std: 0.4
-      vx_max: 0.6 # 機体側の制限に合わせて据え置き (kuams: 0.8)
+      wz_std: 0.2 # wz_max に対して大きすぎると指令がばらつき蛇行する (旧: 0.4)
+      vx_max: 0.9 # (旧: 0.6, kuams: 0.8)
       vx_min: 0.0
       vy_max: 0.0
-      wz_max: 0.7 # 機体側の制限に合わせて据え置き (kuams: 0.3)
+      wz_max: 0.7 # 屋内の曲がり角で 0.3 はオーバーシュートするため据え置き (kuams: 0.3)
       iteration_count: 1
       prune_distance: 1.7
       transform_tolerance: 1.0
@@ -412,7 +412,7 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.6, 0.0, 0.7]
+    max_velocity: [0.9, 0.0, 0.7] # 並進 (旧: 0.6)
     min_velocity: [-0.6, 0.0, -0.7]
     max_accel: [0.5, 0.0, 1.0]
     max_decel: [-2.0, 0.0, -2.0]
@@ -420,5 +420,34 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
-    # 速度・加速度の上限は機体側の制限に合わせて据え置き
+    # 加速度の上限は機体側の制限に合わせて据え置き
     # kuams: max_velocity [0.8, 0.0, 2.5] / max_accel [2.5, 0.0, 3.2] / max_decel [-2.5, 0.0, -3.2]
+
+collision_monitor:
+  ros__parameters:
+    use_sim_time: False
+    base_frame_id: "base_link"
+    odom_frame_id: "odom"
+    # velocity_smoother の出力を受けて、減速した指令を cmd_vel に出す
+    cmd_vel_in_topic: "cmd_vel_smoothed"
+    cmd_vel_out_topic: "cmd_vel"
+    transform_tolerance: 0.5
+    source_timeout: 5.0
+    base_shift_correction: True
+    stop_pub_timeout: 2.0
+    polygons: ["PolygonSlow"]
+    # 機体前端 (x=0.6) から前方 2.0m・左右 0.5m の範囲に障害物があれば速度を 0.5 倍にする
+    PolygonSlow:
+      type: "polygon"
+      points: [2.6, 0.5, 2.6, -0.5, -0.4, -0.5, -0.4, 0.5]
+      action_type: "slowdown"
+      max_points: 3
+      slowdown_ratio: 0.5
+      visualize: True
+      polygon_pub_topic: "polygon_slowdown"
+      enabled: True
+    observation_sources: ["low_scan"]
+    low_scan:
+      type: "scan"
+      topic: "/low_scan"
+      enabled: True
