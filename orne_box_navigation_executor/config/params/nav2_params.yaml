@@ -119,11 +119,11 @@ controller_server:
       batch_size: 2000
       vx_std: 0.2
       vy_std: 0.0
-      wz_std: 0.4
+      wz_std: 0.2 # wz_max に対して大きすぎると指令がばらつき蛇行する (旧: 0.4)
       vx_max: 0.6 # 機体側の制限に合わせて据え置き (kuams: 0.8)
       vx_min: 0.0
       vy_max: 0.0
-      wz_max: 0.7 # 機体側の制限に合わせて据え置き (kuams: 0.3)
+      wz_max: 0.7 # 屋内の曲がり角で 0.3 はオーバーシュートするため据え置き (kuams: 0.3)
       iteration_count: 1
       prune_distance: 1.7
       transform_tolerance: 1.0
