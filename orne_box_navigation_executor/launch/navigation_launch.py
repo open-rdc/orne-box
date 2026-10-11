@@ -38,6 +38,7 @@ def generate_launch_description():
                        'bt_navigator',
                        'waypoint_follower',
                        'velocity_smoother',
+                       'collision_monitor',
                        'map_server_for_costmap']
 
     # Map fully qualified names to relative ones so the node's namespace can be prepended.
@@ -190,7 +191,17 @@ def generate_launch_description():
                 respawn_delay=2.0,
                 parameters=[configured_params],
                 remappings=remappings +
-                        [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
+                        [('cmd_vel', 'cmd_vel_nav')]),
+            # velocity_smoother(cmd_vel_smoothed) -> collision_monitor -> cmd_vel
+            Node(
+                package='nav2_collision_monitor',
+                executable='collision_monitor',
+                name='collision_monitor',
+                output='screen',
+                respawn=use_respawn,
+                respawn_delay=2.0,
+                parameters=[configured_params],
+                remappings=remappings),
             Node(
                 package='nav2_lifecycle_manager',
                 executable='lifecycle_manager',
@@ -257,7 +268,13 @@ def generate_launch_description():
                     name='velocity_smoother',
                     parameters=[configured_params],
                     remappings=remappings +
-                            [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
+                            [('cmd_vel', 'cmd_vel_nav')]),
+                ComposableNode(
+                    package='nav2_collision_monitor',
+                    plugin='nav2_collision_monitor::CollisionMonitor',
+                    name='collision_monitor',
+                    parameters=[configured_params],
+                    remappings=remappings),
                 ComposableNode(
                     package='nav2_lifecycle_manager',
                     plugin='nav2_lifecycle_manager::LifecycleManager',

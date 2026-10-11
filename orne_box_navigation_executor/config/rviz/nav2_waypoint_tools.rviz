@@ -644,6 +644,19 @@ Visualization Manager:
       Reliability Policy: Reliable
       Value: /prestop/stop_zone_polygon
     Value: true
+  - Alpha: 1
+    Class: rviz_default_plugins/Polygon
+    Color: 255; 140; 0
+    Enabled: true
+    Name: Polygon (collision_monitor slowdown)
+    Topic:
+      Depth: 5
+      Durability Policy: Volatile
+      Filter size: 10
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Value: /polygon_slowdown
+    Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
