@@ -61,6 +61,10 @@ wheel_lidar_localization:
     tf_publish_frequency: 20.0
     transform_tolerance: 0.1
 
+    # Startup pose (map frame). /initialpose (RViz 2D Pose Estimate) can override it.
+    initial_x: 0.0
+    initial_y: 0.0
+    initial_yaw: 0.0
     # RViz supplies X/Y/yaw; these complete the initial 6-DoF base_link pose.
     initial_pose_use_2d: true
     initial_z: 0.0
