@@ -106,7 +106,7 @@ controller_server:
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 2.0
+      xy_goal_tolerance: 0.25 #2.0
       yaw_goal_tolerance: 3.14
       stateful: False
     # DWB parameters
@@ -171,7 +171,7 @@ global_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /low_scan
+          topic: /scan
           obstacle_max_range: 10.0
           obstacle_min_range: 0.0
           raytrace_max_range: 11.0
@@ -218,7 +218,7 @@ local_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /low_scan
+          topic: /scan
           obstacle_max_range: 3.5
           obstacle_min_range: 0.0
           raytrace_max_range: 4.0
@@ -330,3 +330,5 @@ velocity_smoother:
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
     velocity_timeout: 1.0
+
+
