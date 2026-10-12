@@ -154,7 +154,7 @@ def generate_launch_description():
                 respawn=use_respawn,
                 respawn_delay=2.0,
                 parameters=[configured_params],
-                remappings=remappings),
+                remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
             # Node(
             #     package='nav2_recoveries',
             #     executable='recoveries_server',
@@ -240,7 +240,7 @@ def generate_launch_description():
                     plugin='behavior_server::BehaviorServer',
                     name='behavior_server',
                     parameters=[configured_params],
-                    remappings=remappings),
+                    remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
                 ComposableNode(
                     package='nav2_bt_navigator',
                     plugin='nav2_bt_navigator::BtNavigator',

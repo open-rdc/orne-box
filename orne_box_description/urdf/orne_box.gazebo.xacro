@@ -85,6 +85,7 @@
           <ros>
             <remapping>~/out:=imu/data</remapping>
           </ros>
+          <frame_name>imu_link</frame_name>
           <initial_orientation_as_reference>false</initial_orientation_as_reference>
         </plugin>
         <always_on>true</always_on>

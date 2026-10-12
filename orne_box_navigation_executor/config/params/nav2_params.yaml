@@ -286,7 +286,7 @@ behavior_server:
   ros__parameters:
     costmap_topic: local_costmap/costmap_raw
     footprint_topic: local_costmap/published_footprint
-    cycle_frequency: 10.0
+    cycle_frequency: 20.0 #10.0
     recovery_plugins: ["backup", "wait"]
     back_up:
       plugin: "nav2_behaviors/BackUp"
@@ -299,7 +299,7 @@ behavior_server:
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.4
-    rotational_acc_lim: 3.2
+    rotational_acc_lim: 0.3 #3.2
 
 robot_state_publisher:
   ros__parameters:
