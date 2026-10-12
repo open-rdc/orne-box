@@ -333,7 +333,7 @@ velocity_smoother:
 
 collision_monitor:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     base_frame_id: "base_link"
     odom_frame_id: "odom"
     cmd_vel_in_topic: "cmd_vel_smoothed"
@@ -357,7 +357,7 @@ collision_monitor:
       polygon_pub_topic: "polygon_stop"
     PolygonSlow:
       type: "polygon"
-      points: [-0.3, -0.3, -0.3, 0.3, 0.8, 0.3, 0.8, -0.3]
+      points: [-0.3, -0.3, -0.3, 0.3, 1.5, 0.3, 1.5, -0.3]
       action_type: "slowdown"
       max_points: 3
       slowdown_ratio: 0.3

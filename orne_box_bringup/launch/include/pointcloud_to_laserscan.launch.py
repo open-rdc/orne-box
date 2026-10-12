@@ -59,7 +59,7 @@ def generate_launch_description():
         executable='pointcloud_to_laserscan_node',
         name='pointcloud_to_laserscan',
         remappings=[
-            #('cloud_in', 'livox/lidar'),
+            ('cloud_in', 'livox/lidar'),
             ('scan', 'low_surestar_scan'), # scan
         ],
         parameters=[{
