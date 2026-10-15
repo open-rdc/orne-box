@@ -31,7 +31,7 @@ def generate_launch_description():
                 'angle_max': 3.1415,  # M_PI/2
                 'angle_increment': 0.0261, #0.0087,  # M_PI/360.0
                 'scan_time': 0.1, #0.3333,
-                'range_min': 0.3,
+                'range_min': 5.0, # つくば用: 近距離を捨てて emcl2 を安定させる (津田沼: 0.3)
                 'range_max': 100.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
@@ -71,7 +71,7 @@ def generate_launch_description():
                 'angle_max': 0.0,  # M_PI/2
                 'angle_increment': 0.00087,  # M_PI/360.0
                 'scan_time': 0.3333,
-                'range_min': 0.3,
+                'range_min': 0.3, # TODO: より短い range_min での検証
                 'range_max': 200.0,
                 'use_inf': True,
                 'use_sim_time': use_sim_time,

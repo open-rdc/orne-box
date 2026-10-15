@@ -1,3 +1,5 @@
+# つくば用 (tsukuba_1009_map + tsukuba_1003_short で調整)
+# /scan の最小距離 5m は pointcloud_to_laserscan.launch.py の range_min で設定している
 emcl2:
   ros__parameters:
     odom_freq: 20
@@ -14,16 +16,44 @@ emcl2:
     initial_pose_a: 0.0
     num_particles: 500
     alpha_threshold: 0.5
-    expansion_radius_position: 0.1
-    expansion_radius_orientation: 0.2
+    expansion_radius_position: 0.05
+    expansion_radius_orientation: 0.1
     extraction_rate: 0.1
     range_threshold: 0.3
     sensor_reset: false
     odom_fw_dev_per_fw: 0.19
-    odom_fw_dev_per_rot: 0.01 
+    odom_fw_dev_per_rot: 0.0001
     odom_rot_dev_per_fw: 0.13
     odom_rot_dev_per_rot: 0.2
-    laser_likelihood_max_dist: 0.8
+    laser_likelihood_max_dist: 0.2
+
+# 津田沼用 (pointcloud_to_laserscan.launch.py の range_min も 0.3 に戻すこと)
+# emcl2:
+#   ros__parameters:
+#     odom_freq: 20
+#     transform_tolerance: 0.2
+#     global_frame_id: "map"
+#     odom_frame_id: "odom"
+#     base_frame_id: "base_link"
+#     footprint_frame_id: "base_link"
+#     laser_min_range: 0.0
+#     laser_max_range: 100000000.0
+#     scan_increment: 1
+#     initial_pose_x: 0.0
+#     initial_pose_y: 0.0
+#     initial_pose_a: 0.0
+#     num_particles: 500
+#     alpha_threshold: 0.5
+#     expansion_radius_position: 0.1
+#     expansion_radius_orientation: 0.2
+#     extraction_rate: 0.1
+#     range_threshold: 0.3
+#     sensor_reset: false
+#     odom_fw_dev_per_fw: 0.19
+#     odom_fw_dev_per_rot: 0.01
+#     odom_rot_dev_per_fw: 0.13
+#     odom_rot_dev_per_rot: 0.2
+#     laser_likelihood_max_dist: 0.8
 
 bt_navigator:
   ros__parameters:
