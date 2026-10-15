@@ -379,16 +379,21 @@ robot_state_publisher:
   ros__parameters:
     use_sim_time: False
 
-waypoint_follower:
+# waypoint_tools の waypoint_sender_node 用 (play_waypoints_nav.launch.py が send.launch.py に渡す)
+# send_waypoint_path は play_waypoints_nav.launch.py の waypoint_path 引数で指定する
+waypoint_tools:
   ros__parameters:
     use_sim_time: False
-    loop_rate: 20
-    stop_on_failure: false
-    waypoint_task_executor_plugin: "wait_at_waypoint"
-    wait_at_waypoint:
-      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
-      enabled: False
-      waypoint_pause_duration: 0
+    frame_id: map
+    robot_frame: base_link
+    # 通過点では、この距離 [m] まで近づいたら次の waypoint を送り、止まらずに走る。
+    # goal_checker の xy_goal_tolerance より大きくすること。
+    # stop: true の点と各 YAML の最後の点は、Nav2 の到達判定まで走って停止する。
+    switch_radius: 2.0
+    # 失敗した waypoint を再送する回数。
+    max_retries: 2
+    # true: 再送しても失敗したら次の waypoint へ進む / false: 停止して next_wp を待つ。
+    skip_on_failure: false
 
 velocity_smoother:
   ros__parameters:
