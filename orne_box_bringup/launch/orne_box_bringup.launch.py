@@ -43,10 +43,6 @@ def generate_launch_description():
         ),
         LogInfo(msg="Launch robot description nodes."),
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([include_dir, '/robot_localization_ekf.launch.py'])
-        ),
-        LogInfo(msg="Launch robot_localization_ekf node."),
-        IncludeLaunchDescription(
             PythonLaunchDescriptionSource([include_dir, '/teleop.launch.py'])
         ),
         LogInfo(msg="Launch teleop node."),

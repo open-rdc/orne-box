@@ -14,7 +14,7 @@ def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_navigation_executor'), 'launch')
     config_dir = os.path.join(nav_dir, 'config')
 
-    # config/maps/<map_pass>.pcd (wheel_lidar_localization) と
+    # config/maps/<map_pass>.pcd (ndt_localization) と
     # config/maps/<map_pass>_keepout.yaml (costmap) を使う
     map_pass = 'tsudanuma/cit3f'
     WAYPOINT_PATH = 'tsudanuma_all'
@@ -120,7 +120,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'pcd_map',
             default_value=pcd_map_data,
-            description='Full path to PCD map file for wheel_lidar_localization'
+            description='Full path to PCD map file for ndt_localization'
         ),
         DeclareLaunchArgument(
             'costmap',

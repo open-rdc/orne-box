@@ -19,7 +19,7 @@ def generate_launch_description():
     config_dir = os.path.join(bringup_dir, 'config')
     launch_dir = os.path.join(bringup_dir, 'launch')
 
-    wll_dir = get_package_share_directory('wheel_lidar_localization')
+    ndt_localization_dir = get_package_share_directory('ndt_localization')
     pcd_map = LaunchConfiguration('pcd_map')
 
     # Create the launch configuration variables
@@ -94,7 +94,7 @@ def generate_launch_description():
 
     declare_pcd_map_cmd = DeclareLaunchArgument(
         'pcd_map', default_value='',
-        description='Full path to PCD map file for wheel_lidar_localization')
+        description='Full path to PCD map file for ndt_localization')
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',
@@ -152,7 +152,8 @@ def generate_launch_description():
         #                       'use_respawn': use_respawn,
         #                       'container_name': 'nav2_container'}.items()
         # ),
-        # use wheel_lidar_localization (map_server still serves the 2D map for costmaps)
+        # use ndt_localization (map_server still serves the 2D map for costmaps). ndt_localization also
+        # publishes odom->base_link and /odometry/filtered (no robot_localization).
         GroupAction(
             condition=UnlessCondition(slam),
             actions=[
@@ -172,10 +173,9 @@ def generate_launch_description():
                                  'node_names': ['map_server']}],
                     output='screen'),
                 IncludeLaunchDescription(
-                    PythonLaunchDescriptionSource(os.path.join(wll_dir, 'launch',
-                                                               'localization.launch.py')),
+                    PythonLaunchDescriptionSource(os.path.join(ndt_localization_dir, 'launch',
+                                                               'ndt_localization.launch.py')),
                     launch_arguments={
-                        'params_file': params_file,
                         'map_path': pcd_map,
                         'use_sim_time': PythonExpression(
                             ["'", use_sim_time, "'.lower()"]),

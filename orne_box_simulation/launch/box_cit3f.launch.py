@@ -108,14 +108,6 @@ def generate_launch_description():
         ])),
     )
 
-    # robot_localization (EKF)
-    start_robot_localization_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(bringup_dir, 'robot_localization_ekf.launch.py')
-        ),
-        launch_arguments={'use_sim_time': use_sim_time}.items()
-    )
-
     # LaunchDescriptionの構築
     ld = LaunchDescription()
     
@@ -131,7 +123,6 @@ def generate_launch_description():
     ld.add_action(start_description_cmd)
     ld.add_action(spawn_example_cmd)
     ld.add_action(start_pointcloud_to_laserscan_cmd)
-    ld.add_action(start_robot_localization_cmd)
     
     # テレオペレーション
     ld.add_action(start_teleop_cmd)
