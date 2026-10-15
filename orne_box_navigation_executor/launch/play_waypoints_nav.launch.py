@@ -14,8 +14,10 @@ def generate_launch_description():
     config_dir = os.path.join(nav_dir, 'config')
 
     # map_pass = 'tsudanuma/cit_3f_map'
-    map_pass = 'tsudanuma/tsudanu_map'
-    WAYPOINT_PATH = 'tsudanuma_all'
+    # map_pass = 'tsudanuma/tsudanu_map'
+    map_pass = 'tsukuba/tsukuba'
+    # WAYPOINT_PATH = 'tsudanuma_all'
+    WAYPOINT_PATH = 'tsukuba'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
