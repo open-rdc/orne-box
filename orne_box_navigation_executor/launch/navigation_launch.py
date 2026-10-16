@@ -154,7 +154,7 @@ def generate_launch_description():
                 respawn=use_respawn,
                 respawn_delay=2.0,
                 parameters=[configured_params],
-                remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
+                remappings=remappings + [('cmd_vel', 'cmd_vel_raw')]),
             # Node(
             #     package='nav2_recoveries',
             #     executable='recoveries_server',
@@ -191,8 +191,8 @@ def generate_launch_description():
                 respawn_delay=2.0,
                 parameters=[configured_params],
                 remappings=remappings +
-                        #[('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
-                        [('cmd_vel', 'cmd_vel_nav')]),
+                        [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_raw')]),
+                        #[('cmd_vel', 'cmd_vel')]),
             Node(
                 package='nav2_collision_monitor',
                 executable='collision_monitor',
@@ -240,7 +240,7 @@ def generate_launch_description():
                     plugin='behavior_server::BehaviorServer',
                     name='behavior_server',
                     parameters=[configured_params],
-                    remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
+                    remappings=remappings + [('cmd_vel', 'cmd_vel_raw')]),
                 ComposableNode(
                     package='nav2_bt_navigator',
                     plugin='nav2_bt_navigator::BtNavigator',
@@ -259,8 +259,8 @@ def generate_launch_description():
                     name='velocity_smoother',
                     parameters=[configured_params],
                     remappings=remappings +
-                            #[('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
-                            [('cmd_vel', 'cmd_vel_nav')]),
+                            [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_raw')]),
+                            #[('cmd_vel', 'cmd_vel_nav')]),
                 ComposableNode(
                     package='nav2_collision_monitor',
                     plugin='nav2_collision_monitor::CollisionMonitor',
