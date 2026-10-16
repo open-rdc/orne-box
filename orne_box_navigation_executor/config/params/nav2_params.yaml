@@ -187,8 +187,8 @@ global_costmap:
         map_subscribe_transient_local: True
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0
-        inflation_radius: 1.25
+        cost_scaling_factor: 10.0 #3.0
+        inflation_radius: 0.5 #1.25
       always_send_full_costmap: False
 
   global_costmap_client:
@@ -231,8 +231,8 @@ local_costmap:
           data_type: "LaserScan"
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0
-        inflation_radius: 0.5
+        cost_scaling_factor: 10.0 #3.0
+        inflation_radius: 0.4 #0.5
       always_send_full_costmap: False
 
   local_costmap_client:
