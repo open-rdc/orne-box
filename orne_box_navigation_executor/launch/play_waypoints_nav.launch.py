@@ -15,13 +15,16 @@ def generate_launch_description():
 
     # config/maps/<map_pass>.pcd (ndt_localization) と
     # config/maps/<map_pass>_keepout.yaml (costmap) を使う
-    map_pass = 'tsudanuma/cit3f'
-    WAYPOINT_PATH = 'tsudanuma_all'
+    # （_keepout.yaml が無ければ <map_pass>.yaml を使う）
+    map_pass = 'tsudanuma/tsudanuma'
+    WAYPOINT_PATH = 'tsudanuma'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
     keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')
-    # map_server(/map) は表示用。<map_pass>.yaml は置かないので keepout を表示する
+    if not os.path.isfile(keepout_yaml):
+        keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '.yaml')
+    # map_server(/map) は表示用。keepout があれば keepout を表示する
     map_data = LaunchConfiguration('map', default=keepout_yaml)
     costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
         'mask', default=keepout_yaml))
