@@ -81,7 +81,7 @@ controller_server:
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 2.0
+      xy_goal_tolerance: 1.0
       yaw_goal_tolerance: 3.14
       stateful: False
     # MPPI parameters (kuams/develop より移植。旧DWB設定はgit履歴とbackupを参照)
@@ -96,7 +96,7 @@ controller_server:
       vx_max: 0.9 # (旧: 0.6, kuams: 0.8)
       vx_min: 0.0
       vy_max: 0.0
-      wz_max: 0.7 # 屋内の曲がり角で 0.3 はオーバーシュートするため据え置き (kuams: 0.3)
+      wz_max: 0.5 # (旧: 0.7, kuams: 0.3) 屋内の曲がり角で 0.3 はオーバーシュートした
       iteration_count: 1
       prune_distance: 1.7
       transform_tolerance: 1.0
@@ -314,7 +314,7 @@ behavior_server:
     transform_timeout: 0.1
     use_sim_time: false
     simulate_ahead_time: 2.0
-    max_rotational_vel: 1.0
+    max_rotational_vel: 0.5 # (旧: 1.0)
     min_rotational_vel: 0.4
     rotational_acc_lim: 3.2
 
@@ -322,16 +322,21 @@ robot_state_publisher:
   ros__parameters:
     use_sim_time: False
 
-waypoint_follower:
+# waypoint_tools の waypoint_sender_node 用 (play_waypoints_nav.launch.py が send.launch.py に渡す)
+# send_waypoint_path は play_waypoints_nav.launch.py の waypoint_path 引数で指定する
+waypoint_tools:
   ros__parameters:
     use_sim_time: False
-    loop_rate: 20
-    stop_on_failure: false
-    waypoint_task_executor_plugin: "wait_at_waypoint"
-    wait_at_waypoint:
-      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
-      enabled: False
-      waypoint_pause_duration: 0
+    frame_id: map
+    robot_frame: base_link
+    # 通過点では、この距離 [m] まで近づいたら次の waypoint を送り、止まらずに走る。
+    # goal_checker の xy_goal_tolerance より大きくすること。
+    # stop: true の点と各 YAML の最後の点は、Nav2 の到達判定まで走って停止する。
+    switch_radius: 2.0
+    # 失敗した waypoint を再送する回数。
+    max_retries: 2
+    # true: 再送しても失敗したら次の waypoint へ進む / false: 停止して next_wp を待つ。
+    skip_on_failure: false
 
 velocity_smoother:
   ros__parameters:
@@ -339,8 +344,8 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.9, 0.0, 0.7] # 並進 (旧: 0.6)
-    min_velocity: [-0.6, 0.0, -0.7]
+    max_velocity: [0.9, 0.0, 0.5] # 並進 (旧: 0.6) / 角速度 (旧: 0.7)
+    min_velocity: [-0.6, 0.0, -0.5]
     max_accel: [0.5, 0.0, 1.0]
     max_decel: [-2.0, 0.0, -2.0]
     odom_topic: "odom"
@@ -363,10 +368,10 @@ collision_monitor:
     base_shift_correction: True
     stop_pub_timeout: 2.0
     polygons: ["PolygonSlow"]
-    # 機体前端 (x=0.6) から前方 2.0m・左右 0.5m の範囲に障害物があれば速度を 0.5 倍にする
+    # 機体前端 (x=0.6) から前方 2.0m・左右 0.7m の範囲に障害物があれば速度を 0.5 倍にする (左右 旧: 0.5m)
     PolygonSlow:
       type: "polygon"
-      points: [2.6, 0.5, 2.6, -0.5, -0.4, -0.5, -0.4, 0.5]
+      points: [2.6, 0.7, 2.6, -0.7, -0.4, -0.7, -0.4, 0.7]
       action_type: "slowdown"
       max_points: 3
       slowdown_ratio: 0.5

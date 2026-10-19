@@ -7,7 +7,6 @@ from launch_ros.actions import Node
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
 from nav2_common.launch import RewrittenYaml
-from waypoint_tools.paths import source_path
 
 def generate_launch_description():
     nav_dir = get_package_share_directory('orne_box_navigation_executor')
@@ -147,13 +146,11 @@ def generate_launch_description():
                 'params_file': params_file,
                 'default_bt_xml_filename':bt_dir}.items(),            
         ),
-        # waypoint_tools(waypointを1点ずつNav2に送る)
-        # params_fileがNav2側と衝突しないようにGroupActionでスコープを分ける
         GroupAction([
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([waypoint_tools_launch_dir, '/send.launch.py']),
                 launch_arguments={
-                    'params_file': source_path('config', 'params', 'waypoint_tools_params.yaml'),
+                    'params_file': params_file,
                     'send_waypoint_path': LaunchConfiguration('waypoint_path'),
                     'use_sim_time': use_sim_time}.items(),
             ),
