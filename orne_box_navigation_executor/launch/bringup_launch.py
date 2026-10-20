@@ -179,7 +179,12 @@ def generate_launch_description():
                         'map_path': pcd_map,
                         'use_sim_time': PythonExpression(
                             ["'", use_sim_time, "'.lower()"]),
-                        'rviz': 'false'}.items()),
+                        'rviz': 'false',
+                        # params_file の ndt_localization の各ノードの節を使う
+                        **{f'{node}_param_path': params_file for node in (
+                            'vehicle_velocity_converter', 'imu_corrector', 'gyro_odometer',
+                            'odometry_integrator', 'ndt_scan_matcher', 'ekf_localizer',
+                            'pose_initializer')}}.items()),
             ]),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(launch_dir, 'navigation_launch.py')),

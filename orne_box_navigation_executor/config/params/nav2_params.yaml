@@ -383,3 +383,213 @@ collision_monitor:
       type: "scan"
       topic: "/low_scan"
       enabled: True
+
+# ---- ndt_localization ----
+# bringup_launch.py はこのファイルを ndt_localization.launch.py の全 *_param_path に渡す。
+# 各ノードは自分の完全修飾名の節だけを読むので、/**: は使わないこと。
+# 値は ndt_localization/config/*.param.yaml と同じ。tsudanuma.pcd と tsudanuma_3d_data_2 で調整し、
+# ndt_scan_matcher の sensor_points.voxel_size と ndt.max_iterations だけ変更している。
+
+# ---- vehicle_velocity_converter ----
+# Reference: autoware_core (commit e0a8ab84)
+#   sensing/autoware_vehicle_velocity_converter/config/vehicle_velocity_converter.param.yaml
+# Same names and values. The input is the wheel nav_msgs/Odometry (/odom), whose twist has no covariance,
+# so the covariance comes from these standard deviations.
+/sensing/vehicle_velocity_converter:
+  ros__parameters:
+    speed_scale_factor: 1.0  # [.]
+    velocity_stddev_xx: 0.2  # [m/s]
+    angular_velocity_stddev_zz: 0.1  # [rad/s]
+
+# ---- imu_corrector ----
+# Reference: autoware_universe (commit 2ee1a85)
+#   sensing/autoware_imu_corrector/config/imu_corrector.param.yaml (same names and values)
+# The ADIS16465 driver (adi_driver2) publishes an all-zero angular_velocity_covariance, which makes the EKF trust
+# the gyro completely and reject the twist; these standard deviations replace it.
+/sensing/imu/imu_corrector:
+  ros__parameters:
+    angular_velocity_offset_x: 0.0    # [rad/s]
+    angular_velocity_offset_y: 0.0    # [rad/s]
+    angular_velocity_offset_z: 0.0    # [rad/s]
+    angular_velocity_stddev_xx: 0.03  # [rad/s]
+    angular_velocity_stddev_yy: 0.03  # [rad/s]
+    angular_velocity_stddev_zz: 0.03  # [rad/s]
+    acceleration_stddev: 10000.0
+
+# ---- gyro_odometer ----
+# Reference: autoware_core (commit e0a8ab84)
+#   localization/autoware_gyro_odometer/config/gyro_odometer.param.yaml (same names and values)
+/localization/twist_estimator/gyro_odometer:
+  ros__parameters:
+    output_frame: "base_link"
+    message_timeout_sec: 0.2
+
+# ---- odometry_integrator ----
+# (this package only) Integrates the gyro_odometer twist into odom->base_link and /odometry/filtered
+# for Nav2, replacing the odom-frame robot_localization EKF.
+/localization/util/odometry_integrator:
+  ros__parameters:
+    odom_frame_id: odom
+    base_frame_id: base_link
+    publish_tf: true
+    # A twist is integrated over the interval since the previous one (like the odom-frame EKF predicting
+    # through a dropout). Only intervals longer than this are skipped [s].
+    max_dt: 2.0
+
+# ---- ndt_scan_matcher ----
+# Reference: autoware_core (commit e0a8ab84)
+#   localization/autoware_ndt_scan_matcher/config/ndt_scan_matcher.param.yaml
+# Same names and defaults for the ported parameters; see hyper_parameters.hpp for what is not
+# ported and what is "(this package only)".
+/localization/pose_estimator/ndt_scan_matcher:
+  ros__parameters:
+    frame:
+      base_frame: base_link
+      map_frame: map
+
+    # (this package only) replaces the map_loader node / dynamic_map_loading
+    # bringup_launch.py の pcd_map（ndt_localization.launch.py の map_path）で上書きされる。
+    map:
+      path: ""
+
+    sensor_points:
+      timeout_sec: 1.0
+      # Scans whose farthest point (after preprocessing) is closer than this are skipped.
+      required_distance: 10.0
+      # (this package only) in-process voxel grid downsampling in the sensor frame; autoware_core
+      # does this in a separate node (autoware_downsample_filters voxel_grid_downsample_filter,
+      # voxel_size_x/y/z: 1.5) before ndt_scan_matcher.
+      # tsudanuma_3d_data_2 で調整（既定 1.5）。初期位置ずれからの復帰が速くなる（1.2 m/10° のずれで 35 s -> 0.7 s）。
+      voxel_size: 1.0
+
+    # autoware_ndt_scan_matcher defaults.
+    ndt:
+      trans_epsilon: 0.01
+      step_size: 0.1
+      resolution: 2.0
+      # tsudanuma_3d_data_2 で調整（既定 30）。収束しないと EKF が更新されず毎回同じ初期値から解くため、
+      # 反復回数 x step_size が初期位置ずれの収束域になる。60 で 1.8 m/15° のずれから復帰する。
+      # 追従中の反復は平均 2.6 回なので処理時間はほぼ変わらない（p99 15 ms）。
+      max_iterations: 60
+      num_threads: 4
+
+    validation:
+      # Initial guess comes from the map-frame EKF (robot_localization) odometry.
+      initial_pose_timeout_sec: 1.0
+      initial_pose_distance_tolerance_m: 10.0
+      # The next two only produce diagnostics warnings.
+      initial_to_result_distance_tolerance_m: 3.0
+      critical_upper_bound_exe_time_ms: 100.0
+      skipping_publish_num: 5
+
+    score_estimation:
+      # 0: transform probability (TP), 1: nearest voxel transformation likelihood (NVTL)
+      converged_param_type: 1
+      converged_param_transform_probability: 3.0
+      # autoware default. This map overlaps the scans only ~50-85%, so check the NVTL in
+      # /diagnostics on the bag and lower this if good alignments are being rejected.
+      converged_param_nearest_voxel_transformation_likelihood: 2.3
+
+    covariance:
+      # Fixed covariance in base_link (x, y, z, roll, pitch, yaw), rotated into map.
+      output_pose_covariance:
+        [
+          0.0225, 0.0,    0.0,    0.0,      0.0,      0.0,
+          0.0,    0.0225, 0.0,    0.0,      0.0,      0.0,
+          0.0,    0.0,    0.0225, 0.0,      0.0,      0.0,
+          0.0,    0.0,    0.0,    0.000625, 0.0,      0.0,
+          0.0,    0.0,    0.0,    0.0,      0.000625, 0.0,
+          0.0,    0.0,    0.0,    0.0,      0.0,      0.000625,
+        ]
+
+# ---- ekf_localizer ----
+# Reference: autoware_core (commit e0a8ab84)
+#   localization/autoware_ekf_localizer/config/ekf_localizer.param.yaml
+# Same names and values; misc.odom_frame_id is (this package only).
+/localization/pose_twist_fusion_filter/ekf_localizer:
+  ros__parameters:
+    node:
+      show_debug_info: false
+      enable_yaw_bias_estimation: true
+      predict_frequency: 50.0
+      tf_rate: 50.0
+      extend_state_step: 50
+
+    pose_measurement:
+      # for Pose measurement
+      pose_additional_delay: 0.0
+      pose_measure_uncertainty_time: 0.01
+      pose_smoothing_steps: 5
+      max_pose_queue_size: 5 # if multiple measurements arrive within one ekf_dt, this limits must be adjusted.
+      pose_gate_dist: 49.5 # corresponds to significance level = 10^-10
+
+    twist_measurement:
+      # for twist measurement
+      twist_additional_delay: 0.0
+      twist_smoothing_steps: 2
+      max_twist_queue_size: 2 # if multiple measurements arrive within one ekf_dt, this limits must be adjusted.
+      twist_gate_dist: 46.1 # corresponds to significance level = 10^-10
+
+    process_noise:
+      # for process model
+      proc_stddev_yaw_c: 0.005
+      proc_stddev_vx_c: 10.0
+      proc_stddev_wz_c: 5.0
+
+    simple_1d_filter_parameters:
+      #Simple1DFilter parameters
+      z_filter_proc_dev: 5.0
+      roll_filter_proc_dev: 0.1
+      pitch_filter_proc_dev: 0.1
+
+    diagnostics:
+      # for diagnostics
+      pose_no_update_count_threshold_warn: 50
+      pose_no_update_count_threshold_error: 100
+      twist_no_update_count_threshold_warn: 50
+      twist_no_update_count_threshold_error: 100
+      ellipse_scale: 3.0
+      error_ellipse_size: 1.5
+      warn_ellipse_size: 1.2
+      error_ellipse_size_lateral_direction: 0.3
+      warn_ellipse_size_lateral_direction: 0.25
+      # diagnostics publish frequency [Hz] (must be > 0)
+      diagnostics_publish_frequency: 10.0
+
+    misc:
+      # for velocity measurement limitation (Set 0.0 if you want to ignore)
+      threshold_observable_velocity_mps: 0.0 # [m/s]
+      pose_frame_id: "map"
+
+      # (this package only) Publish map->odom (= map->base_link * (odom->base_link)^-1) so that the
+      # odometry keeps odom->base_link for Nav2 (REP-105). An empty string publishes map->base_link
+      # like autoware_core.
+      odom_frame_id: "odom"
+      # (this package only) Skip map->odom while the latest odom->base_link is older than this [s];
+      # composing a stale odom->base_link would shift map->odom by the distance travelled meanwhile.
+      odom_tf_timeout_sec: 0.2
+
+# ---- pose_initializer ----
+# Reference: autoware_core (commit e0a8ab84)
+#   localization/autoware_pose_initializer/config/pose_initializer.param.yaml
+# Only user_defined_initial_pose and output_pose_covariance are used (simplified pose_initializer).
+/localization/util/pose_initializer:
+  ros__parameters:
+    # Startup pose in the map frame: [x, y, z, qx, qy, qz, qw]. In autoware_core this comes from the
+    # initial_pose launch argument; ndt_localization.launch.py overrides it the same way.
+    # RViz "2D Pose Estimate" (/initialpose) re-initializes at any time.
+    user_defined_initial_pose:
+      enable: true
+      # tsudanuma の開始位置（tsudanuma_3d_data_2 の開始時の姿勢）
+      pose: [-0.3619667887687683, -1.5528738498687744, 0.0, 0.0, 0.0, 0.005384631085286389, 0.9999855027689528]
+
+    # output
+    output_pose_covariance:
+      [
+        1.0, 0.0, 0.0,  0.0,  0.0,  0.0,
+        0.0, 1.0, 0.0,  0.0,  0.0,  0.0,
+        0.0, 0.0, 0.01, 0.0,  0.0,  0.0,
+        0.0, 0.0, 0.0,  0.01, 0.0,  0.0,
+        0.0, 0.0, 0.0,  0.0,  0.01, 0.0,
+        0.0, 0.0, 0.0,  0.0,  0.0,  0.2,
+      ]
