@@ -21,10 +21,7 @@ def generate_launch_description():
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
-    keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')
-    if not os.path.isfile(keepout_yaml):
-        keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '.yaml')
-    # map_server(/map) は表示用。keepout があれば keepout を表示する
+    keepout_yaml = os.path.join(config_dir, 'maps', map_pass)
     map_data = LaunchConfiguration('map', default=keepout_yaml)
     costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
         'mask', default=keepout_yaml))
