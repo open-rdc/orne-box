@@ -1,7 +1,9 @@
 ### ekf config file ###
 ekf_filter_node:
     ros__parameters:
-        use_sim_time: false #true
+        # use_sim_time はここで固定しない (launch引数が唯一の情報源)
+        # robot_localization_ekf.launch.py の use_sim_time 引数で指定する
+        # 実機: false (launch既定値) / Gazebo: use_sim_time:=true を渡す
         frequency: 20.0 #40.0
         sensor_timeout: 0.5
         two_d_mode: true
