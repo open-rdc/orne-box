@@ -1,7 +1,7 @@
-image: tsudanuma.pgm
+image: tsukuba.pgm
 mode: trinary
 resolution: 0.1
-origin: [-84.9, -203, 0]
+origin: [-485, -274, 0]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.25

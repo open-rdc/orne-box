@@ -5,7 +5,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (DeclareLaunchArgument, GroupAction,
                             IncludeLaunchDescription, SetEnvironmentVariable)
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
@@ -93,9 +93,9 @@ def generate_launch_description():
         default_value=os.path.join(config_dir, 'params', 'nav2_params.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
-    declare_params_file_cmd = DeclareLaunchArgument(
+    declare_emcl2_params_file_cmd = DeclareLaunchArgument(
         'emcl2_params_file',
-        default_value=os.path.join(config_dir, 'params', 'emcl2_params.yaml'),
+        default_value=params_file,
         description='Full path to the EMCL2 parameters file to use for all launched nodes')
 
     declare_autostart_cmd = DeclareLaunchArgument(
@@ -114,7 +114,7 @@ def generate_launch_description():
         'default_bt_xml_filename',
         default_value=os.path.join(
             config_dir,
-            'behavior_trees', 'navigate_w_replanning_and_recovery.xml'),
+            'behavior_trees', 'navigate_to_pose_w_replanning_and_recovery.xml'),
         description='Full path to the behavior tree xml file to use')
 
 
@@ -144,7 +144,7 @@ def generate_launch_description():
         # IncludeLaunchDescription(
         #     PythonLaunchDescriptionSource(os.path.join(launch_dir,
         #                                                'localization_launch.py')),
-        #     condition=IfCondition(PythonExpression(['not ', slam])),
+        #     condition=UnlessCondition(slam),
         #     launch_arguments={'namespace': namespace,
         #                       'map': map_yaml_file,
         #                       'use_sim_time': use_sim_time,
@@ -158,7 +158,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(emcl2_launch_dir,
                                                        'emcl2.launch.py')),
-            condition=IfCondition(PythonExpression(['not ', slam])),
+            condition=UnlessCondition(slam),
             launch_arguments={'map': map_yaml_file,
                               'use_sim_time': use_sim_time,
                               'params_file': emcl2_params_file}.items()
@@ -174,7 +174,7 @@ def generate_launch_description():
                               'use_respawn': use_respawn,
                             #   'use_lifecycle_mgr': 'false',
                               'costmap': costmap_yaml_file,
-                              'map_subscribe_transient_local': 'ture',
+                              'map_subscribe_transient_local': 'true',
                               'container_name': 'nav2_container'}.items()
         ),
     ])
@@ -193,6 +193,7 @@ def generate_launch_description():
     ld.add_action(declare_costmap_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
+    ld.add_action(declare_emcl2_params_file_cmd)
     ld.add_action(declare_autostart_cmd)
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_use_respawn_cmd)
