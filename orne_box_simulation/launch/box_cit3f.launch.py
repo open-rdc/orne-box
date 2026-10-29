@@ -97,16 +97,7 @@ def generate_launch_description():
         launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
-    # PointCloud -> LaserScan 変換
-    start_pointcloud_to_laserscan_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(bringup_dir, 'pointcloud_to_laserscan.launch.py')
-        ),
-        launch_arguments={'use_sim_time': use_sim_time}.items(),
-        condition=IfCondition(PythonExpression([
-            "'", simulation_lidar, "' == '3d'"
-        ])),
-    )
+    # PointCloud -> LaserScan 変換 (rfans -> /scan)
     start_rfans_scan_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(bringup_dir, 'rfans_scan.launch.py')
@@ -131,7 +122,6 @@ def generate_launch_description():
     # ロボット関連
     ld.add_action(start_description_cmd)
     ld.add_action(spawn_example_cmd)
-    ld.add_action(start_pointcloud_to_laserscan_cmd)
     ld.add_action(start_rfans_scan_cmd)
     
     # テレオペレーション

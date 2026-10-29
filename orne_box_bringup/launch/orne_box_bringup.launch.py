@@ -58,13 +58,9 @@ def generate_launch_description():
         ),
         LogInfo(msg="Launch IMU node."),
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([include_dir, '/rfans16_filters.launch.py'])
+            PythonLaunchDescriptionSource([include_dir, '/rfans.launch.py'])
         ),
-        LogInfo(msg="Launch rfans16_filters node."),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([include_dir, '/pointcloud_to_laserscan.launch.py'])
-        ),
-        LogInfo(msg="Launch pointcloud_to_laserscan node."),
+        LogInfo(msg="Launch rfans node."),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([include_dir, '/rfans_scan.launch.py']),
             condition=use_emcl2

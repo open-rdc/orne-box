@@ -5,7 +5,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (DeclareLaunchArgument, GroupAction,
                             IncludeLaunchDescription, SetEnvironmentVariable)
-from launch.conditions import IfCondition, UnlessCondition
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
@@ -27,7 +27,6 @@ def generate_launch_description():
     # Create the launch configuration variables
     namespace = LaunchConfiguration('namespace')
     use_namespace = LaunchConfiguration('use_namespace')
-    slam = LaunchConfiguration('slam')
     map_yaml_file = LaunchConfiguration('map')
     costmap_yaml_file = LaunchConfiguration('costmap')
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -66,11 +65,6 @@ def generate_launch_description():
         'use_namespace',
         default_value='false',
         description='Whether to apply a namespace to the navigation stack')
-
-    declare_slam_cmd = DeclareLaunchArgument(
-        'slam',
-        default_value='False',
-        description='Whether run a SLAM')
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
@@ -137,18 +131,10 @@ def generate_launch_description():
             remappings=remappings,
             output='screen'),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'slam_launch.py')),
-            condition=IfCondition(slam),
-            launch_arguments={'namespace': namespace,
-                              'use_sim_time': use_sim_time,
-                              'autostart': autostart,
-                              'params_file': params_file}.items()),
         # # use amcl
         # IncludeLaunchDescription(
         #     PythonLaunchDescriptionSource(os.path.join(launch_dir,
         #                                                'localization_launch.py')),
-        #     condition=UnlessCondition(slam),
         #     launch_arguments={'namespace': namespace,
         #                       'map': map_yaml_file,
         #                       'use_sim_time': use_sim_time,
@@ -161,8 +147,7 @@ def generate_launch_description():
         # use ndt_localization (map_server still serves the 2D map for costmaps). ndt_localization also
         # publishes odom->base_link and /odometry/filtered (no robot_localization).
         GroupAction(
-            condition=IfCondition(PythonExpression(
-                ["'", slam, "'.lower() != 'true' and '", localization, "' == 'ndt'"])),
+            condition=IfCondition(PythonExpression(["'", localization, "' == 'ndt'"])),
             actions=[
                 Node(
                     package='nav2_map_server',
@@ -197,8 +182,7 @@ def generate_launch_description():
         # both are started by orne_box_bringup.launch.py localization:=emcl2)
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(emcl2_dir, 'launch', 'emcl2.launch.py')),
-            condition=IfCondition(PythonExpression(
-                ["'", slam, "'.lower() != 'true' and '", localization, "' == 'emcl2'"])),
+            condition=IfCondition(PythonExpression(["'", localization, "' == 'emcl2'"])),
             launch_arguments={'map': map_yaml_file,
                               'use_sim_time': use_sim_time,
                               'params_file': params_file}.items()),
@@ -227,7 +211,6 @@ def generate_launch_description():
     # Declare the launch options
     ld.add_action(declare_namespace_cmd)
     ld.add_action(declare_use_namespace_cmd)
-    ld.add_action(declare_slam_cmd)
     ld.add_action(declare_map_yaml_cmd)
     ld.add_action(declare_costmap_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
