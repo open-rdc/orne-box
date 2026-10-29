@@ -22,6 +22,7 @@
   <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
   <depend version_gte="1.20.0">ypspur</depend>
+  <exec_depend>robot_localization</exec_depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

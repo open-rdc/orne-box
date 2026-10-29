@@ -107,6 +107,15 @@ def generate_launch_description():
             "'", simulation_lidar, "' == '3d'"
         ])),
     )
+    start_rfans_scan_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(bringup_dir, 'rfans_scan.launch.py')
+        ),
+        launch_arguments={'use_sim_time': use_sim_time}.items(),
+        condition=IfCondition(PythonExpression([
+            "'", simulation_lidar, "' == '3d'"
+        ])),
+    )
 
     # LaunchDescriptionの構築
     ld = LaunchDescription()
@@ -123,6 +132,7 @@ def generate_launch_description():
     ld.add_action(start_description_cmd)
     ld.add_action(spawn_example_cmd)
     ld.add_action(start_pointcloud_to_laserscan_cmd)
+    ld.add_action(start_rfans_scan_cmd)
     
     # テレオペレーション
     ld.add_action(start_teleop_cmd)

@@ -21,6 +21,8 @@ def generate_launch_description():
 
     ndt_localization_dir = get_package_share_directory('ndt_localization')
     pcd_map = LaunchConfiguration('pcd_map')
+    emcl2_dir = get_package_share_directory('emcl2')
+    localization = LaunchConfiguration('localization')
 
     # Create the launch configuration variables
     namespace = LaunchConfiguration('namespace')
@@ -96,6 +98,10 @@ def generate_launch_description():
         'pcd_map', default_value='',
         description='Full path to PCD map file for ndt_localization')
 
+    declare_localization_cmd = DeclareLaunchArgument(
+        'localization', default_value='ndt',
+        description='Localization method: ndt or emcl2')
+
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',
         description='Automatically startup the nav2 stack')
@@ -155,7 +161,8 @@ def generate_launch_description():
         # use ndt_localization (map_server still serves the 2D map for costmaps). ndt_localization also
         # publishes odom->base_link and /odometry/filtered (no robot_localization).
         GroupAction(
-            condition=UnlessCondition(slam),
+            condition=IfCondition(PythonExpression(
+                ["'", slam, "'.lower() != 'true' and '", localization, "' == 'ndt'"])),
             actions=[
                 Node(
                     package='nav2_map_server',
@@ -186,6 +193,15 @@ def generate_launch_description():
                             'odometry_integrator', 'ndt_scan_matcher', 'ekf_localizer',
                             'pose_initializer')}}.items()),
             ]),
+        # use emcl2 (/scan from rfans_scan.launch.py, odom->base_link from robot_localization EKF;
+        # both are started by orne_box_bringup.launch.py localization:=emcl2)
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(emcl2_dir, 'launch', 'emcl2.launch.py')),
+            condition=IfCondition(PythonExpression(
+                ["'", slam, "'.lower() != 'true' and '", localization, "' == 'emcl2'"])),
+            launch_arguments={'map': map_yaml_file,
+                              'use_sim_time': use_sim_time,
+                              'params_file': params_file}.items()),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(launch_dir, 'navigation_launch.py')),
             launch_arguments={'namespace': namespace,
@@ -217,6 +233,7 @@ def generate_launch_description():
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_pcd_map_cmd)
+    ld.add_action(declare_localization_cmd)
     ld.add_action(declare_autostart_cmd)
     ld.add_action(declare_use_composition_cmd)
     ld.add_action(declare_use_respawn_cmd)

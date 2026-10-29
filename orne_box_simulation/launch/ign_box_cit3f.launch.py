@@ -159,6 +159,12 @@ def generate_launch_description():
         ),
         launch_arguments={'use_sim_time': use_sim_time}.items()
     )
+    start_rfans_scan_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(bringup_dir, 'rfans_scan.launch.py')
+        ),
+        launch_arguments={'use_sim_time': use_sim_time}.items()
+    )
 
     # LaunchDescriptionの構築
     ld = LaunchDescription()
@@ -185,6 +191,7 @@ def generate_launch_description():
 
     # センサー処理
     ld.add_action(start_pointcloud_to_laserscan_cmd)
+    ld.add_action(start_rfans_scan_cmd)
 
     # テレオペレーション
     ld.add_action(start_teleop_cmd)

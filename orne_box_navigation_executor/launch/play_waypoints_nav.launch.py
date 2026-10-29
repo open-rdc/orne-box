@@ -122,6 +122,10 @@ def generate_launch_description():
             description='Full path to PCD map file for ndt_localization'
         ),
         DeclareLaunchArgument(
+            'localization', default_value='ndt',
+            description='Localization method: ndt or emcl2'
+        ),
+        DeclareLaunchArgument(
             'costmap',
             default_value=costmap_data,
             description='Full path to map file to load'
@@ -140,6 +144,7 @@ def generate_launch_description():
             launch_arguments={
                 'map': map_data,
                 'pcd_map': pcd_map_data,
+                'localization': LaunchConfiguration('localization'),
                 'costmap': costmap_data,
                 'use_sim_time': use_sim_time,
                 'use_composition': LaunchConfiguration('use_composition'),
