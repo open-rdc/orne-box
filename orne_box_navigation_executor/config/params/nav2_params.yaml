@@ -173,8 +173,8 @@ global_costmap:
     ros__parameters:
       use_sim_time: False
       map_topic: /map_for_costmap
-      update_frequency: 1.0 # kuams (旧: 3.0)
-      publish_frequency: 1.0 # kuams (旧: 3.0)
+      update_frequency: 2.0 # kuams (旧: 3.0)
+      publish_frequency: 2.0 # kuams (旧: 3.0)
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
@@ -184,6 +184,9 @@ global_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
+        # レイヤ全体の高さ判定 (global_frame の z で判定)。scan の高さ判定とは別にあり、既定 0.0/2.0
+        min_obstacle_height: -100.0
+        max_obstacle_height: 100.0
         observation_sources: scan
         scan:
           topic: /low_scan
@@ -191,8 +194,8 @@ global_costmap:
           obstacle_min_range: 0.0
           raytrace_max_range: 3.0 # kuams (旧: 11.0)
           raytrace_min_range: 0.0
-          max_obstacle_height: 2.0
-          min_obstacle_height: 0.0
+          max_obstacle_height: 100.0
+          min_obstacle_height: -100.0
           clearing: True
           marking: True
           inf_is_valid: true
@@ -232,6 +235,9 @@ local_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
+        # レイヤ全体の高さ判定 (global_frame の z で判定)。scan の高さ判定とは別にあり、既定 0.0/2.0
+        min_obstacle_height: -100.0
+        max_obstacle_height: 100.0
         observation_sources: scan
         scan:
           topic: /low_scan
@@ -239,8 +245,8 @@ local_costmap:
           obstacle_min_range: 0.0
           raytrace_max_range: 4.0
           raytrace_min_range: 0.0
-          max_obstacle_height: 2.0
-          min_obstacle_height: 0.0
+          max_obstacle_height: 100.0
+          min_obstacle_height: -100.0
           clearing: True
           marking: True
           inf_is_valid: True
@@ -459,8 +465,7 @@ collision_monitor:
       # (this package only) in-process voxel grid downsampling in the sensor frame; autoware_core
       # does this in a separate node (autoware_downsample_filters voxel_grid_downsample_filter,
       # voxel_size_x/y/z: 1.5) before ndt_scan_matcher.
-      # tsudanuma_3d_data_2 で調整（既定 1.5）。初期位置ずれからの復帰が速くなる（1.2 m/10° のずれで 35 s -> 0.7 s）。
-      voxel_size: 1.0
+      voxel_size: 1.5
 
     # autoware_ndt_scan_matcher defaults.
     ndt:
