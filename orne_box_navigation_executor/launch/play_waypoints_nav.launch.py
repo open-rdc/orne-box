@@ -13,16 +13,17 @@ def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('orne_box_navigation_executor'), 'launch')
     config_dir = os.path.join(nav_dir, 'config')
 
-    # config/maps/<map_pass>.pcd (ndt_localization) と
-    # config/maps/<map_pass>_keepout.yaml (costmap) を使う
-    # （_keepout.yaml が無ければ <map_pass>.yaml を使う）
+    # config/maps/<map_pass>.pcd (ndt_localization)
+    # config/maps/<map_pass>.yaml (emcl2, map_server)
+    # config/maps/<map_pass>_keepout.yaml (costmap, 経路計画用) 
     map_pass = 'tsudanuma/tsudanuma'
     WAYPOINT_PATH = 'tsudanuma'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
-    keepout_yaml = os.path.join(config_dir, 'maps', map_pass)
-    map_data = LaunchConfiguration('map', default=keepout_yaml)
+    map_yaml = os.path.join(config_dir, 'maps', map_pass + '.yaml')
+    keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')
+    map_data = LaunchConfiguration('map', default=map_yaml)
     costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
         'mask', default=keepout_yaml))
     pcd_map_data = LaunchConfiguration('pcd_map', default=os.path.join(config_dir, 'maps', map_pass + '.pcd'))

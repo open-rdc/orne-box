@@ -144,7 +144,8 @@ def generate_launch_description():
         #                       'use_respawn': use_respawn,
         #                       'container_name': 'nav2_container'}.items()
         # ),
-        # use ndt_localization (map_server still serves the 2D map for costmaps). ndt_localization also
+        # use ndt_localization (uses only the PCD map). map_server serves the keepout map on /map for display
+        # only; costmaps get it from map_server_for_costmap in navigation_launch.py. ndt_localization also
         # publishes odom->base_link and /odometry/filtered (no robot_localization).
         GroupAction(
             condition=IfCondition(PythonExpression(["'", localization, "' == 'ndt'"])),
@@ -153,7 +154,7 @@ def generate_launch_description():
                     package='nav2_map_server',
                     executable='map_server',
                     name='map_server',
-                    parameters=[{'yaml_filename': map_yaml_file,
+                    parameters=[{'yaml_filename': costmap_yaml_file,
                                  'use_sim_time': use_sim_time}],
                     output='screen'),
                 Node(

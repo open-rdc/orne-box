@@ -1,7 +1,7 @@
-image: tsudanuma.pgm
+image: tsudanuma_keepout.pgm
 mode: trinary
 resolution: 0.1
 origin: [-75.1699, -102.943, 0.0]
 negate: 0
-occupied_thresh: 0.25
+occupied_thresh: 0.2
 free_thresh: 0.196
