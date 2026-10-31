@@ -16,8 +16,8 @@ def generate_launch_description():
     # config/maps/<map_pass>.pcd (ndt_localization)
     # config/maps/<map_pass>.yaml (emcl2, map_server)
     # config/maps/<map_pass>_keepout.yaml (costmap, 経路計画用) 
-    map_pass = 'tsudanuma/tsudanuma'
-    WAYPOINT_PATH = 'tsudanuma'
+    map_pass = 'tsukuba/tsukuba2026'
+    WAYPOINT_PATH = 'tsukuba/tsukuba2026'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
@@ -39,16 +39,6 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
  
     return LaunchDescription([
-        # waypoint_manager2
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource([launch_file_dir, '/waypoint_manager2.launch.py']),
-        #     # launch_arguments={
-        #     #     'waypoint_path': waypoint_file,
-        #     #     'overwrite': 'True',
-        #     #     'wp_feedback_visible': 'True',
-        #     # }.items()
-        # ),
-
         DeclareLaunchArgument(
             'namespace',
             default_value='',
@@ -68,50 +58,6 @@ def generate_launch_description():
             default_value=os.path.join(config_dir, 'params', 'nav2_params.yaml'),
             description='Full path to the ROS 2 parameters file to use'
         ),
-        # DeclareLaunchArgument(
-        #     'mask',
-        #     default_value = mask_yaml_file,
-        #     description='Full path to filter mask yaml file to load'
-        # ),
-        # Node(
-        #     package='nav2_lifecycle_manager',
-        #     executable='lifecycle_manager',
-        #     name='lifecycle_manager_costmap_filters',
-        #     namespace=namespace,
-        #     output='screen',
-        #     emulate_tty=True,  # https://github.com/ros2/launch/issues/188
-        #     parameters=[{'use_sim_time': use_sim_time},
-        #                 {'autostart': autostart},
-        #                 {'node_names': lifecycle_nodes}]
-        # ),
-        # Node(
-        #     package='nav2_map_server',
-        #     executable='map_server',
-        #     name='filter_mask_server',
-        #     namespace=namespace,
-        #     output='screen',
-        #     emulate_tty=True,  # https://github.com/ros2/launch/issues/188
-        #     parameters=[RewrittenYaml(
-        #                 source_file=params_file,
-        #                 root_key=namespace,
-        #                 param_rewrites={'use_sim_time': use_sim_time,
-        #                                 'yaml_filename': mask_yaml_file},
-        #                 convert_types=True)]
-        # ),
-        # Node(
-        #     package='nav2_map_server',
-        #     executable='costmap_filter_info_server',
-        #     name='costmap_filter_info_server',
-        #     namespace=namespace,
-        #     output='screen',
-        #     emulate_tty=True,  # https://github.com/ros2/launch/issues/188
-        #     parameters=[RewrittenYaml(
-        #                 source_file=params_file,
-        #                 root_key=namespace,
-        #                 param_rewrites={'use_sim_time': use_sim_time,
-        #                                 'yaml_filename': mask_yaml_file},
-        #                 convert_types=True)]
-        # ),
         DeclareLaunchArgument(
             'map',
             default_value=map_data,

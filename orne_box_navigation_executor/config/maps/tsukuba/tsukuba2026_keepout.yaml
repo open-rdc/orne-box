@@ -1,0 +1,7 @@
+image: tsukuba2026_keepout.pgm
+mode: trinary
+resolution: 0.1
+origin: [-123.882, -114.664, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
