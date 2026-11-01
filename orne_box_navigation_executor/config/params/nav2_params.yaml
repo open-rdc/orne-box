@@ -393,8 +393,9 @@ collision_monitor:
 # ---- ndt_localization ----
 # bringup_launch.py はこのファイルを ndt_localization.launch.py の全 *_param_path に渡す。
 # 各ノードは自分の完全修飾名の節だけを読むので、/**: は使わないこと。
-# 値は ndt_localization/config/*.param.yaml と同じ。tsudanuma.pcd と tsudanuma_3d_data_2 で調整し、
-# ndt_scan_matcher の sensor_points.voxel_size と ndt.max_iterations だけ変更している。
+# 値は ndt_localization/config/*.param.yaml と同じ。ndt_scan_matcher の ndt.max_iterations
+# （tsudanuma.pcd と tsudanuma_3d_data_2 で調整）と、score_estimation の NVTL のしきい値
+# （tsukuba2026.pcd と short2 で調整）だけ変更している。
 
 # ---- vehicle_velocity_converter ----
 # Reference: autoware_core (commit e0a8ab84)
@@ -491,9 +492,10 @@ collision_monitor:
       # 0: transform probability (TP), 1: nearest voxel transformation likelihood (NVTL)
       converged_param_type: 1
       converged_param_transform_probability: 3.0
-      # autoware default. This map overlaps the scans only ~50-85%, so check the NVTL in
-      # /diagnostics on the bag and lower this if good alignments are being rejected.
-      converged_param_nearest_voxel_transformation_likelihood: 2.3
+      # tsukuba2026.pcd と short2 で調整（既定 2.3）。この地図ではスキャンの重なりが 50〜85% 程度しかなく、
+      # 2.3 では正しい位置合わせを棄却して EKF の更新が 2 s 以上止まることが 83 回あった（収束 98.4%）。
+      # 2.1 では 1〜2 回（収束 99.9%）で、誤った位置での収束はなかった。
+      converged_param_nearest_voxel_transformation_likelihood: 2.1
 
     covariance:
       # Fixed covariance in base_link (x, y, z, roll, pitch, yaw), rotated into map.
