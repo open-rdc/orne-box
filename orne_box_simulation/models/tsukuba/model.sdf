@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="tsukuba">
+    <static>true</static>
+    <link name="link">
+      <visual name="terrain_visual">
+        <geometry><mesh><uri>model://tsukuba/meshes/terrain.obj</uri></mesh></geometry>
+        <material>
+          <ambient>0.62 0.62 0.60 1</ambient>
+          <diffuse>0.62 0.62 0.60 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="terrain_collision">
+        <geometry><mesh><uri>model://tsukuba/meshes/terrain_collision.obj</uri></mesh></geometry>
+      </collision>
+      <visual name="structures_visual">
+        <geometry><mesh><uri>model://tsukuba/meshes/structures.obj</uri></mesh></geometry>
+        <material>
+          <ambient>0.55 0.60 0.68 1</ambient>
+          <diffuse>0.55 0.60 0.68 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="structures_collision">
+        <geometry><mesh><uri>model://tsukuba/meshes/structures_collision.obj</uri></mesh></geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

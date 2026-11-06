@@ -119,14 +119,13 @@ def generate_launch_description():
             '/model/orne_box/rfans/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked',
             # Joint states: Ignition → ROS 2
             '/world/default/model/orne_box/joint_state@sensor_msgs/msg/JointState[ignition.msgs.Model',
-            # TF: Ignition → ROS 2
-            '/model/orne_box/tf@tf2_msgs/msg/TFMessage[ignition.msgs.Pose_V',
+            # odom -> base_link は EKF / odometry_integrator が配信するので
+            # DiffDrive の /model/orne_box/tf はブリッジしない (二重配信でTFが跳ぶ)
             # シミュレーション時刻
             '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
         ],
         remappings=[
             # LiDARトピック名を既存の名前に合わせてリマップ
-            ('/model/orne_box/tf', '/tf'),
             ('/world/default/model/orne_box/joint_state', '/joint_state'),
             ('/world/default/model/orne_box/link/base_footprint/sensor/imu/imu', '/imu/data'),
             ('/model/orne_box/rfans/points', '/surestar_points'),

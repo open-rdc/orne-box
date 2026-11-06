@@ -156,6 +156,39 @@
 	<topic>/model/orne_box/rfans</topic>
       </sensor>
     </gazebo>
+
+    <!-- /low_scan 用の2D LiDAR。実機は MID360 の点群から変換するが、sim は直接 LaserScan を出す。
+         livox_frame は上下反転で -y が車体前方なので、-180〜0度が実機と同じ前方180度になる -->
+    <gazebo reference="livox_frame">
+      <sensor type="gpu_lidar" name="low_scan">
+        <!-- 未指定だと frame_id が TF に無い orne_box/base_footprint/low_scan になる -->
+        <ignition_frame_id>livox_frame</ignition_frame_id>
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1800</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.1415</min_angle>
+              <max_angle>0.0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.1</min>
+            <max>40.0</max>
+            <resolution>0.001</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.02</stddev>
+          </noise>
+        </ray>
+        <topic>/model/orne_box/low_scan</topic>
+      </sensor>
+    </gazebo>
   </xacro:if>
   
   <!-- <xacro:include filename="$(find orne_box_description)/urdf/sensors/gnss.urdf.xacro"/> 

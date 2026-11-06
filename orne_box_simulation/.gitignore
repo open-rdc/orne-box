@@ -1,0 +1,2 @@
+# scripts/download_tsukuba_meshes.sh で取得する (計約228MB)
+models/tsukuba/meshes/*.obj
