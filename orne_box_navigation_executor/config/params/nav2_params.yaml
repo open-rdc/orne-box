@@ -4,7 +4,7 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    # SmoothPath + RoundRobin recovery (Spin/Wait/BackUp) 付きBTへ変更
+    # SmoothPath + RoundRobin recovery (Wait/BackUp) 付きBTへ変更
     default_nav_to_pose_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
     default_nav_through_poses_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
     always_reload_bt_xml: false
@@ -77,7 +77,7 @@ controller_server:
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
       required_movement_radius: 0.5
-      movement_time_allowance: 5.0 # kuams (旧: 20.0)
+      movement_time_allowance: 20.0
     # Goal checker parameters
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
