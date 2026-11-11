@@ -1,0 +1,10 @@
+# BinaryFilter mask for cit3f (same origin/resolution as cit3f_keepout.yaml)
+# black (occupied) area: /binary_state = true -> stop zone ON, obstacle_layer OFF
+#   x: [-1.5, 2.5], y: [11.0, 17.0] (map frame)
+image: cit3f_binary.pgm
+mode: trinary
+resolution: 0.05
+origin: [-19.0935001373291, -11.205460548400879, 0.0]
+occupied_thresh: 0.65
+free_thresh: 0.2
+negate: 0

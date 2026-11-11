@@ -184,6 +184,8 @@ global_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
+        # BinaryFilter (local_costmap) の状態が true の間は OFF (OFF にした瞬間にレイヤをクリア)
+        enabled_topic: "/binary_state"
         # レイヤ全体の高さ判定 (global_frame の z で判定)。scan の高さ判定とは別にあり、既定 0.0/2.0
         min_obstacle_height: -100.0
         max_obstacle_height: 100.0
@@ -231,10 +233,35 @@ local_costmap:
       height: 8 # kuams (旧: 10)
       resolution: 0.05 # kuams (旧: 0.1)
       footprint: "[ [-0.3, -0.3], [-0.3, 0.3], [0.6, 0.3], [0.6, -0.3] ]"
-      plugins: ["obstacle_layer", "inflation_layer"]
+      # static_layer: マスク内で obstacle_layer が OFF でも地図の壁はコントローラから見えるようにする
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_topic: /map_for_costmap
+        map_subscribe_transient_local: True
+      # マスクの黒 (occupied) の領域にロボットがいる間 /binary_state = true
+      #   -> collision_monitor の PolygonStop を ON, obstacle_layer を OFF
+      filters: ["binary_filter"]
+      binary_filter:
+        plugin: "nav2_costmap_2d::BinaryFilter"
+        enabled: True
+        filter_info_topic: "/binary_costmap_filter_info"
+        binary_state_topic: "/binary_state"
+        default_state: False   # マスク外 / マスク未受信のときの状態
+        flip_threshold: 50.0
+        # マスク内で「速度指令が出ているのに動けない」状態が escape_stuck_time [s] 続いたら
+        # (止まっている障害物で stop ゾーンに止められ続けている), /binary_state = false にして
+        # obstacle_layer ON で障害物を避けさせる (stop ゾーンも OFF)。
+        # escape_distance [m] 進む / escape_timeout [s] 経つ / マスクを出ると元に戻る。0 で無効
+        escape_stuck_time: 5.0
+        escape_cmd_vel_topic: "/cmd_vel_smoothed"   # collision_monitor の入力 (ナビが出したい速度)
+        escape_distance: 2.0
+        escape_timeout: 60.0
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
+        # BinaryFilter (local_costmap) の状態が true の間は OFF (OFF にした瞬間にレイヤをクリア)
+        enabled_topic: "/binary_state"
         # レイヤ全体の高さ判定 (global_frame の z で判定)。scan の高さ判定とは別にあり、既定 0.0/2.0
         min_obstacle_height: -100.0
         max_obstacle_height: 100.0
@@ -264,6 +291,22 @@ local_costmap:
   local_costmap_rclcpp_node:
     ros__parameters:
       use_sim_time: True
+
+binary_filter_mask_server:
+  ros__parameters:
+    use_sim_time: False
+    frame_id: "map"
+    topic_name: "/binary_filter_mask"
+    # yaml_filename は launch の binary_mask 引数で与える
+
+binary_costmap_filter_info_server:
+  ros__parameters:
+    use_sim_time: False
+    type: 3   # BinaryFilter
+    filter_info_topic: "/binary_costmap_filter_info"
+    mask_topic: "/binary_filter_mask"
+    base: 0.0
+    multiplier: 1.0
 
 costmap_filter_info_server:
   ros__parameters:
@@ -373,7 +416,18 @@ collision_monitor:
     source_timeout: 5.0
     base_shift_correction: True
     stop_pub_timeout: 2.0
-    polygons: ["PolygonSlow"]
+    polygons: ["PolygonStop", "PolygonSlow"]
+    # 基本 OFF。BinaryFilter の状態 (/binary_state) が true の間だけ ON
+    # 機体前端 (x=0.6) から前方 0.6m・左右 0.35m (横・後ろの壁では止まらないよう前方のみ)
+    PolygonStop:
+      type: "polygon"
+      points: [1.2, 0.35, 1.2, -0.35, 0.6, -0.35, 0.6, 0.35]
+      action_type: "stop"
+      max_points: 3
+      visualize: True
+      polygon_pub_topic: "polygon_stop"
+      enabled: False
+      enabled_topic: "/binary_state"
     # 機体前端 (x=0.6) から前方 2.0m・左右 0.7m の範囲に障害物があれば速度を 0.5 倍にする (左右 旧: 0.5m)
     PolygonSlow:
       type: "polygon"

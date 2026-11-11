@@ -29,6 +29,10 @@ def generate_launch_description():
     default_bt_xml_filename = LaunchConfiguration('default_bt_xml_filename')
     map_subscribe_transient_local = LaunchConfiguration('map_subscribe_transient_local')
     costmap = LaunchConfiguration('costmap')
+    # BinaryFilter mask (*.yaml). Empty: BinaryFilter servers are not launched and the
+    # binary state stays at default_state (stop zone off, obstacle layers on).
+    binary_mask = LaunchConfiguration('binary_mask')
+    use_binary_filter = PythonExpression(["'", binary_mask, "' != ''"])
 
     lifecycle_nodes = ['controller_server',
                        'smoother_server',
@@ -115,6 +119,11 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'map_subscribe_transient_local', default_value='false',
             description='Whether to set the map subscriber QoS to transient local'),
+
+        DeclareLaunchArgument(
+            'binary_mask', default_value='',
+            description='Full path to BinaryFilter mask yaml (stop zone on / obstacle layer off). '
+                        'Empty: BinaryFilter is not used'),
 
         GroupAction(
             condition=UnlessCondition(use_composition),
@@ -275,5 +284,36 @@ def generate_launch_description():
                                 'map_subscribe_transient_local': map_subscribe_transient_local}],
                     remappings=[('map', 'map_for_costmap')]),
             ],
+        ),
+
+        # BinaryFilter: mask + filter info servers.
+        # Separate lifecycle manager so that a missing mask does not block the nav2 stack.
+        GroupAction(
+            condition=IfCondition(use_binary_filter),
+            actions=[
+            Node(
+                package='nav2_map_server',
+                executable='map_server',
+                name='binary_filter_mask_server',
+                output='screen',
+                parameters=[configured_params, {'yaml_filename': binary_mask}],
+                remappings=remappings),
+            Node(
+                package='nav2_map_server',
+                executable='costmap_filter_info_server',
+                name='binary_costmap_filter_info_server',
+                output='screen',
+                parameters=[configured_params],
+                remappings=remappings),
+            Node(
+                package='nav2_lifecycle_manager',
+                executable='lifecycle_manager',
+                name='lifecycle_manager_binary_filter',
+                output='screen',
+                parameters=[{'use_sim_time': use_sim_time},
+                            {'autostart': autostart},
+                            {'node_names': ['binary_filter_mask_server',
+                                            'binary_costmap_filter_info_server']}]),
+            ]
         ),
     ])
