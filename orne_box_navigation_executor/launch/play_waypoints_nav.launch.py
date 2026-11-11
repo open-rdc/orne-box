@@ -109,7 +109,8 @@ def generate_launch_description():
         ]),
         # ジョイスティックコマンド(Joyで/next_wpを送る)
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([launch_file_dir, '/joy_command.launch.py'])
+            PythonLaunchDescriptionSource([launch_file_dir, '/joy_command.launch.py']),
+            launch_arguments={'use_sim_time': use_sim_time}.items(),
         ),
         Node(
             package='rviz2',

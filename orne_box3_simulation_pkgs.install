@@ -7,7 +7,7 @@
     local-name: emcl2_ros2
     version: main
 - git:
-    uri: https://github.com/Ryusei-Baba/joy_command.git
+    uri: https://github.com/TakumiIshiguro/joy_command.git
     local-name: joy_command
     version: refactoring/c++
 - git:
