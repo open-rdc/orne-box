@@ -4,7 +4,7 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    # SmoothPath + RoundRobin recovery (Wait/BackUp) 付きBTへ変更
+    # SmoothPath + RoundRobin recovery (Clear/Wait) 付きBTへ変更 (BackUp は外した)
     default_nav_to_pose_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
     default_nav_through_poses_bt_xml: /home/takumi/ros2_ws/src/orne-box/orne_box_navigation_executor/config/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
     always_reload_bt_xml: false
@@ -66,7 +66,7 @@ controller_server:
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
-    failure_tolerance: 0.3
+    failure_tolerance: 1.0 # (旧: 0.3) MPPI が一瞬解なしになっただけでリカバリーに入らないように
     odom_topic: "odom"
     odom_duration: 0.3
     progress_checker_plugins: ["progress_checker"] # progress_checker_plugin: "progress_checker" For Humble and older
@@ -82,8 +82,9 @@ controller_server:
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 1.0
-      yaw_goal_tolerance: 3.14
-      stateful: False
+      # 通過点は sender が switch_radius で先に次を送るので、この判定を使うのは stop 点と最後の点だけ
+      yaw_goal_tolerance: 0.26 # 約 15° (旧: 3.14) stop 点で waypoint の向きにそろえる
+      stateful: True # (旧: False) 一度 xy に入ったら、以後は向きだけで到達を判定する
     # MPPI parameters (kuams/develop より移植。旧DWB設定はgit履歴とbackupを参照)
     FollowPath:
       plugin: "nav2_mppi_controller::MPPIController"
@@ -249,14 +250,19 @@ local_costmap:
         binary_state_topic: "/binary_state"
         default_state: False   # マスク外 / マスク未受信のときの状態
         flip_threshold: 50.0
-        # マスク内で「速度指令が出ているのに動けない」状態が escape_stuck_time [s] 続いたら
-        # (止まっている障害物で stop ゾーンに止められ続けている), /binary_state = false にして
-        # obstacle_layer ON で障害物を避けさせる (stop ゾーンも OFF)。
-        # escape_distance [m] 進む / escape_timeout [s] 経つ / マスクを出ると元に戻る。0 で無効
-        escape_stuck_time: 5.0
+        # マスク内で「ナビは速度を出しているのに collision_monitor に止められている」
+        # (入力が非 0 で出力が 0 / 出力が止まっている) 時間が合計 escape_stuck_time [s] になったら、
+        # /binary_state = false にして obstacle_layer ON で障害物を避けさせる (stop ゾーンも OFF)。
+        # 出力が非 0 になったら (前が空いた) 0 に戻す。ナビが速度を出していない間 (Wait 中など) は数えない。
+        # 位置は使わないので odom のドリフトの影響は受けない。
+        # escape_distance [m] 進む / escape_timeout [s] 経つと元に戻る (マスクを出ても続ける。障害物の横で
+        # マスクに戻って obstacle_layer が OFF になるのを防ぐ)。escape_stuck_time 0 で無効
+        escape_stuck_time: 240.0   # (旧: 100.0)
         escape_cmd_vel_topic: "/cmd_vel_smoothed"   # collision_monitor の入力 (ナビが出したい速度)
-        escape_distance: 2.0
-        escape_timeout: 60.0
+        escape_cmd_vel_out_topic: "/cmd_vel"        # collision_monitor の出力 (ロボットに渡る速度)
+        # 障害物を抜け切る距離: PolygonStop の前端 (1.6) + 障害物の奥行き (~0.5) + 機体後端 (0.3) (旧: 2.0)
+        escape_distance: 2.5
+        escape_timeout: 30.0
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
@@ -418,10 +424,11 @@ collision_monitor:
     stop_pub_timeout: 2.0
     polygons: ["PolygonStop", "PolygonSlow"]
     # 基本 OFF。BinaryFilter の状態 (/binary_state) が true の間だけ ON
-    # 機体前端 (x=0.6) から前方 0.6m・左右 0.35m (横・後ろの壁では止まらないよう前方のみ)
+    # 機体前端 (x=0.6) から前方 1.0m・左右 0.5m (横・後ろの壁では止まらないよう前方のみ。旧: 前方 0.6m・左右 0.35m)
+    # 前方を伸ばしたら BinaryFilter の escape_distance も見直す (local_costmap の binary_filter のコメントの式)
     PolygonStop:
       type: "polygon"
-      points: [1.2, 0.35, 1.2, -0.35, 0.6, -0.35, 0.6, 0.35]
+      points: [1.6, 0.5, 1.6, -0.5, 0.6, -0.5, 0.6, 0.5]
       action_type: "stop"
       max_points: 3
       visualize: True
