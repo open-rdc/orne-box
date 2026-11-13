@@ -1,0 +1,14 @@
+# Wait zone (BinaryFilter mask) for tsudanuma (same origin/resolution as tsudanuma_keepout.yaml)
+# black (occupied) area: /binary_state = true -> stop zone ON, obstacle_layer OFF
+# wait zone per stop point in waypoints/tsudanuma/tsudanuma.yaml:
+#   3.0 m behind to 0.5 m ahead along the waypoint yaw, 5.0 m wide
+#   wp 89: x 17.56, y 2.88, yaw -1.469
+#   wp 142: x 67.67, y 4.42, yaw -1.612
+#   wp 231: x 187.14, y 18.00, yaw -2.852
+image: tsudanuma_wait_zone.pgm
+mode: trinary
+resolution: 0.1
+origin: [-75.1699, -102.943, 0.0]
+occupied_thresh: 0.65
+free_thresh: 0.2
+negate: 0

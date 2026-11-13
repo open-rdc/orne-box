@@ -16,13 +16,17 @@ def generate_launch_description():
     # config/maps/<map_pass>.pcd (ndt_localization)
     # config/maps/<map_pass>.yaml (emcl2, map_server)
     # config/maps/<map_pass>_keepout.yaml (costmap, 経路計画用) 
-    map_pass = 'tsukuba/tsukuba2026'
-    WAYPOINT_PATH = 'tsukuba/tsukuba2026'
+    # config/maps/<map_pass>_wait_zone.yaml (待機処理マスク。BinaryFilter 用。無ければ待機処理なし)
+    map_pass = 'tsudanuma/tsudanuma'
+    WAYPOINT_PATH = 'tsudanuma/tsudanuma'
+    # map_pass = 'tsukuba/tsukuba2026'
+    # WAYPOINT_PATH = 'tsukuba/tsukuba2026'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
     map_yaml = os.path.join(config_dir, 'maps', map_pass + '.yaml')
     keepout_yaml = os.path.join(config_dir, 'maps', map_pass + '_keepout.yaml')
+    wait_zone_yaml = os.path.join(config_dir, 'maps', map_pass + '_wait_zone.yaml')
     map_data = LaunchConfiguration('map', default=map_yaml)
     costmap_data = LaunchConfiguration('costmap', default=LaunchConfiguration(
         'mask', default=keepout_yaml))
@@ -81,6 +85,12 @@ def generate_launch_description():
             'use_composition', default_value='False',
             description='Use composed Nav2 nodes if true'
         ),     
+        DeclareLaunchArgument(
+            'binary_mask',
+            default_value=wait_zone_yaml if os.path.isfile(wait_zone_yaml) else '',
+            description='Wait zone mask yaml for the BinaryFilter (default: <map>_wait_zone.yaml if it exists). '
+                        'Empty disables the binary filter servers'
+        ),
         DeclareLaunchArgument(
             'waypoint_path',
             default_value=os.path.join(config_dir, 'waypoints', f'{WAYPOINT_PATH}.yaml'),
