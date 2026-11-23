@@ -570,6 +570,14 @@ collision_monitor:
           0.0,    0.0,    0.0,    0.0,      0.0,      0.000625,
         ]
 
+    # Monte Carlo initial pose estimation (ndt_align_srv). autoware_ndt_scan_matcher defaults.
+    initial_pose_estimation:
+      # The number of particles to estimate initial pose
+      particles_num: 200
+      # The number of initial random trials in the TPE (Tree-Structured Parzen Estimator).
+      # This value should be equal to or less than 'particles_num' and more than 0.
+      n_startup_trials: 100
+
 # ---- ekf_localizer ----
 # Reference: autoware_core (commit e0a8ab84)
 #   localization/autoware_ekf_localizer/config/ekf_localizer.param.yaml
@@ -650,6 +658,27 @@ collision_monitor:
       enable: true
       # tsudanuma の開始位置（tsudanuma_3d_data_2 の開始時の姿勢）
       pose: [-0.3619667887687683, -1.5528738498687744, 0.0, 0.0, 0.0, 0.005384631085286389, 0.9999855027689528]
+      # tsukuba2026 の開始位置（waypoint の始点。ign_box_tsukuba.launch.py のスポーン位置で NDT が収束した姿勢。
+      # z は地図の座標で、シミュレータの世界座標より約 24.9 m 低い）
+      # pose: [24.771, 3.349, 0.116, 0.0, 0.0, 0.999131, 0.041684]
+
+    stop_check_duration: 3.0 # [sec]
+    # autoware_core_localization.launch.xml values
+    ekf_enabled: true
+    ndt_enabled: true
+    stop_check_enabled: true
+
+    # from initialpose (Rviz's 2DPoseEstimate); the spread of the NDT initial pose search
+    # (yaw is always searched uniformly over [-pi, pi)). autoware_adapi_adaptors initial_pose_adaptor.
+    initial_pose_particle_covariance:
+      [
+        4.0, 0.0, 0.0,  0.0,  0.0,  0.0,
+        0.0, 4.0, 0.0,  0.0,  0.0,  0.0,
+        0.0, 0.0, 0.01, 0.0,  0.0,  0.0,
+        0.0, 0.0, 0.0,  0.01, 0.0,  0.0,
+        0.0, 0.0, 0.0,  0.0,  0.01, 0.0,
+        0.0, 0.0, 0.0,  0.0,  0.0,  1.0,
+      ]
 
     # output
     output_pose_covariance:
