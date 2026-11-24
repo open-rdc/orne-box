@@ -1,0 +1,28 @@
+# Wait zone (BinaryFilter mask) for tsukuba2026 (same origin/resolution as tsukuba2026_keepout.yaml)
+# black (occupied) area: /binary_state = true -> stop zone ON, obstacle_layer OFF
+# wait zone per stop point in waypoints/tsukuba/tsukuba2026.yaml (none for wp 99, 185 and the last waypoint):
+#   up to 3.0 m behind to 0.5 m ahead along the waypoint yaw, up to 5.0 m wide, without the cells
+#   - closer to another part of the route than to the path through the stop point
+#   - where static obstacles (keepout black, small objects in tsukuba2026.pcd) touch the footprint or PolygonStop,
+#     or are ahead on another part of the route within 1.0 m (wp 219: keepout black only)
+#   wp 60: x 44.84, y 69.71, yaw 0.432
+#   wp 64: x 73.61, y 72.53, yaw -0.436
+#   wp 78: x 161.92, y 55.54, yaw -0.150
+#   wp 80: x 185.12, y 53.57, yaw -0.026
+#   wp 93: x 282.20, y 111.13, yaw 1.472
+#   wp 98: x 288.10, y 188.46, yaw 1.596
+#   wp 121: x 488.96, y 132.71, yaw -1.638
+#   wp 163: x 489.27, y 122.14, yaw 1.567
+#   wp 184: x 319.95, y 200.23, yaw 3.125
+#   wp 192: x 281.98, y 119.46, yaw -1.657
+#   wp 205: x 191.92, y 51.81, yaw 3.125
+#   wp 207: x 169.15, y 53.23, yaw 3.125
+#   wp 216: x 84.39, y 65.91, yaw 2.672
+#   wp 219: x 51.93, y 71.28, yaw -2.664
+image: tsukuba2026_wait_zone.pgm
+mode: trinary
+resolution: 0.1
+origin: [-123.882, -114.664, 0.0]
+occupied_thresh: 0.65
+free_thresh: 0.2
+negate: 0
