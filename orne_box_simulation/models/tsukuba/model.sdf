@@ -3,12 +3,21 @@
   <model name="tsukuba">
     <static>true</static>
     <link name="link">
+      <!-- 地面に航空写真を貼る。terrain_textured.obj と画像は scripts/make_tsukuba_aerial.py で作る
+           (画像の出典: 国土地理院 地理院タイル (全国最新写真 (シームレス))) -->
       <visual name="terrain_visual">
-        <geometry><mesh><uri>model://tsukuba/meshes/terrain.obj</uri></mesh></geometry>
+        <geometry><mesh><uri>model://tsukuba/meshes/terrain_textured.obj</uri></mesh></geometry>
         <material>
-          <ambient>0.62 0.62 0.60 1</ambient>
-          <diffuse>0.62 0.62 0.60 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
           <specular>0.05 0.05 0.05 1</specular>
+          <pbr>
+            <metal>
+              <albedo_map>model://tsukuba/materials/textures/tsukuba_aerial.jpg</albedo_map>
+              <metalness>0.0</metalness>
+              <roughness>1.0</roughness>
+            </metal>
+          </pbr>
         </material>
       </visual>
       <collision name="terrain_collision">
