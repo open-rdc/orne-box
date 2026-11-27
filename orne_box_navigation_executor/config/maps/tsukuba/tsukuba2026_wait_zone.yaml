@@ -1,24 +1,26 @@
 # Wait zone (BinaryFilter mask) for tsukuba2026 (same origin/resolution as tsukuba2026_keepout.yaml)
 # black (occupied) area: /binary_state = true -> stop zone ON, obstacle_layer OFF
-# wait zone per stop point in waypoints/tsukuba/tsukuba2026.yaml (none for wp 99, 185 and the last waypoint):
-#   up to 3.0 m behind to 0.5 m ahead along the waypoint yaw, up to 5.0 m wide, without the cells
-#   - closer to another part of the route than to the path through the stop point
-#   - where static obstacles (keepout black, small objects in tsukuba2026.pcd) touch the footprint or PolygonStop,
-#     or are ahead on another part of the route within 1.0 m (wp 219: keepout black only)
-#   wp 60: x 44.84, y 69.71, yaw 0.432
-#   wp 64: x 73.61, y 72.53, yaw -0.436
-#   wp 78: x 161.92, y 55.54, yaw -0.150
-#   wp 80: x 185.12, y 53.57, yaw -0.026
-#   wp 93: x 282.20, y 111.13, yaw 1.472
-#   wp 98: x 288.10, y 188.46, yaw 1.596
-#   wp 121: x 488.96, y 132.71, yaw -1.638
-#   wp 163: x 489.27, y 122.14, yaw 1.567
-#   wp 184: x 319.95, y 200.23, yaw 3.125
-#   wp 192: x 281.98, y 119.46, yaw -1.657
-#   wp 205: x 191.92, y 51.81, yaw 3.125
-#   wp 207: x 169.15, y 53.23, yaw 3.125
-#   wp 216: x 84.39, y 65.91, yaw 2.672
-#   wp 219: x 51.93, y 71.28, yaw -2.664
+# wait zone per stop point in waypoints/tsukuba/tsukuba2026.yaml (none for wp 98, 186 and the last waypoint):
+#   bounded by the keepout black and by the stop point along the waypoint yaw (nothing ahead of it; wp 118 and 162 of the current file: up to 0.9 m ahead)
+#   wp 60, 64, 217, 220: 3.2 - 4.0 m behind along the approach path, 0.5 m or more off the opposite route
+#   wp 77, 79, 206, 208: 2.0 m behind, 2.0 m wide
+#   wp 92, 97, 185: from 0.5 m off the stone pillars
+#   wp 120: 1.1 m behind, 0.35 m off the opposite route; wp 164: 3.4 m behind (the opposite route overlaps)
+#   wp 193: whole width up to y 121.0, then west of the northward path only (the opposite route overlaps)
+#   wp 60: x 45.01, y 69.65, yaw 0.432
+#   wp 64: x 73.83, y 72.88, yaw -0.436
+#   wp 77: x 161.92, y 55.54, yaw -0.150
+#   wp 79: x 185.12, y 53.57, yaw -0.026
+#   wp 92: x 282.20, y 111.13, yaw 1.472
+#   wp 97: x 288.10, y 188.46, yaw 1.596
+#   wp 120: x 488.96, y 132.71, yaw -1.638
+#   wp 164: x 490.14, y 122.10, yaw 1.567
+#   wp 185: x 319.95, y 200.23, yaw 3.125
+#   wp 193: x 281.98, y 119.46, yaw -1.657
+#   wp 206: x 191.92, y 51.81, yaw 3.125
+#   wp 208: x 169.15, y 53.23, yaw 3.125
+#   wp 217: x 83.76, y 63.93, yaw 2.596
+#   wp 220: x 53.15, y 70.88, yaw -2.664
 image: tsukuba2026_wait_zone.pgm
 mode: trinary
 resolution: 0.1

@@ -18,25 +18,37 @@
               service_name="global_costmap/clear_entirely_global_costmap"/>
           </RecoveryNode>
         </RateController>
-        <RecoveryNode number_of_retries="3" name="FollowPath">
-          <FollowPath path="{path}" controller_id="FollowPath"/>
-          <ClearEntireCostmap name="ClearLocalCostmap-Context"
-            service_name="local_costmap/clear_entirely_local_costmap"/>
-        </RecoveryNode>
+        <!-- FollowPath が失敗したら (progress checker / MPPI の失敗) すぐ下のリカバリーへ進む (旧: ローカルコストマップの
+             クリアだけで 3 回やり直し、リカバリーまで約 80 s かかっていた) -->
+        <FollowPath path="{path}" controller_id="FollowPath"/>
       </PipelineSequence>
+      <!-- リカバリー: コストマップをクリア → 待機処理の範囲外なら後退、範囲内 (または後退できない) なら待つ。毎回同じ動作
+           (旧: RoundRobin で後退と待機が交互になり、順番がゴールをまたいで残っていた) -->
       <ReactiveFallback name="RecoveryFallback">
         <GoalUpdated/>
-        <RoundRobin name="RecoveryActions">
-          <Sequence name="ClearingActions">
+        <Sequence name="RecoveryActions">
+          <!-- クリアの成否 (グローバルは BT 側でタイムアウトしやすい) でリカバリーの流れが変わらないようにする -->
+          <ForceSuccess>
             <ClearEntireCostmap name="ClearLocalCostmap-Subtree"
               service_name="local_costmap/clear_entirely_local_costmap"/>
+          </ForceSuccess>
+          <ForceSuccess>
             <ClearEntireCostmap name="ClearGlobalCostmap-Subtree"
               service_name="global_costmap/clear_entirely_global_costmap"/>
-          </Sequence>
+          </ForceSuccess>
+          <!-- 後退の前に待つ (前の人などがどくのを待つ)。待機処理の範囲内ではこの待機だけになる -->
           <Wait wait_duration="5"/>
-          <!-- BackUp は外す: 待機処理の範囲内では obstacle layer が OFF で後方の人を検知できないため。
-               動けないときの脱出は BinaryFilter の escape に任せる -->
-        </RoundRobin>
+          <!-- 待機処理の範囲内 (/binary_state = true) と、false になってから 35 s の間 (escape 中を含む) は
+               後退しない。後退中に範囲に入ったら中断する。後方の人はオペレーターが確認する。
+               PolygonSlow で速度が 0.5 倍になっても 0.30 m 下がれるよう time_allowance を 20 s にする (既定 10 s)。
+               後退しない / 後退に失敗したときもリカバリーは成功として走り直す -->
+          <ForceSuccess>
+            <ReactiveSequence name="BackUpOutsideWaitZone">
+              <IsBinaryStateInactive binary_state_topic="/binary_state" min_inactive_time="35.0"/>
+              <BackUp backup_dist="0.30" backup_speed="0.05" time_allowance="20"/>
+            </ReactiveSequence>
+          </ForceSuccess>
+        </Sequence>
       </ReactiveFallback>
     </RecoveryNode>
   </BehaviorTree>

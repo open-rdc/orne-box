@@ -17,10 +17,10 @@ def generate_launch_description():
     # config/maps/<map_pass>.yaml (emcl2, map_server)
     # config/maps/<map_pass>_keepout.yaml (costmap, 経路計画用) 
     # config/maps/<map_pass>_wait_zone.yaml (待機処理マスク。BinaryFilter 用。無ければ待機処理なし)
-    map_pass = 'tsudanuma/tsudanuma'
-    WAYPOINT_PATH = 'tsudanuma/tsudanuma'
-    # map_pass = 'tsukuba/tsukuba2026'
-    # WAYPOINT_PATH = 'tsukuba/tsukuba2026'
+    # map_pass = 'tsudanuma/tsudanuma'
+    # WAYPOINT_PATH = 'tsudanuma/tsudanuma'
+    map_pass = 'tsukuba/tsukuba2026'
+    WAYPOINT_PATH = 'tsukuba/tsukuba2026'
 
     bt_file_name ='navigate_to_pose_w_replanning_and_recovery.xml' # 旧: navigate_w_replanning_and_recovery.xml
 
